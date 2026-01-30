@@ -1,0 +1,24 @@
+\begin{abstract}
+% \setcounter{footnote}{0} 
+
+% The potential of learning structure-based protein design (\ie., inverse folding) from data makes generative deep learning a promising paradigm compared to long-established physics-based methods.
+% However, the major obstacle that hinders further progress is limited protein structure-sequence paired data, which are orders of magnitude fewer than sequence data in protein data bank (PDB).
+% This paper demonstrates that language models are strong structure-based protein designers.
+% % than the evolutionarily-selected native ones.
+% We present \method, a generic approach to reprogramming sequence-based protein language models (\pLMs), that have learned massive sequential evolutionary knowledge from the universe of natural protein sequences, to acquire an immediate capability to design preferable protein sequences for given folds.
+% We conduct a \textit{structural surgery} on \pLMs, where a lightweight structural adapter is implanted into \pLMs and endows it with structural awareness.
+% During inference, iterative refinement is performed to effectively optimize the generated protein sequences.
+% Experiments show that \method improves the state-of-the-art results by a large margin, leading to 4\% to 12\% accuracy gains in sequence recovery (\eg, 55.65\%/56.63\% on CATH 4.2/4.3 single-chain benchmarks, and $>$60\% when designing protein complexes).
+% We provide extensive and in-depth analyses, which verify that \method can (1) indeed leverage both structural and sequential knowledge to accurately handle structurally non-deterministic regions, (2) benefit from scaling data and model size, and (3) generalize to other proteins (\eg, antibodies and \textit{de novo} proteins).
+
+This paper introduces {\ul{\textbf{d}}iffusion \ul{\textbf{p}}rotein \ul{\textbf{l}}anguage \ul{\textbf{m}}odel} (\method), a versatile protein language model that demonstrates strong generative and predictive capabilities for protein sequences.
+We first pre-train scalable {\method}s from evolutionary-scale protein sequences within a generative self-supervised discrete diffusion probabilistic framework, which generalizes language modeling for proteins in a principled way. 
+After pre-training, \method exhibits the ability to generate structurally plausible, novel and diverse protein sequences for unconditional generation.
+We further demonstrate the proposed diffusion generative pre-training make \method possess a better understanding of proteins, making it a superior representation learner, which can be fine-tuned for various predictive tasks, comparing favorably to ESM2~\citep{lin2022esmfold}.
+Moreover, \method can be tailored for various needs, which showcases its prowess of conditional generation in several ways: (1) conditioning on partial peptide sequences, \eg, generating scaffolds for functional motifs with high success rate; (2) incorporating other modalities as conditioners, \eg, structure-conditioned generation for inverse folding; and 
+(3) steering sequence generation towards desired properties, \eg, satisfying specified secondary structures, through a plug-and-play classifier guidance.
+Code is released at \url{https://github.com/bytedance/dplm}.
+
+
+
+\end{abstract}

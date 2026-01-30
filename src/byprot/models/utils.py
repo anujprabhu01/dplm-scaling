@@ -51,8 +51,24 @@ def get_net_class(dplm_type):
 def get_net(cfg):
     if cfg.net.arch_type == "esm":
         from byprot.models.dplm.modules.dplm_modeling_esm import EsmForDPLM
+        from transformers import EsmConfig
 
-        config = AutoConfig.from_pretrained(f"{cfg.net.name}")
+        # Support both pretrained ESM2 configs and custom configs
+        if getattr(cfg.net, "name", None):
+            # Use existing ESM2 architecture config
+            config = AutoConfig.from_pretrained(f"{cfg.net.name}")
+        else:
+            # Use custom architecture config for scaling experiments
+            config = EsmConfig(
+                hidden_size=cfg.net.hidden_size,
+                num_hidden_layers=cfg.net.num_hidden_layers,
+                num_attention_heads=cfg.net.num_attention_heads,
+                intermediate_size=cfg.net.intermediate_size,
+                vocab_size=getattr(cfg.net, "vocab_size", 33),
+                max_position_embeddings=getattr(cfg.net, "max_position_embeddings", 1026),
+                hidden_dropout_prob=cfg.net.dropout,
+                attention_probs_dropout_prob=cfg.net.dropout,
+            )
         net = EsmForDPLM(config, dropout=cfg.net.dropout)
     # TODO: dplm will support more architectures, such as Llama
     else:

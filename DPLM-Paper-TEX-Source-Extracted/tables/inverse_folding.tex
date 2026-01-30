@@ -1,0 +1,81 @@
+% \begin{table*}[t]
+%    \centering
+%    \small
+%    % \setlength{\tabcolsep}{5pt}
+%    \vspace{-2.5mm}
+%    \caption{{\sl Performance comparison between \method and different baseline approaches on CATH 4.2 and CATH 4.3 datasets.} {\method's results are obtained by 5-cycle iterative refinement with \texttt{argmax} operator (\ie, no sampling).}
+%    $\dagger$: benchmarked results are quoted from \citet{gao2022pifold}.
+%    $\ddagger$: ``Single-chain'' in \citet{hsu2022esmif} is defined differently. ESM-1b 650M is used as the default \pLM.}
+%    \vspace{1.5pt}
+%    \label{tab:inverse_folding}
+
+%    \resizebox{\linewidth}{!}{%
+%    \begin{tabular}{llrccc}
+%    \toprule
+%    & \multirow{2}{*}{\bf Models} 
+%    & \multirow{2}{*}{\bf Trainable/Total} 
+%    & \multicolumn{1}{c}{\bf Sequence Metric ($\uparrow$)} 
+%    & \multicolumn{2}{c}{\bf Structure Metric (\%, $\uparrow$)} \\
+%    \cmidrule[0.3pt](lr){4} \cmidrule[0.3pt](lr){5-6}
+%    & & \bf Params. & AAR   & scTMscore  & pLDDT \\
+%    \midrule
+%    % StructGNN &  8.29   &   8.74   &  6.40 &   29.44 &   28.26   &  35.91   \\
+
+%    %%%%%%%%%%%%%%%%%%%%%%%%%%
+%    \multirowcell{10}{\rotatebox[origin=c]{90}{CATH 4.2}}
+%    & $^\dagger$Structured Transformer~\smallcitep{ingraham2019generative}                     & 1.56M/1.56M  & 8.39  & 8.83 & 6.63 \\
+%    % & GCA&  7.09&  7.49  &  6.05  & 32.62 & 31.10 & 37.64 \\
+%    & $^\dagger$GVP~\smallcitep{jing2020gvp}                                       & 1.0M/1.0M  & 7.23  &   7.84 &  5.36  \\
+%    % & AlphaDesign &  7.32  & 7.63 &  6.30 &  34.16  & 32.66  &  41.31   \\
+%    & $^\dagger$ProteinMPNN~\smallcitep{dauparas2022proteinmpnn}                   & 1.9M/1.9M  & 6.21  &   6.68  &  4.61  \\
+%    & PiFold~\smallcitep{gao2022pifold} \                                & 6.6M/6.6M  & {6.04}  &   {6.31}  &  {4.55}  \\ 
+%   %%%%%%%%%%%%%%% OURS %%%%%%%%%%%%%%%%%%%
+%   \cmidrule[0.5pt](lr){2-9}
+%   & ProteinMPNN + CMLM [ProtMPNN-CMLM]                                                 & 1.9M/1.9M  &7.16 &7.25  & 5.03     \\ 
+%   & \chl \method (ProtMPNN-CMLM)                                          & \chl 6.9M/659M (\textbf{1.0\%})  &\chl 7.02 & \chl 6.67 & \chl 4.63    \\ 
+%   & \chl \method (pretrained ProtMPNN-CMLM: \textit{fine-tune})           & \chl 6.9M/659M (\textbf{1.0\%})  & \chl 7.33 & \chl 6.83 & \chl 4.63  \\
+%   & \chl \method (pretrained ProtMPNN-CMLM: \textit{freeze})              & \chl 5.0M/659M (\textbf{0.7\%})  & \chl \textbf{7.01} & \chl \textbf{6.58} & \chl \textbf{4.41} \\
+%   \cmidrule[0.2pt](lr){2-9}
+%   & PiFold (reimpl.)                                                    & 6.6M/6.6M  & 6.94 &6.82  &4.69   \\ 
+%   & \chl \method (PiFold)                                               & \chl 11.9M/664M (\textbf{1.7\%})  & \chl \textbf{6.77} & \chl \textbf{6.46}   & \chl \textbf{4.52}   \\ 
+%   \midrule
+%   % \cmidrule[0.5pt](lr){2-8}
+
+%   %%%%%%%%%%%%%%%%%%%%%%%%%%
+%   \multirowcell{10}{\rotatebox[origin=c]{90}{CATH 4.3}}
+%   & GVP-large~\citep{hsu2022esmif}                                      & 21M/21M  &  7.68  & $^\ddagger$6.12~~ &  6.17   \\
+%   & GVP-Transformer~\citep{hsu2022esmif}                                 & 142M/142M  &   8.18 & $^\ddagger$6.33~~ &  6.44  \\
+%   & ~~~~+1.2M AF2 predicted data~\smallcitep{hsu2022esmif}              & 142M/142M  &   6.05 & $^\ddagger$4.00~~ &  4.01 \\
+%   & \chl \method (pretrained GVP-TransEncoder: \textit{freeze})          & \chl 6.3M/800M (\textbf{0.8\%})  & \chl 6.61 & \chl 7.64 & \chl \textbf{3.92} \\
+%   % & PiFold~\smallcitep{gao2022pifold} \   &  {6.04}  &   {6.31}  &  {4.55} &   {39.84} &{38.53} &  {51.66} \\ 
+%   %%%%%%%%%%%%%%% OURS %%%%%%%%%%%%%%%%%%%
+%   \cmidrule[0.5pt](lr){2-9}
+%   & ProteinMPNN + CMLM                                                  & 1.9M/1.9M  & 6.31 &6.32  &4.85      \\ 
+%   & \chl \method (ProtMPNN-CMLM)                                          & \chl 6.9M/659M (\textbf{1.0\%})  & \chl 5.96 &\chl 5.85 &\chl 4.48    \\ 
+%   & \chl \method (pretrained ProtMPNN-CMLM: \textit{fine-tune})           & \chl 6.9M/659M (\textbf{1.0\%})  & \chl 5.94 & \chl 5.80 & \chl 4.20  \\
+%   & \chl \method (pretrained ProtMPNN-CMLM: \textit{freeze})              & \chl 5.0M/659M (\textbf{0.7\%})  & \chl \textbf{5.88} & \chl \textbf{5.66} & \chl \textbf{4.19}  \\
+%   \cmidrule[0.2pt](lr){2-9}
+%   & PiFold (reimpl.)                                                    & 6.6M/6.6M  & 5.88& 5.55 & 4.47   \\ 
+%   & \chl \method (PiFold)                                               & \chl 11.9M/664M (\textbf{1.7\%})  &\chl \textbf{5.66} &\chl \textbf{5.52}  &\chl 4.01  \\ 
+  
+%    \bottomrule
+%    \end{tabular}
+%    }
+%    % \vspace{-8pt}
+% \end{table*}
+
+
+
+=========================
+% \begin{table*}[]
+% \begin{tabular}{lllll}
+% \hline
+%                             & Params & AAR & scTMscore & pLDDT          \\ \hline
+% PiFold                      & 6.6M                           & 50.68                       & TODO                              & TODO           \\
+% GRADE-IF                    & -                              & TODO                        & TODO                              & TODO           \\
+%                             & 150m                           & 53.08                       & 0.84                              & 74.40          \\
+% \multirow{-2}{*}{LM-DESIGN} & 650m                           & \textbf{56.69}              & 0.85                              & 74.89          \\
+%                             & 150m                           & \textbf{53.27}              & 0.84                              & 73.84          \\
+% \multirow{-2}{*}{\chl DIFF-LM}   & 650m                           & 56.36                       & \textbf{0.8575}                   & \textbf{76.94} \\ \hline
+% \end{tabular}
+% \end{table*}

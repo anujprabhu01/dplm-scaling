@@ -1,0 +1,205 @@
+%#######################################################################
+% additional useful packages
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xspace}
+\usepackage{paralist}
+
+% user-defined packages and others
+\usepackage{wrapfig}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+% \usepackage{graphicx}
+% \usepackage{subfig}
+\usepackage{url}
+\usepackage{paralist}
+\usepackage{latexsym}
+\usepackage{arydshln}
+\usepackage{tabularx}
+\usepackage{verbatim}
+% \usepackage{algorithm}
+% \usepackage{algpseudocode}
+\usepackage{CJK}
+\usepackage{flushend}
+\usepackage{multicol}
+\usepackage{multirow,makecell}
+\usepackage{color}
+\usepackage{colortbl,array}
+\usepackage{silence}
+\usepackage{arydshln} % for \hdashline
+\usepackage{xspace}
+\usepackage{soul}
+% \usepackage[disable]{todonotes}
+\usepackage{pifont}
+% \usepackage{caption}
+% \usepackage{subcaption}
+% \usepackage{todonotes}
+
+\usepackage{arydshln}
+
+% \newcommand{\zhouh}[1]{\textcolor{red}{(zhouh: #1)}}
+
+
+% \newcommand{\revise}[1]{\textcolor{blue}{#1}}
+\newcommand{\revise}[1]{#1}
+
+
+
+
+
+
+
+
+%#######################################################################
+% math commands 
+\input{_math_commands}
+
+% \newtheorem{definition}{Definition}
+% \newtheorem*{remark}{Remark}
+
+
+% \usepackage{mathtools}
+% \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+% \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+
+
+%#######################################################################
+% miscs
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=0.1pt] (char) {#1};}}
+\newcommand*\dcircled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=0pt] (char) {\fontsize{7}{7}\selectfont #1};}}
+            
+% \newcommand{\circled}[2][6pt]{\raisebox{-#1}{\tikz{\node (F) at (0,0) {#2};\draw[thick](F)\circle(#1);}}}
+
+
+% Add a period to the end of an abbreviation unless there's one
+% already, then \xspace.
+\makeatletter
+\DeclareRobustCommand\onedot{\futurelet\@let@token\@onedot}
+\def\@onedot{\ifx\@let@token.\else.\null\fi\xspace}
+
+\def\viz{\textit{viz}\onedot} \def\Viz{\textit{Viz}\onedot}
+\def\eg{\textit{e.g}\onedot} \def\Eg{\textit{E.g}\onedot}
+\def\ie{\textit{i.e}\onedot} \def\Ie{\textit{I.e}\onedot}
+\def\cf{\textit{c.f}\onedot} \def\Cf{\textit{C.f}\onedot}
+\def\etc{\textit{etc}\onedot} \def\vs{\textit{vs}\onedot}
+\def\aka{\textit{a.k.a.}\onedot}
+\def\wrt{\textit{w.r.t}\onedot} \def\dof{\textit{d.o.f}\onedot}
+\def\etal{\emph{et al}\onedot}
+\makeatother
+
+
+% \usepackage{lipsum}
+
+% \newcommand\blfootnote[1]{%
+%   \begingroup
+%   \renewcommand\thefootnote{}\footnote{#1}%
+%   \addtocounter{footnote}{-1}%
+%   \endgroup
+% }
+
+% url style
+% \urlstyle{same}
+\urlstyle{tt}
+
+
+% language direction
+\newcommand{\fd}[2]{\textsc{#1}$\rightarrow$\textsc{#2}}
+\newcommand{\bd}[2]{\textsc{#1}$\leftarrow$\textsc{#2}}
+\newcommand{\bid}[2]{\textsc{#1}$\leftrightarrow$\textsc{#2}}
+
+
+\newcommand{\hidethis}[1]{}
+
+% colors
+\DeclareRobustCommand{\hlnblue}[1]{{\sethlcolor{nblue}\hl{#1}}}
+\DeclareRobustCommand{\hlnred}[1]{{\sethlcolor{nred}\hl{#1}}}
+\DeclareRobustCommand{\green}[1]{{\sethlcolor{ngreen}\hl{#1}}}
+\DeclareRobustCommand{\tgreen}[1]{{\textcolor{ngreen}{\bf #1}}}
+\DeclareRobustCommand{\tyellow}[1]{\underline{{\textcolor{cyellow}{\bf #1}}}}
+\DeclareRobustCommand{\yellow}[1]{{\sethlcolor{cyellow}\hl{#1}}}
+\DeclareRobustCommand{\hlcyan}[1]{{\sethlcolor{cyan}\hl{#1}}}
+\DeclareRobustCommand{\hly}[1]{{\sethlcolor{cyellow}\hl{#1}}}
+
+\definecolor{bblue}{HTML}{4F81BD}
+\definecolor{oorange}{HTML}{F4C842}
+\definecolor{rred}{HTML}{C0504D}
+\definecolor{ggreen}{HTML}{9BBB59}
+\definecolor{ppurple}{HTML}{9F4C7C}
+\definecolor{darkgreen}{HTML}{228B22}
+\definecolor{cred}{HTML}{D81B60}
+\definecolor{cblue}{HTML}{1E88E5}
+\definecolor{cyellow}{HTML}{FFC107}
+\definecolor{nred}{HTML}{e41a1c}
+\definecolor{nblue}{HTML}{377eb8}
+\definecolor{ngreen}{HTML}{4daf4a}
+\definecolor{lblue}{HTML}{6C8EBF}
+
+
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\cmark}{\ding{51}}%
+\renewcommand{\checkmark}{\cmark}
+
+% \newcommand{\compactpara}[1]{\vspace{1.5pt}\noindent\textbf{#1}}
+% \renewcommand{\paragraph}[1]{\vspace{-1.1mm}\noindent\textbf{#1}}
+% \renewcommand{\subsection}[1]{\vspace{0.8mm}\subsection{#1}}
+
+% \setlength{\parskip}{4pt}
+% \usepackage{titlesec}
+% \titlespacing{\paragraph}{0pt}{-1pt}{\parskip}
+% \titlespacing{\section}{0pt}{\parskip}{\parskip}
+% \titlespacing{\subsection}{0pt}{\parskip}{\parskip}
+% \titlespacing{\subsubsection}{0pt}{\parskip}{\parskip}
+
+
+
+\newlength\savewidth\newcommand\shline{\noalign{\global\savewidth\arrayrulewidth
+  \global\arrayrulewidth 1pt}\hline\noalign{\global\arrayrulewidth\savewidth}}
+\newcommand{\tablestyle}[2]{\setlength{\tabcolsep}{#1}\renewcommand{\arraystretch}{#2}\centering\footnotesize}
+\newcommand\blfootnote[1]{\begingroup\renewcommand\thefootnote{}\footnote{#1}\addtocounter{footnote}{-1}\endgroup}
+
+\newcolumntype{x}[1]{>{\centering\arraybackslash}p{#1pt}}
+\newcolumntype{y}[1]{>{\raggedright\arraybackslash}p{#1pt}}
+\newcolumntype{z}[1]{>{\raggedleft\arraybackslash}p{#1pt}}
+
+\newcommand{\app}{\raise.17ex\hbox{$\scriptstyle\sim$}}
+\newcommand{\mypm}[1]{\color{gray}{\tiny{$\pm$#1}}}
+\newcommand{\x}{{\times}}
+\definecolor{deemph}{gray}{0.6}
+\newcommand{\gc}[1]{\textcolor{deemph}{#1}}
+\definecolor{baselinecolor}{gray}{.9}
+\newcommand{\baseline}[1]{\cellcolor{baselinecolor}{#1}}
+\newcommand{\authorskip}{\hspace{2.5mm}}
+
+
+
+
+
+\newcommand{\citea}[2]{\cite[#1,][]{#2}}
+\newcommand{\smallcitep}[1]{\footnotesize\citep{#1}}
+
+
+\usepackage{color, colortbl}
+\definecolor{emerald}{rgb}{0.31, 0.78, 0.47}
+% \definecolor{name}{system}{definition}
+\definecolor{Gray}{gray}{0.9}
+% \definecolor{LightCyan}{rgb}{0.88,1,1}
+% \definecolor{Highlight}{rgb}{0.96,0.90,0.92}
+\definecolor{Highlight}{rgb}{0.89,0.89,0.94}
+\usepackage[first=0,last=9]{lcg}
+% \newcommand{\ra}{\rand0.\arabic{rand}}
+
+
+% \newcommand{\chl}[1]{\cellcolor{Highlight}{#1}}
+\newcommand{\chl}{\cellcolor{Highlight}}
+
+
+\newcommand{\textbi}[1]{\textit{\textbf{#1}}}

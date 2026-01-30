@@ -1,0 +1,104 @@
+% \begin{table*}[t!]
+% \centering
+% \footnotesize
+% \vspace{-3mm}
+% % \setlength{\tabcolsep}{1pt}
+% \caption{{\sl Performance on various protein predictive downstream tasks.}
+% Results except ESM2 are quoted from SaProt~\citep{su2023saprot}.  }
+% \label{tab:results_understanding}
+% \vspace{1.5pt}
+% \resizebox{\linewidth}{!}{%
+% \begin{tabular}{lccccccccccc}
+% \toprule
+% \multirow{3}{*}{{Models}} & \multirow{2}{*}{Thermostability} & \multirow{2}{*}{HumanPPI} & \multirow{2}{*}{Metal Ion Binding} & \multirow{2}{*}{EC} & \multicolumn{3}{c}{GO}                           & \multicolumn{2}{c}{DeepLoc}  & \multirow{2}{*}{ProteinGym} & \multirow{2}{*}{SSP}    \\
+% \cmidrule[0.5pt](lr){6-8}  \cmidrule[0.5pt](lr){9-10} &  &  &  &  & MF & BP & CC & Subcellular   & Binary  & & CASP12 \\ 
+% \cmidrule[0.5pt](lr){2-12} 
+%     & Spearman's $\rho$      & \metric{Acc} ($\%$)       & \metric{Acc} ($\%$)    & \metric{Fmax}      & \metric{Fmax}   & \metric{Fmax}    & \metric{Fmax}    & \metric{Acc} ($\%$)   & \metric{Acc} ($\%$) & Spearman's $\rho$      & \metric{Acc} ($\%$) \\ 
+% \midrule
+% SaProt (structure provided)    & 0.724    & 86.41      & 75.75    & 0.884      & 0.678    & 0.356 & 0.414    & 85.57  & 93.55    & 0.489 & - \\ 
+% \midrule
+% ESM-1b~\citep{rives2019esm} & 0.708 & 82.22 & 73.57 & 0.859 & 0.661 & 0.320 & 0.392 & 80.33 & 92.83 & 0.440 & -  \\
+% MIF-ST~\citep{yang2022masked} & 0.694 & 75.54 & 75.08 & 0.803 & 0.627 & 0.239 & 0.248 & 78.96 & 91.76 & 0.474 & - \\
+% % GearNet & 0.571 & 73.86 & 71.26 & 0.871 & 0.650 & 0.354 & 0.404 & 69.45 & 89.18 \\
+% ESM2 (650M)   & 0.680   & 76.67   & 71.56     & 0.866       & 0.668 & 0.345   & 0.399  & 82.09   & 91.96 & 0.479   & 0.80  \\
+% \midrule
+% \chl \method (150M) & \chl -          &  \chl -           & \chl {70.24}                     & \chl {0.822}      & \chl - & \chl - & \chl- & \chl {79.65} & \chl {91.94} & \chl - & \chl - \\
+% \chl \method (650M) & \chl \textbf{0.695}           &  \chl \textbf{86.41}            & \chl \textbf{75.30}                     & \chl \textbf{0.867}      & \chl \textbf{0.679} & \chl \textbf{0.357} & \chl \textbf{0.402} & \chl \textbf{84.56} & \chl \textbf{93.09} & \chl - & \chl 0.82 \\
+% % \chl \method (struct.-cond.)& \chl \textbf{0.695}           &  \chl \textbf{86.41}            & \chl \textbf{75.30}                     & \chl \textbf{0.867}      & \chl \textbf{0.679} & \chl \textbf{0.357} & \chl \textbf{0.402} & \chl \textbf{84.56} & \chl \textbf{93.09} \\
+
+% \bottomrule
+% \end{tabular}
+% }
+% % \vspace{-3mm}
+% \end{table*}
+
+
+\begin{table*}[t!]
+\centering
+\footnotesize
+\vspace{-4mm}
+\setlength{\tabcolsep}{4.5pt}
+\caption{{\sl Performance on various protein predictive downstream tasks.}
+$\dagger$: benchmarked results are quoted from \citet{su2023saprot}.
+%Results except ESM2 are quoted from SaProt~\citep{su2023saprot}.  
+}
+\label{tab:results_understanding}
+\vspace{1.5pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccccccccc}
+\toprule
+\multirow{3}{*}{{Models}} & \multirow{2}{*}{Thermostability} & \multirow{2}{*}{HumanPPI} & \multirow{2}{*}{Metal Ion Binding} & \multirow{2}{*}{EC} & \multicolumn{3}{c}{GO}                           & \multicolumn{2}{c}{DeepLoc}   & \multirow{2}{*}{SSP}  \\
+% & \multirow{2}{*}{Mutation} \\ 
+% & \multirow{2}{*}{Contact}  \\
+\cmidrule[0.5pt](lr){6-8}  \cmidrule[0.5pt](lr){9-10} &  &  &  &  & MF & BP & CC & Subcellular   & Binary  & CASP12 \\
+% & ClinVar \\
+% & ProteinNet \\ 
+\cmidrule[0.5pt](lr){2-11} 
+    & \metric{Spearman's} $\rho$      & \metric{Acc} ($\%$)       & \metric{Acc} ($\%$)    & \metric{Fmax}      & \metric{Fmax}   & \metric{Fmax}    & \metric{Fmax}    & \metric{Acc} ($\%$)   & \metric{Acc} ($\%$)     & \metric{Acc} ($\%$) \\
+    % & \metric{AUC} \\
+    % & \metric{Acc} ($\%$) \\ 
+\midrule
+$^\dagger$SaProt (*structure provided)    & 0.724    & 86.41      & 75.75    & 0.884      & 0.678    & 0.356 & 0.414    & 85.57  & 93.55    & - \\
+% & 0.909 \\
+% & - \\ 
+% \midrule
+$^\dagger$ESM-1b~\citep{rives2019esm} & 0.708 & 82.22 & 73.57 & 0.859 & 0.661 & 0.320 & 0.392 & 80.33 & 92.83 & - \\
+% & 0.900 \\
+% & - \\
+$^\dagger$MIF-ST~\citep{yang2022masked} & 0.694 & 75.54 & 75.08 & 0.803 & 0.627 & 0.239 & 0.248 & 78.96 & 91.76 & - \\
+% & 0.891 \\
+% & - \\
+
+\midrule
+% GearNet & 0.571 & 73.86 & 71.26 & 0.871 & 0.650 & 0.354 & 0.404 & 69.45 & 89.18 \\
+Masked-LM (ESM2-650M)   & 0.691   & 84.78   & 71.88     & 0.866       & 0.676 & 0.344   & 0.402  & 83.68   & 92.28    & 0.80 \\
+% & 0.861 \\
+% & 18.67 \\
+\ARLM (650M)   & 0.638   & 68.48   & 61.16     & 0.691       & 0.566 & 0.258   & 0.287  & 68.53   & 88.31    & - \\
+% & - \\
+% & - \\
+% EvoDiff-OADM (650M) & 0.643 & 67.78 & 70.98 & 0.622 
+% & - & - & - & 72.24 & 89.13 & - & - \\
+% & - \\ 
+
+\midrule
+\chl \method (150M) & \chl 0.687          &  \chl 80.98           & \chl {72.17}                     & \chl {0.822}      & \chl 0.662 & \chl 0.328 & \chl0.379 & \chl {82.41} & \chl {92.63} &  \chl -
+ \\
+ % & \chl 0.815 \\
+ % & \chl 20.94 \\
+
+\chl \method (650M) & \chl {0.695}           &  \chl {86.41}     & \chl {75.15}                     & \chl {0.875}      & \chl {0.680} & \chl {0.357} & \chl {0.409} & \chl {84.56} & \chl {93.09}  & \chl 0.82 
+ \\
+ % & \chl 0.869 \\
+ % & \chl 22.29 \\
+
+\chl \method (3B) & \chl \textbf{0.704}           &  \chl \textbf{90.00}            & \chl \textbf{75.94}                     & \chl \textbf{0.883}      & \chl \textbf{0.687} & \chl \textbf{0.369} & \chl \textbf{0.463} & \chl \textbf{85.32} & \chl \textbf{93.93}  & \chl - \\
+% & \chl 0.885 \\
+% & \chl - \\
+% \chl \method (struct.-cond.)& \chl \textbf{0.695}           &  \chl \textbf{86.41}            & \chl \textbf{75.30}                     & \chl \textbf{0.867}      & \chl \textbf{0.679} & \chl \textbf{0.357} & \chl \textbf{0.402} & \chl \textbf{84.56} & \chl \textbf{93.09} \\
+
+\bottomrule
+\end{tabular}
+}
+\vspace{-3mm}
+\end{table*}

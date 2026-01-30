@@ -1,0 +1,284 @@
+
+
+
+\section{Preliminaries}
+\label{sec: preliminary}
+
+
+
+\subsection{Language Modeling for Protein} 
+Language modeling aims to estimate the underlying distribution $\bm{x} \sim q(\bm{x})$ of the sequence data of our interest, \eg, text or protein sequence, by learning a probabilistic model $p_\theta(\bm{x})$.
+Here the \textit{language model} (LM) $\theta$ is parameterized by a neural network, in particular Transformers~\citep{vaswani2017attention}, which have become the \emph{de facto} choice dominating different domains with scalable and performing expressiveness.
+In this work, we are interested in language modeling for protein sequences, for which $\bm{x}=(x_1, x_2, \dots, x_L) \in \{0,1\}^{L \times |\mathcal{V}|}$ is a sequence composing $L$ elements, $\mathcal{V}$ is the vocabulary within a discrete data support of 20 amino acids $\mathcal{V} = \{1,..., 20\}$.
+% For example, we may want to generate responses $\bm{x}$ conditioned on the prompt $\bm{c}$, or it can be unconditional generation if no context is provided (\ie, $\bm{c}=\phi$).
+One thing we most care about is the generative and representational capabilities of protein LMs.
+Here we review the typical probabilistic paradigms for language modeling, \ie, \textit{masked prediction }and \textit{autoregression}, and their pros and cons as the foundation for protein LMs, as follows.
+% We provide more detailed discussions on relevant literature in \S\ref{sec: related work}.
+% For more detailed discussions with relevant literature please refer to \S\ref{sec: related work}.
+
+
+\paragraph{Masked Prediction.} 
+Masked language models ({\MLM}s or MLMs), \eg, BERT~\cite{devlin2019bert} and its variants for protein sequence~\citep[ESM family,][]{rives2019esm,lin2022esmfold}, employ a bidirectional transformer to take into account both the left and right context to predict the masked (amino acid) symbols in a \textit{mask-predict} autoencoding manner,
+\begin{align}
+   \E_{q(\bm{x})} \log p_\theta(\bm{x}) = \E_{q(\bm{x})} \textstyle{\sum_{1 \leq i \leq L}} b_i \cdot \log p_\theta(x_i | {\Bar{\bm{x}}_{\text{m}}}), 
+   \label{eq:mlm}
+\end{align}
+% \todoq{$\Bar{\bm{x}}_{\text{m}}$ is not defined. Can we use a simpler notation?}
+where $b_i = \bm{1}_{\Bar{\bm{x}}_i = \texttt{[X]}}$ derived from a fixed chance (\eg, widely-adopted $15\%$) of masking $\bm{x}$ with a special mask symbol $\texttt{[X]}$, resulting in the masked observation $\Bar{\bm{x}}_{\text{m}}$.
+A per-token conditional independence assumption is made as well.
+{\MLM}s significantly excel the performance of a wide range of sequence understanding tasks for both natural language and protein.
+However, its bidirectionality nature makes it difficult to apply to sequence generation.
+
+\paragraph{Autoregression.} 
+{\ARLM}s are prevailing in the realm sequence generation~\citep{openai2023gpt4,nijkamp2022progen2}, which adopts a sequential factorization over the sequence using the probability chain rule. 
+In this case, the log-likelihood of such models is maximized over the dataset given by:
+\begin{align}
+   \E_{q(\bm{x})} \log p_\theta(\bm{x}) = \E_{q(\bm{x})} \textstyle{\sum_{1\leq i \leq L}} \log p_\theta(x_i | \bm{x}_{<i}),
+   \label{eq:arlm}
+\end{align}
+where causal masking is used to ensure sequential dependency structure.
+To sample from AR-LMs, it requires ancestral sampling for $L$ iterative steps from $x_1 \sim p_\theta(x_1), x_2 \sim p_\theta(x_2 | x_1)$ towards $x_L \sim p(x_L | x_1, ..., x_{L-1})$ in a strict left-to-right unidirectional manner. 
+
+
+\subsection{Diffusion Probabilistic Models}
+Diffusion models~\citep{sohl2015diffusion,ho2020ddpm,song2020sde} are a class of generative models characterized by a pair of Markov processes, \ie, a forward diffusion process and a backward denoising process. 
+The \textit{forward} process~${q(\xt{1:T}|\xt{0})=\prod_{t=1}^T q(\xt{t}|\xt{t-1})}$ gradually perturb the data $\xt{0}\sim q(\xt{0})$ into a stationary distribution $\xt{T} \sim q_{\text{noise}}$ with $T$ increasingly noisy steps $\xt{1:T}=\bm{x}_{1}, \dots, \xt{t-1},\xt{t}, \dots, \xt{T}$. 
+The learned \textit{backward} process ${p_{\bm{\theta}}(\xt{0:T}) = p(\xt{t})\prod_{t=1}^{T}p_{\bm{\theta}}(\xt{t-1}|\xt{t})}$, reversely, gradually denoises the samples towards the data distribution. 
+To fit the model $p_{\bm{\theta}}(\xt{0})$ to the data distribution $q(\xt{0})$, the denoiser model is typically optimized by the variational bound of the log-likelihood~\citep{ho2020ddpm}:
+% \begin{equation}
+% \setlength{\abovedisplayskip}{1pt}
+% \setlength{\belowdisplayskip}{1pt}
+\begin{align}
+      & \mathbb{E}_{q(\xt{0})}\big[\log p_\theta(\xt{0})\big]  \geq \mathbb{E}_{q(\xt{0:T})} \bigg[\log \frac{p_{\theta}(\xt{0:T})}{q(\xt{1:T}|\xt{0})}\bigg] \nonumber\\[-5pt]
+      & = \mathbb{E}_{q(\xt{0})}\Big[\log p_{\theta} (\xt{0} | \xt{1}) +\text{const.}  \nonumber \\[-5pt]
+      & \qquad + \textstyle{\sum_{t=2}^{T}} \underbrace{-\text{KL}\big[q(\xt{t-1}|\xt{t}, \xt{0})\|p_{{\theta}}(\xt{t-1}|\xt{t})\big]\Big]}_{\mathcal{J}_t}. \nonumber 
+      % & = L_1 + \sum_{t=2}^T L_t+ \text{const.},
+\label{eqn: variational bound}
+\end{align}
+% \end{equation}
+% where $L_1=\mathbb{E}_{q}\left[-\log p_{\theta}(\xt{0} | \bm{x}_1)\right]$ and $L_t=\mathbb{E}_{q}\left[\text{KL}[q(\xt{t-1}|\xt{t}, \xt{0})\|p_{\bm{\theta}}(\xt{t-1}|\xt{t})]\right]$ for $t \in [2, T]$. 
+Afterwards, it generates by first sampling from $q_{\text{noise}}(\xt{T})$, followed by iterative denoising with $p_{{\theta}}(\xt{t-1}|\xt{t})$.
+% In general, diffusion models can be categorized into continuous and discrete diffusion models according to distribution type for data perturbation.
+
+
+
+
+
+
+
+
+
+
+\section{\method: A \textit{Versatile} Protein LM}
+\label{sec:method}
+
+\paragraph{Motivation.}
+%\zzx{rephrase and reorganize here}
+Continuous diffusion with Gaussian perturbation kernel %$q(\xt{t}|\xt{t-1}) = \mathcal{N}(\alpha_t \xt{t-1}, \beta_t \mathbf{I})$ 
+has demonstrated impressive performance in generating continuous data in Euclidean space~\citep{rombach2021highresolution, ho2022imagenvideo}, and the more general Riemannian manifolds~\citep{de2022riemannian}. 
+Recently, continuous diffusion has shown to rival in modeling protein structures~\citep[][\textit{inter alia}]{watson2023RFdiffusion,ingraham2023chroma}, wherein its \textit{bidirectional receptive field} is ideally suited for modeling residue-wise global interactions. 
+This motivates us to blend diffusion models, which are well-suited for protein as discussed above, and language models, which are well known as \textit{scalable and expressive sequence learners}.
+This leads to our pursuit of a diffusion protein LM, taking the best of both worlds.
+
+A direct use of continuous diffusion, however, is not necessarily the best choice for modeling discrete sequence data~\citep{li2022diffusionlm,cdcd,lisanza2023joint}, due to the \textit{pitfall of discreteness} that makes Gaussian diffusion hardly model the discrete nature of sequence data in embedding space~\citep{ye2023dinoiser}.
+% On the other hand, discrete diffusion models~\citep{hoogeboom2021argmax,austin2021structured} cover a subset of diffusion models for which transition probabilities between timesteps are discrete distributions. 
+To this end, discrete diffusion~\citep{hoogeboom2021argmax,austin2021structured} that directly operates over the discrete state space, becomes a more well-suited probabilistic model for protein sequences.
+
+%In this section, we approach this pursuit by introducing \method, a \textit{versatile} protein LM grounded in discrete diffusion probabilistic framework, capable of both protein generation and representation learning.
+
+
+
+% \Figref{fig:main} illustrates the overview of the proposed \method, including modeling, pre-training and unconditional generation (A); attaining representation for predictive tasks (B); and conditional generation for various use cases (C).
+% % We will elaborate on all of these aspects in this sections.
+
+\subsection{Protein Language Modeling \textit{w/} Discrete Diffusion}
+\label{sec:modeling}
+
+% Since the forward diffusion process is applied independently to each token of a sequence $\bm{x}$, for the sake of brevity, we abuse the notation $\xt{t}$ for arbitrary tokens at diffusion timestep $t$.
+% Formally, $\xt{t}\in\{0, 1\}^{|\mathcal{V}|}$ is a token represented as a one-hot vector, where $\mathcal{V}$ is the vocabulary of all possible tokens.
+\paragraph{Modeling.}
+Let $\texttt{Cat}(\bm{x};\bm{p})$ be a categorical distribution on protein sequence $\bm{x}$ parameterized by a vector $\bm{p}$ on $(|\mathcal{V}|-1)$-dimensional probability simplex. The forward process of discrete diffusion defines a Markov process governed by the transition kernel: 
+% transition matrices ($\bm{Q}^1, ..., \bm{Q}^T$):
+\begin{equation}
+q(\xt{t}|\xt{t-1})=\texttt{Cat}\big(\xt{t}; \beta_t\xt{t-1} + (1-\beta_t)\bm{q}_{\text{noise}}\big), \nonumber
+\end{equation}
+% \end{equation}
+% \label{eqn: dd t_to_t-1}
+where $\bm{q}_\text{noise}$ is the probability vector of stationary distribution $q_\text{noise}(\xt{t})$, \ie, $q(\xt{t})=\texttt{Cat}(\xt{t}; \bm{p}=\bm{q}_{\text{noise}})$, and $0\ll\beta_t<1$ is the noise schedule controlling the degree of corruption at timestep $t$.
+In this case, the distribution of corrupted sample $\xt{t}$ given its original data $\xt{0}$ has a closed-form expression:
+\begin{equation}
+% \setlength{\abovedisplayskip}{1pt}
+% \setlength{\belowdisplayskip}{1pt}
+q(\xt{t}|\xt{0})= \texttt{Cat}\big(\xt{t}; \alpha_t\xt{0}+ (1-\alpha_t)\bm{q}_{\text{noise}}\big),
+\label{eqn: dd 0_to_t}
+\end{equation}
+where $\alpha_t = \prod_{i=1}^t\beta_i$ such that $\lim_{t \to T} \alpha_t \to 0$, which preserves no information from the data and converges to the stationary distribution $\bm{q}_{\text{noise}}$ at timestep $T$.
+% where $\alpha_t = \prod_{i=1}^t\beta_i$ and $0 \ll \beta_t <1$.
+This shows that the diffusion process is intuitively a convex combination between data and the stationary noise prior distribution.
+% In particular, $\alpha_t$ decreases as the timestep increases. With sufficiently large timesteps, we have $\alpha_T\approx 0$, which preserves no information from the data at the end of the diffusion process. 
+Different stationary distributions $\bm{q}_\text{noise}$ lead to different formulations of discrete diffusion models. 
+Here we primarily consider the \textit{absorbing} diffusion with $q(\xt{t}) = \{ 1~\text{if}~ \xt{t} = \texttt{[X]};~0 ~\text{if}~ \xt{t} \not= \texttt{[X]} \}$, where \texttt{[X]} is an absorbing state, akin to {\MLM}s. 
+The formulation of \Eqref{eqn: dd 0_to_t} results in $\xt{t}$ either being masked or the same as $\xt{0}$, with a masking ratio $(1-\alpha_t)$. 
+% This makes absorbing diffusion resemble masked language models~\citep[MLM,][]{devlin2018bert}.
+
+
+\paragraph{Learning.} 
+As stated in \citet{austin2021structured}, discrete diffusion inherently connects to AR-LM and Masked-LM, whilist \citet{zheng2023reparameterized} further simplifies the learning objective of discrete diffusion, with their proposed reparameterized backward transition, from KL divergences between two categoricals into reweighted cross-entropies:
+\begin{align}
+% \setlength{\abovedisplayskip}{1pt}
+% \setlength{\belowdisplayskip}{1pt}
+\mathcal{J}_t & = \mathbb{E}_{q(\xt{0})}-\text{KL}\big[q(\xt{t-1}|\xt{t}, \xt{0})\|p_{{\theta}}(\xt{t-1}|\xt{t})\big] \nonumber \\[-1pt]
+% & = \mathbb{E}_{q(\xt{0})} \left[-\lambda_{t-1} \cdot \left(1-\bm{1}_{\xt{t}=\xt{0}}\right)\log p_{\theta}(\xt{0}|\xt{t})\right] \nonumber \\
+& = \mathbb{E}_{q(\xt{0})} \Big[\lambda^{(t)}  \textstyle{\sum_{1 \leq i \leq L}} b_i(t) \cdot \log p_{\theta}(\xt{0}_i|\xt{t})\Big], 
+\label{eq:reparam_obj}
+\end{align}
+where $\lambda^{(t)}$ is a weighting coefficient induced from the specific noising schedule (see Appendix~\ref{app: rdm} for proof).
+\Eqref{eq:reparam_obj} reveals that %serves as a generalized framework for language modeling through the lens of cross-entropy minimization, which is the standard and most efficacious language modeling objective.
+{\MLM}s~(\ie, $\xt{t}\triangleq\Bar{\bm{x}}_{\text{m}}$ in \Eqref{eq:mlm}) and {\ARLM}s~(\ie, $\xt{t}\triangleq\bm{x}_{<t}$ and $b_i \triangleq 1 $ in \Eqref{eq:arlm}) can be considered as special cases in this generalized form of discrete diffusion LMs, contingent on their respective specifications of the noise-induced configurations.
+As a result, the process of learning according to \Eqref{eq:reparam_obj} inherently encapsulates both {\MLM}s and {\ARLM}s within the ambit of the proposed \method.
+
+% \subsubsection{Why discrete diffusion is more preferable as LM objective?}
+
+\paragraph{Evolutionary-scale Pre-training.}
+% In this section, we introduce our experimental setup, including pretraining data, model architecture and some training details. 
+The pre-training procedure for \method utilizes the UniRef50 database~\citep{suzek2015uniref}, which comprises around 45 million protein sequences, totaling about 14 billion amino acid tokens. 
+In the case of exceedingly lengthy protein sequences, we emulate ESM2~\citep{lin2022esmfold} by truncating these proteins to a random sequence of 1024 tokens. 
+Besides, we adhere to the setting for model architecture and scales as ESM2, which correspond to \method with sizes of 150M, 650M and 3B.
+We train all models for 100K updates, with batch size of 320K for 150M model and 1M for 650M/3B models.
+% and 3B model 
+% We employ pretrained ESM2 model parameters as initialization, then apply diffusive continue pretraining to empower the model's generative capabilities.
+%, transforming it from understanding expert to a versatile model.
+% All models are trained with Adam optimizer with $\alpha=0.9$ and $\beta=0.98$, while the learning rate is $4e-5$ with linear warmup over $2,000$ steps, and then linearly decay to 1e-5 over the remaining training time.
+
+
+\paragraph{Generation.}
+% \paragraph{Generative Process of Discrete Diffusion Models.} 
+Given a trained \method, it can synthesize new amino acid sequences by the reverse iterative denoising process of discrete diffusion~\citep{hoogeboom2021argmax,austin2021structured}.
+Formally, discrete diffusion samples from the following distribution,
+\begin{align}
+    p_\theta(\xt{t-1} | \xt{t}) = \textstyle{\sum_{\hat{\bm{x}}_0}}  q(\xt{t-1} |\xt{t}, \hat{\bm{x}}_0) p_\theta(\hat{\bm{x}}_0 | \xt{t}). \nonumber
+\end{align}
+In particular, at time $t$, we first generate $\hat{\bm{x}}_0$ from $p_\theta(\cdot| \xt{t})$, then a less noisy $\xt{t-1}$ is sampled by $q(\cdot |\xt{t},\xt{0} = \hat{\bm{x}}_0)$ given $\xt{t}$ and $\hat{\bm{x}}_0$. This process is repeated from $T$ to $1$.
+The generative denoising process of \method can be viewed as an iterative \textit{mask-predict} approach.
+Specifically, the starting sequence is initialized as $100\%$-noisy state (\ie, all $\texttt{[X]}$'s).
+At each iteration, a subset of masked tokens is updated based on the model's prediction $\hat{\bm{x}}_0$, while the remaining tokens are re-masked, according to ranked $\log p_\theta(\hat{\bm{x}}_0 | \xt{t})$~\citep{ghazvininejad2019mask,zheng2023reparameterized}.
+% A naive strategy to decide which tokens to mask and unmask is to follow Eq.~\ref{eqn: backward transition} by substituting $\xt{0}$ with the model predictions.
+% For better generation quality, we follow  which suggest denoising a token only when it receives high scores.
+% In this paper, we follow \citet{zheng2023reparameterized} to unmask positions with top-$k$ log-probability predicted by $p_{\theta}(\xt{0}|\xt{t})$, and mask all the rest position in each denoising step. 
+
+\paragraph{Representation.}
+\method is tasked with denoising the input protein sequence at all noise levels, including the original noise-free data (\eg, noise level at $0\%$).
+As a result, \method can simultaneously serve as a protein sequence representation learner over massive protein sequence data, providing useful sequence embedding for various protein predictive downstream tasks, \eg, sequence/residue-level classification/regression.
+The sequence embedding can be attained by simply letting \method take as input the given amino acid sequence $\bm{x}$: $\bm{h}(\bm{x}) \leftarrow \method_\theta(\bm{x}, t=0) \in \R^{L \times d}$, where $d$ is the dimension of embedding. 
+
+
+
+
+
+
+% \paragraph{Challenges of large-scale diffusion pre-training.}\zzx{TODO}
+
+
+
+
+
+
+
+\subsection{Conditioning}
+Being able to efficiently sample realistic proteins is necessary but not sufficient for downstream applications such as therapeutic development, since unconditional samples are unlikely to possess desired functional properties.
+Here we elaborate on how to make \method practically useful by conditioning for various needs, which covers most common scenarios, \ie, sequence conditioning, cross-modal conditioning, and plug-and-play preference-guided conditioning.
+
+\paragraph{Case I: Conditioning on partial sequence (\Figref{fig:main}C-1).}
+Protein generation containing pre-specified polypeptides corresponds to various use cases such as generating scaffolds for given functional motifs, infilling antibody CDR loops, or imposing expert knowledge a-priori.
+This implies our desire for \method to sample from this conditional distribution $\bm{x} \sim p_\theta(\bm{x} | \bar{\bm{x}}) = \prod_{i=1}^L b_i \cdot p_\theta(x_i | \Bar{\bm{x}})$, which has already been learned through~\Eqref{eq:reparam_obj}.
+The observed partial sequence $\Bar{\bm{x}} = \{ \bar{x}_i \in \mathcal{V}~\text{if}~ b_i = 0; \texttt{[X]}~\text{if}~ b_i = 1 | i \in [1,L]\}$. 
+Namely, $b_i \in \{0,1\}$ indicates whether the predicted sequence must preserve the observation for the $i$-th residue such that $x_i = \Bar{x}_i$. 
+% , ~\text{s.t.}~\bar{\bm{x}} = \{ \Bar{\bm{x}}\}$
+
+\paragraph{Case II: Adapting \method to conditioned on other modalities (\Figref{fig:main}C-2).}
+% We examine the ability of \method in the inverse folding problem, i.e. finding an amino acid sequence that will fold to a given protein backbone structure. 
+Generating protein sequence subject to cross-modal constraints $\bm{c}$, \ie, $\bm{x} \sim p_{\theta}(\bm{x} | \bm{c})$, has profound value in practice, such as inverse protein folding where sequences are generated for given backbone structure~\citep{dauparas2022proteinmpnn,zheng2023structure}, or conditioning on small molecule ligands for binder design~\citep{dauparas2023atomic}.
+Given that \method primarily operates over amino acid tokens,
+in these cases, we can equip \method with cross-modal conditioning by adapter-tuning with a pre-trained modality expert encoder $\mathcal{E}_\phi(\bm{c})$ and a newly-added cross-attention-based adapter following \citet{zheng2023structure}.
+% Consequently, we can utilize arbitrary pretrained structure encoder to process the 3D coordinates and provide structure information for \method.
+During training, we freeze the parameters of the modality encoder and \method, and only update the parameters of the adapter via supervised fine-tuning on the given paired data $(\bm{x}, \bm{c})$.
+We then obtain a conditional \method for $p_{\theta}(\bm{x} | \mathcal{E}_\phi(\bm{c}))$ making the full potentials of both \method and the modality expert $\mathcal{E}_\phi(\bm{c})$.
+In \Secref{sec:classifier-free}, we also develop classifier-free guidance for such adapter-tuned \method as an immediately available booster for cross-modal conditional generation without intricate condition dropout during training.
+
+\paragraph{Case III: Plug-and-play controllable generation with discrete classifier guidance (\Figref{fig:main}C-3).}
+Directly building a conditional model is prohibitive in most cases due to data scarcity.
+Thus, incorporating classifier guidance into continuous diffusion models~\citep{dhariwal2021diffusion} proves particularly useful. This integration with pre-trained classifiers enables steering generation towards desired preferences.
+However, continuous classifier guidance requires valid definition of $\nabla_{\bm{x}} \log p_\theta(\bm{x})$, or ``score''~\citep{song2019score}, which does not exist for discrete diffusion.
+Inspired by continuous diffusion classifier guidance and DiGress on guided graph diffusion~\citep{vignac2022digress}, here we introduce classifier-guided conditional generation for discrete diffusion LMs. 
+Concretely, we want to sample from the conditional distribution of $q(\xt{t-1}| \xt{t}, \bm{y}) \propto q(\xt{t-1}| \xt{t}) q(\bm{y} |\xt{t-1} )$, which is approximated by $ p_\theta(\xt{t-1}| \xt{t}) p_\phi(\bm{y} |\xt{t-1})$ where $p_\phi(\bm{y} |\xt{t-1})$ is a discriminative guidance model (classifier or regressor \wrt user's desired properties). 
+However, $p_\phi(\bm{y} |\xt{t-1})$ cannot be factorized as a product over all positions, prohibiting evaluation of all possible values of $\xt{t-1}$. 
+To this end, we resort to an approximation with first-order Taylor expansion around $\xt{t}$~\citep{dhariwal2021diffusion}, where we treat $\bm{x}$ as a continuous one-hot variable on probability simplex to make $\nabla_{\bm{x}}$ a valid operator, thereby,
+\begin{align}
+    & \log q(\bm{y} |\xt{t-1}) \nonumber \\[-1pt]
+    &\approx~  \log q(\bm{y} |\xt{t}) + \langle \nabla_{\bm{x}} \log q(\bm{y} | \xt{t}), \xt{t-1} - \xt{t} \rangle \nonumber \\
+    &\approx~  \textstyle{\sum_{1\leq i \leq L}} \langle \nabla_{\bm{x}_{i}} \log q(\bm{y} | \xt{t}), \bm{x}_{i}^{(t-1)} \rangle + C(\xt{t})\nonumber,
+\end{align}
+% \yi{use equal in last eq?}
+where $C(\xt{t})$ is a constant that does not depend on $\xt{t-1}$. 
+We use $p_\phi(\bm{y} |\xt{t})$ to estimate $ q(\bm{y} |\xt{t})$ and plug it into the above expression. 
+We can now sample from the resulting conditional distribution instead at each timestep $t$,
+\begin{align}
+    \xt{t-1} & \sim p_\theta(\xt{t-1}| \xt{t}) p_\phi(\bm{y} | \xt{t-1})^{\eta} \label{eq:classifier-guidance}   \\ 
+    & \propto p_\theta(\xt{t-1}| \xt{t}) e^{\big( \eta \cdot \sum_{i} \langle \nabla_{\bm{x}_{i}} \log p_\phi(\bm{y} | \xt{t}), \bm{x}_{(i)}^{t-1} \rangle\big)}, \nonumber
+\end{align}
+where a tunable $\eta$ controls the strength of guidance.
+
+
+
+\begin{figure*}[t!]
+    \centering
+    \vspace{-3mm}
+    \includegraphics[width=0.97\linewidth]{figures/dplm_uncond_all_1.pdf}
+    \vspace{-4mm}
+    \caption{\emph{Evaluation of unconditional generation.} Here we use ESMFold as the folding model to predict structures and calculate \metric{pLDDT} for all the sampled sequences. 
+    We measure the (structural) novelty of the generated sequences against all known structures in PDB by \metric{TM-score} (\ie, \metric{pdb-TM}, and measure the (structural) diversity within the sampled candidates for each model (\ie, \metric{inner-TM}).
+    % (A) comparison of pre-training strategies; (B) comparison of different LMs; (C) Evaluation of foldability (\metric{pLDDT}); (D) evaluation of novelty (\metric{pdb-TM},~$\downarrow$); (E) evaluation of diversity (\metric{inner-TM},~$\downarrow$); (F) statistics of secondary structures; and (G) structural visualization of sampled sequences.
+    % (A) The \metric{pLDDT} of \method, EvoDiff and natural sequences with different protein lengths. \method achieves the highest \metric{pLDDT} score across all lengths.}
+    }
+    \label{fig:uncond_sample}
+    \vspace{-3mm}
+\end{figure*}
+
+
+
+
+\subsection{Comparisons with The Most Related Work}
+%\zzx{Add to here to discuss the differences with EvoDiff.}
+
+Comprehensive representations for protein sequence understanding are achieved by pre-training on protein sequence data via masked language modeling~\citep{devlin2019bert}, akin to language understanding.
+Among those, the family of ESM-1b/ESM2~\citep{rives2019esm,lin2022esmfold} serves as the pioneer \& cornerstone sequence embedding models for extensive protein predictive tasks. Therefore, \method follows the best practice of ESM2 in network architecture and pre-training strategies. 
+\method takes a significant leap from ESM2 with immediate strong generative capabilities, without expensive needs for Monte Carlo methods~\citep{verkuil2022language} or Gibbs sampler~\citep{johnson2021generating}, which treat \MLM as Markov random fields~\citep{wang2019bert}. 
+Besides, as verified from predictive experiments (\Secref{sec:understanding}), the generative ability of \method further enables its enhanced representation learning, echoing Richard Feynman's famous quote ``\textit{What I cannot create, I do not understand}''.
+
+Regarding protein sequence generation, EvoDiff~\citep{alamdari2023protein} is the most relevant approach, which uses order-agnostic autoregressive diffusion models~\citep[OADM,][]{hoogeboom2021autoregressive} for unconditional generation, with conditional applications on intrinsic disordered sequence infilling and motif-scaffolding, whereas attaining better performance necessitates multiple sequence alignments (MSAs) based on a MSA-Transformer~\citep{rao2021msa_trans} parameterization. %\todoq{the above sentence needs to be rephrased. }
+\method differs from EvoDiff in several aspects:
+(1) \method manifests superior representation learning, which, to the best of our knowledge, is the first time for protein diffusion models, even in general language learning regime, showing \method's appealing versatility, as shown in \Tabref{tab:results_understanding}; 
+(2) \method is based on a more principled discrete diffusion framework beyond the special (order-agnostic) autoregressive diffusion, which is not compatible with refining intermediate predictions and requires expensive $O(L)$ decoding overhead;
+% \footnote{Note that \method also absorbs OADM with order-permuted masking.}.
+% (3) \method can accommodate extensive conditioning, especially conditioning on other modalities and programmable generation steered by discrete classifier guidance, as opposed to the vanilla sequence conditioning in EvoDiff.
+% This enables broader applications of \method in practice.
+(3) we investigate the ability of \method to accommodate extensive conditioning, especially conditioning on other modality and programmable generation steered by discrete classifier guidance, pushing steps forward beyond simple sequence conditioning investigated in EvoDiff paper.
+
+Please refer to Appendix \Secref{sec:related} for a more detailed discussion of the related work.
+
+% \paragraph{Classifier-free guidance}
+% We can derive an implicit classifier using Bayes rule
+% \begin{align}
+% q(\bm{y} | \xt{t-1}) & = q(\bm{y} | \xt{t-1}, \xt{t}) \nonumber \\
+% & = \frac{q( \xt{t-1} | \xt{t}, \bm{y}) }{q(\xt{t-1} | \xt{t})}q(\bm{y}|\xt{t}). \nonumber
+% \end{align}
+% If we already have a unconditional model $p_\theta(\xt{t-1}| \xt{t})$ and a conditional model $p_\theta(\xt{t-1} | \xt{t}, \bm{y})$ as the estimates, then by substituting this implicit classifier into Eq.~\ref{eq:classifier-guidance}, we can obtain
+% \begin{align}
+%     \xt{t-1} & \sim p_\theta(\xt{t-1}| \xt{t}) p_\phi(\bm{y} | \xt{t-1})^{\eta} \nonumber \\
+%     & \propto p_\theta(\xt{t-1} | \xt{t}) \big( \frac{p_\theta( \xt{t-1} | \xt{t}, \bm{y})}{p_\theta(\xt{t-1} | \xt{t})}\big)^{\eta} \nonumber \\
+%     & =  p_\theta( \xt{t-1} | \xt{t}, \bm{y})^{\eta} \cdot  p_\theta(\xt{t-1}|\xt{t})^{(1-\eta)},\nonumber
+% \end{align}
+% wherein when $\eta = 1$, it is equivalent to sampling from the original conditional \method without guidance, whereas $\eta > 1$, we not only prioritize the conditional model to contribute more, but also discourage the samples moving away from the unconditional distribution. 
+% In other word, it reduces the chance of generating samples that do not use conditioning information, in favor of the samples that explicitly do.
+
+

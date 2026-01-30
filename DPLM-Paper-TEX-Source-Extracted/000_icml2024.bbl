@@ -1,0 +1,676 @@
+\begin{thebibliography}{131}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Alamdari et~al.(2023)Alamdari, Thakkar, van~den Berg, Lu, Fusi, Amini, and Yang]{alamdari2023protein}
+Alamdari, S., Thakkar, N., van~den Berg, R., Lu, A.~X., Fusi, N., Amini, A.~P., and Yang, K.~K.
+\newblock Protein generation with evolutionary diffusion: sequence is all you need.
+\newblock \emph{bioRxiv}, pp.\  2023--09, 2023.
+
+\bibitem[Austin et~al.(2021)Austin, Johnson, Ho, Tarlow, and van~den Berg]{austin2021structured}
+Austin, J., Johnson, D.~D., Ho, J., Tarlow, D., and van~den Berg, R.
+\newblock Structured denoising diffusion models in discrete state-spaces.
+\newblock In \emph{Advances in Neural Information Processing Systems}, volume~34, pp.\  17981--17993, 2021.
+
+\bibitem[Bengio et~al.(2000)Bengio, Ducharme, and Vincent]{bengio2000neural}
+Bengio, Y., Ducharme, R., and Vincent, P.
+\newblock A neural probabilistic language model.
+\newblock \emph{Advances in neural information processing systems}, 13, 2000.
+
+\bibitem[Berman et~al.(2000)Berman, Westbrook, Feng, Gilliland, Bhat, Weissig, Shindyalov, and Bourne]{berman2000protein}
+Berman, H.~M., Westbrook, J., Feng, Z., Gilliland, G., Bhat, T.~N., Weissig, H., Shindyalov, I.~N., and Bourne, P.~E.
+\newblock The protein data bank.
+\newblock \emph{Nucleic acids research}, 28\penalty0 (1):\penalty0 235--242, 2000.
+
+\bibitem[Brandes et~al.(2022)Brandes, Ofer, Peleg, Rappoport, and Linial]{brandes2022proteinbert}
+Brandes, N., Ofer, D., Peleg, Y., Rappoport, N., and Linial, M.
+\newblock Proteinbert: a universal deep-learning model of protein sequence and function.
+\newblock \emph{Bioinformatics}, 38\penalty0 (8):\penalty0 2102--2110, 2022.
+
+\bibitem[Brown et~al.(2020)Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal, Neelakantan, Shyam, Sastry, Askell, et~al.]{brown2020gpt3}
+Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J.~D., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., et~al.
+\newblock Language models are few-shot learners.
+\newblock volume~33, pp.\  1877--1901, 2020.
+
+\bibitem[Chen et~al.(2023{\natexlab{a}})Chen, Zhang, Li, Smola, and Yang]{chen2023cheaper}
+Chen, J., Zhang, A., Li, M., Smola, A., and Yang, D.
+\newblock A cheaper and better diffusion language model with soft-masked noise.
+\newblock \emph{arXiv preprint arXiv:2304.04746}, 2023{\natexlab{a}}.
+
+\bibitem[Chen et~al.(2023{\natexlab{b}})Chen, Wong, Chen, and Tian]{chen2023extending}
+Chen, S., Wong, S., Chen, L., and Tian, Y.
+\newblock Extending context window of large language models via positional interpolation.
+\newblock \emph{arXiv preprint arXiv:2306.15595}, 2023{\natexlab{b}}.
+
+\bibitem[Chen et~al.(2024{\natexlab{a}})Chen, Liu, Xie, and He]{chen2024deconstructing}
+Chen, X., Liu, Z., Xie, S., and He, K.
+\newblock Deconstructing denoising diffusion models for self-supervised learning.
+\newblock \emph{arXiv preprint arXiv:2401.14404}, 2024{\natexlab{a}}.
+
+\bibitem[Chen et~al.(2024{\natexlab{b}})Chen, Deng, Yuan, Ji, and Gu]{chen2024spin}
+Chen, Z., Deng, Y., Yuan, H., Ji, K., and Gu, Q.
+\newblock Self-play fine-tuning converts weak language models to strong language models.
+\newblock \emph{arXiv preprint arXiv:2401.01335}, 2024{\natexlab{b}}.
+
+\bibitem[Chiang et~al.(2023)Chiang, Li, Lin, Sheng, Wu, Zhang, Zheng, Zhuang, Zhuang, Gonzalez, Stoica, and Xing]{vicuna2023}
+Chiang, W.-L., Li, Z., Lin, Z., Sheng, Y., Wu, Z., Zhang, H., Zheng, L., Zhuang, S., Zhuang, Y., Gonzalez, J.~E., Stoica, I., and Xing, E.~P.
+\newblock Vicuna: An open-source chatbot impressing gpt-4 with 90\%* chatgpt quality, March 2023.
+\newblock URL \url{https://lmsys.org/blog/2023-03-30-vicuna/}.
+
+\bibitem[Dallago et~al.(2021)Dallago, Mou, Johnston, Wittmann, Bhattacharya, Goldman, Madani, and Yang]{dallago2021flip}
+Dallago, C., Mou, J., Johnston, K.~E., Wittmann, B.~J., Bhattacharya, N., Goldman, S., Madani, A., and Yang, K.~K.
+\newblock Flip: Benchmark tasks in fitness landscape inference for proteins.
+\newblock \emph{bioRxiv}, pp.\  2021--11, 2021.
+
+\bibitem[Dauparas et~al.(2022)Dauparas, Anishchenko, Bennett, Bai, Ragotte, Milles, Wicky, Courbet, de~Haas, Bethel, et~al.]{dauparas2022proteinmpnn}
+Dauparas, J., Anishchenko, I., Bennett, N., Bai, H., Ragotte, R.~J., Milles, L.~F., Wicky, B.~I., Courbet, A., de~Haas, R.~J., Bethel, N., et~al.
+\newblock Robust deep learning--based protein sequence design using proteinmpnn.
+\newblock \emph{Science}, 378\penalty0 (6615):\penalty0 49--56, 2022.
+
+\bibitem[Dauparas et~al.(2023)Dauparas, Lee, Pecoraro, An, Anishchenko, Glasscock, and Baker]{dauparas2023atomic}
+Dauparas, J., Lee, G.~R., Pecoraro, R., An, L., Anishchenko, I., Glasscock, C., and Baker, D.
+\newblock Atomic context-conditioned protein sequence design using ligandmpnn.
+\newblock \emph{Biorxiv}, pp.\  2023--12, 2023.
+
+\bibitem[De~Bortoli et~al.(2022)De~Bortoli, Mathieu, Hutchinson, Thornton, Teh, and Doucet]{de2022riemannian}
+De~Bortoli, V., Mathieu, E., Hutchinson, M., Thornton, J., Teh, Y.~W., and Doucet, A.
+\newblock Riemannian score-based generative modelling.
+\newblock \emph{Advances in Neural Information Processing Systems}, 35:\penalty0 2406--2422, 2022.
+
+\bibitem[DeepMind(2023)]{deepmind2023AF3}
+DeepMind, G.
+\newblock Performance and structural coverage of the latest, in-development alphafold model.
+\newblock 2023.
+
+\bibitem[Devlin et~al.(2019)Devlin, Chang, Lee, and Toutanova]{devlin2019bert}
+Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K.
+\newblock {BERT}: Pre-training of deep bidirectional transformers for language understanding.
+\newblock In \emph{Proceedings of the 2019 Conference of the North {A}merican Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)}, pp.\  4171--4186, Minneapolis, Minnesota, June 2019. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/N19-1423}.
+\newblock URL \url{https://www.aclweb.org/anthology/N19-1423}.
+
+\bibitem[Dhariwal \& Nichol(2021{\natexlab{a}})Dhariwal and Nichol]{dhariwal2021diffusion}
+Dhariwal, P. and Nichol, A.
+\newblock Diffusion models beat gans on image synthesis.
+\newblock \emph{Advances in neural information processing systems}, 34:\penalty0 8780--8794, 2021{\natexlab{a}}.
+
+\bibitem[Dhariwal \& Nichol(2021{\natexlab{b}})Dhariwal and Nichol]{dhariwal2021diffusionbeatgans}
+Dhariwal, P. and Nichol, A.
+\newblock Diffusion models beat gans on image synthesis.
+\newblock \emph{Advances in neural information processing systems}, 34:\penalty0 8780--8794, 2021{\natexlab{b}}.
+
+\bibitem[Dieleman et~al.(2022)Dieleman, Sartran, Roshannai, Savinov, Ganin, Richemond, Doucet, Strudel, Dyer, Durkan, et~al.]{cdcd}
+Dieleman, S., Sartran, L., Roshannai, A., Savinov, N., Ganin, Y., Richemond, P.~H., Doucet, A., Strudel, R., Dyer, C., Durkan, C., et~al.
+\newblock Continuous diffusion for categorical data.
+\newblock \emph{arXiv preprint arXiv:2211.15089}, 2022.
+
+\bibitem[Elnaggar et~al.(2021)Elnaggar, Heinzinger, Dallago, Rehawi, Wang, Jones, Gibbs, Feher, Angerer, Steinegger, et~al.]{elnaggar2021prottrans}
+Elnaggar, A., Heinzinger, M., Dallago, C., Rehawi, G., Wang, Y., Jones, L., Gibbs, T., Feher, T., Angerer, C., Steinegger, M., et~al.
+\newblock Prottrans: Toward understanding the language of life through self-supervised learning.
+\newblock \emph{IEEE transactions on pattern analysis and machine intelligence}, 44\penalty0 (10):\penalty0 7112--7127, 2021.
+
+\bibitem[Ferruz \& H{\"o}cker(2022)Ferruz and H{\"o}cker]{ferruz2022controllable}
+Ferruz, N. and H{\"o}cker, B.
+\newblock Controllable protein design with language models.
+\newblock \emph{Nature Machine Intelligence}, 4\penalty0 (6):\penalty0 521--532, 2022.
+
+\bibitem[Ferruz et~al.(2022)Ferruz, Schmidt, and H{\"o}cker]{ferruz2022protgpt2}
+Ferruz, N., Schmidt, S., and H{\"o}cker, B.
+\newblock Protgpt2 is a deep unsupervised language model for protein design.
+\newblock \emph{Nature communications}, 13\penalty0 (1):\penalty0 4348, 2022.
+
+\bibitem[Fu et~al.(2023)Fu, Peng, Ou, Sabharwal, and Khot]{fu2023specializing}
+Fu, Y., Peng, H., Ou, L., Sabharwal, A., and Khot, T.
+\newblock Specializing smaller language models towards multi-step reasoning.
+\newblock \emph{arXiv preprint arXiv:2301.12726}, 2023.
+
+\bibitem[Gao et~al.(2022{\natexlab{a}})Gao, Guo, Tan, Zhu, Zhang, Bian, and Xu]{gao2022difformer}
+Gao, Z., Guo, J., Tan, X., Zhu, Y., Zhang, F., Bian, J., and Xu, L.
+\newblock Difformer: Empowering diffusion model on embedding space for text generation.
+\newblock \emph{arXiv preprint arXiv:2212.09412}, 2022{\natexlab{a}}.
+
+\bibitem[Gao et~al.(2022{\natexlab{b}})Gao, Tan, and Li]{gao2022pifold}
+Gao, Z., Tan, C., and Li, S.~Z.
+\newblock Pifold: Toward effective and efficient protein inverse folding.
+\newblock \emph{arXiv preprint arXiv:2209.12643}, 2022{\natexlab{b}}.
+
+\bibitem[Ghazvininejad et~al.(2019)Ghazvininejad, Levy, Liu, and Zettlemoyer]{ghazvininejad2019mask}
+Ghazvininejad, M., Levy, O., Liu, Y., and Zettlemoyer, L.
+\newblock Mask-predict: Parallel decoding of conditional masked language models.
+\newblock In \emph{Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)}, pp.\  6112--6121, Hong Kong, China, November 2019. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/D19-1633}.
+\newblock URL \url{https://www.aclweb.org/anthology/D19-1633}.
+
+\bibitem[Gong et~al.(2022)Gong, Li, Feng, Wu, and Kong]{gong2022diffuseq}
+Gong, S., Li, M., Feng, J., Wu, Z., and Kong, L.
+\newblock Diffuseq: Sequence to sequence text generation with diffusion models.
+\newblock \emph{arXiv preprint arXiv:2210.08933}, 2022.
+
+\bibitem[Gu \& Kong(2021)Gu and Kong]{gu2021fully}
+Gu, J. and Kong, X.
+\newblock Fully non-autoregressive neural machine translation: Tricks of the trade.
+\newblock In \emph{Findings of the Association for Computational Linguistics: ACL-IJCNLP 2021}, pp.\  120--133, 2021.
+
+\bibitem[Gu et~al.(2018)Gu, Bradbury, Xiong, Li, and Socher]{gu2018non}
+Gu, J., Bradbury, J., Xiong, C., Li, V.~O., and Socher, R.
+\newblock Non-autoregressive neural machine translation.
+\newblock In \emph{International Conference on Learning Representations}, 2018.
+
+\bibitem[Guo et~al.(2020{\natexlab{a}})Guo, Tan, Xu, Qin, Chen, and Liu]{guo2020fine}
+Guo, J., Tan, X., Xu, L., Qin, T., Chen, E., and Liu, T.-Y.
+\newblock Fine-tuning by curriculum learning for non-autoregressive neural machine translation.
+\newblock In \emph{Proceedings of the AAAI Conference on Artificial Intelligence}, volume~34, pp.\  7839--7846, 2020{\natexlab{a}}.
+
+\bibitem[Guo et~al.(2020{\natexlab{b}})Guo, Zhang, Xu, Wei, Chen, and Chen]{guo2020incorporating}
+Guo, J., Zhang, Z., Xu, L., Wei, H.-R., Chen, B., and Chen, E.
+\newblock Incorporating bert into parallel sequence decoding with adapters.
+\newblock \emph{Advances in Neural Information Processing Systems}, 33:\penalty0 10843--10854, 2020{\natexlab{b}}.
+
+\bibitem[Han et~al.(2022)Han, Kumar, and Tsvetkov]{han2022ssd}
+Han, X., Kumar, S., and Tsvetkov, Y.
+\newblock Ssd-lm: Semi-autoregressive simplex-based diffusion language model for text generation and modular control.
+\newblock \emph{arXiv preprint arXiv:2210.17432}, 2022.
+
+\bibitem[He et~al.(2021)He, Zhang, Wu, Xia, Ju, Zhang, Liu, Xia, Zhu, Deng, et~al.]{he2021pre}
+He, L., Zhang, S., Wu, L., Xia, H., Ju, F., Zhang, H., Liu, S., Xia, Y., Zhu, J., Deng, P., et~al.
+\newblock Pre-training co-evolutionary protein representation via a pairwise masked language model.
+\newblock \emph{arXiv preprint arXiv:2110.15527}, 2021.
+
+\bibitem[He et~al.(2023)He, Sun, Wang, Huang, and Qiu]{he2022diffusionbert}
+He, Z., Sun, T., Wang, K., Huang, X., and Qiu, X.
+\newblock Diffusionbert: Improving generative masked language models with diffusion models.
+\newblock 2023.
+
+\bibitem[Ho \& Salimans(2021)Ho and Salimans]{ho2021classifierfree}
+Ho, J. and Salimans, T.
+\newblock Classifier-free diffusion guidance.
+\newblock In \emph{NeurIPS 2021 Workshop on Deep Generative Models and Downstream Applications}, 2021.
+
+\bibitem[Ho et~al.(2020)Ho, Jain, and Abbeel]{ho2020ddpm}
+Ho, J., Jain, A., and Abbeel, P.
+\newblock Denoising diffusion probabilistic models.
+\newblock \emph{Advances in Neural Information Processing Systems}, 33:\penalty0 6840--6851, 2020.
+
+\bibitem[Ho et~al.(2022)Ho, Chan, Saharia, Whang, Gao, Gritsenko, Kingma, Poole, Norouzi, Fleet, et~al.]{ho2022imagenvideo}
+Ho, J., Chan, W., Saharia, C., Whang, J., Gao, R., Gritsenko, A., Kingma, D.~P., Poole, B., Norouzi, M., Fleet, D.~J., et~al.
+\newblock Imagen video: High definition video generation with diffusion models.
+\newblock \emph{arXiv preprint arXiv:2210.02303}, 2022.
+
+\bibitem[Hoffmann et~al.(2022)Hoffmann, Borgeaud, Mensch, Buchatskaya, Cai, Rutherford, Casas, Hendricks, Welbl, Clark, et~al.]{hoffmann2022training}
+Hoffmann, J., Borgeaud, S., Mensch, A., Buchatskaya, E., Cai, T., Rutherford, E., Casas, D. d.~L., Hendricks, L.~A., Welbl, J., Clark, A., et~al.
+\newblock Training compute-optimal large language models.
+\newblock \emph{arXiv preprint arXiv:2203.15556}, 2022.
+
+\bibitem[Hoogeboom et~al.(2021{\natexlab{a}})Hoogeboom, Gritsenko, Bastings, Poole, van~den Berg, and Salimans]{hoogeboom2021autoregressive}
+Hoogeboom, E., Gritsenko, A.~A., Bastings, J., Poole, B., van~den Berg, R., and Salimans, T.
+\newblock Autoregressive diffusion models.
+\newblock In \emph{International Conference on Learning Representations}, 2021{\natexlab{a}}.
+
+\bibitem[Hoogeboom et~al.(2021{\natexlab{b}})Hoogeboom, Nielsen, Jaini, Forr{\'e}, and Welling]{hoogeboom2021argmax}
+Hoogeboom, E., Nielsen, D., Jaini, P., Forr{\'e}, P., and Welling, M.
+\newblock Argmax flows and multinomial diffusion: Learning categorical distributions.
+\newblock \emph{Advances in Neural Information Processing Systems}, 34:\penalty0 12454--12465, 2021{\natexlab{b}}.
+
+\bibitem[Hoogeboom et~al.(2022)Hoogeboom, Satorras, Vignac, and Welling]{hoogeboom2022equivariant}
+Hoogeboom, E., Satorras, V.~G., Vignac, C., and Welling, M.
+\newblock Equivariant diffusion for molecule generation in 3d.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  8867--8887. PMLR, 2022.
+
+\bibitem[Hsu et~al.(2022)Hsu, Verkuil, Liu, Lin, Hie, Sercu, Lerer, and Rives]{hsu2022esmif}
+Hsu, C., Verkuil, R., Liu, J., Lin, Z., Hie, B., Sercu, T., Lerer, A., and Rives, A.
+\newblock Learning inverse folding from millions of predicted structures.
+\newblock In Chaudhuri, K., Jegelka, S., Song, L., Szepesvari, C., Niu, G., and Sabato, S. (eds.), \emph{Proceedings of the 39th International Conference on Machine Learning}, volume 162 of \emph{Proceedings of Machine Learning Research}, pp.\  8946--8970. PMLR, 17--23 Jul 2022.
+\newblock URL \url{https://proceedings.mlr.press/v162/hsu22a.html}.
+
+\bibitem[Hu et~al.(2022)Hu, Yuan, Yang, Ju, Su, Wang, Yang, and Ding]{hu2022exploring}
+Hu, M., Yuan, F., Yang, K.~K., Ju, F., Su, J., Wang, H., Yang, F., and Ding, Q.
+\newblock Exploring evolution-aware \&-free protein language models as protein function predictors.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2022.
+
+\bibitem[Huang et~al.(2023)Huang, Ke, and Huang]{huang2022PDAT}
+Huang, F., Ke, P., and Huang, M.
+\newblock Directed acyclic transformer pre-training for high-quality non-autoregressive text generation.
+\newblock \emph{Transactions of the Association for Computational Linguistics}, 2023.
+
+\bibitem[Ingraham et~al.(2019)Ingraham, Garg, Barzilay, and Jaakkola]{ingraham2019generative}
+Ingraham, J., Garg, V., Barzilay, R., and Jaakkola, T.
+\newblock Generative models for graph-based protein design.
+\newblock In \emph{Advances in neural information processing systems}, 2019.
+
+\bibitem[Ingraham et~al.(2023)Ingraham, Baranov, Costello, Barber, Wang, Ismail, Frappier, Lord, Ng-Thow-Hing, Van~Vlack, et~al.]{ingraham2023chroma}
+Ingraham, J.~B., Baranov, M., Costello, Z., Barber, K.~W., Wang, W., Ismail, A., Frappier, V., Lord, D.~M., Ng-Thow-Hing, C., Van~Vlack, E.~R., et~al.
+\newblock Illuminating protein space with a programmable generative model.
+\newblock \emph{Nature}, pp.\  1--9, 2023.
+
+\bibitem[Jing et~al.(2020)Jing, Eismann, Suriana, Townshend, and Dror]{jing2020gvp}
+Jing, B., Eismann, S., Suriana, P., Townshend, R. J.~L., and Dror, R.
+\newblock Learning from protein structure with geometric vector perceptrons.
+\newblock In \emph{International Conference on Learning Representations}, 2020.
+
+\bibitem[Johnson et~al.(2021)Johnson, Monaco, Massie, and Syed]{johnson2021generating}
+Johnson, S.~R., Monaco, S., Massie, K., and Syed, Z.
+\newblock Generating novel protein sequences using gibbs sampling of masked language models.
+\newblock \emph{bioRxiv}, pp.\  2021--01, 2021.
+
+\bibitem[Jumper et~al.(2021)Jumper, Evans, Pritzel, Green, Figurnov, Ronneberger, Tunyasuvunakool, Bates, {\v{Z}}{\'\i}dek, Potapenko, et~al.]{jumper2021AF2}
+Jumper, J., Evans, R., Pritzel, A., Green, T., Figurnov, M., Ronneberger, O., Tunyasuvunakool, K., Bates, R., {\v{Z}}{\'\i}dek, A., Potapenko, A., et~al.
+\newblock Highly accurate protein structure prediction with alphafold.
+\newblock \emph{Nature}, 596\penalty0 (7873):\penalty0 583--589, 2021.
+
+\bibitem[Kaplan et~al.(2020)Kaplan, McCandlish, Henighan, Brown, Chess, Child, Gray, Radford, Wu, and Amodei]{kaplan2020scaling}
+Kaplan, J., McCandlish, S., Henighan, T., Brown, T.~B., Chess, B., Child, R., Gray, S., Radford, A., Wu, J., and Amodei, D.
+\newblock Scaling laws for neural language models.
+\newblock \emph{arXiv preprint arXiv:2001.08361}, 2020.
+
+\bibitem[Kim et~al.(2021)Kim, Kong, and Son]{kim2021conditional}
+Kim, J., Kong, J., and Son, J.
+\newblock Conditional variational autoencoder with adversarial learning for end-to-end text-to-speech.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  5530--5540. PMLR, 2021.
+
+\bibitem[Kojima et~al.(2022)Kojima, Gu, Reid, Matsuo, and Iwasawa]{kojima2022zeroshotcot}
+Kojima, T., Gu, S.~S., Reid, M., Matsuo, Y., and Iwasawa, Y.
+\newblock Large language models are zero-shot reasoners.
+\newblock \emph{Advances in neural information processing systems}, 35:\penalty0 22199--22213, 2022.
+
+\bibitem[Krishna et~al.(2023)Krishna, Wang, Ahern, Sturmfels, Venkatesh, Kalvet, Lee, Morey-Burrows, Anishchenko, Humphreys, et~al.]{krishna2023RFAA}
+Krishna, R., Wang, J., Ahern, W., Sturmfels, P., Venkatesh, P., Kalvet, I., Lee, G.~R., Morey-Burrows, F.~S., Anishchenko, I., Humphreys, I.~R., et~al.
+\newblock Generalized biomolecular modeling and design with rosettafold all-atom.
+\newblock \emph{bioRxiv}, pp.\  2023--10, 2023.
+
+\bibitem[Lee et~al.(2022)Lee, Kim, and Kim]{lee2022proteinsgm}
+Lee, J.~S., Kim, J., and Kim, P.~M.
+\newblock Proteinsgm: Score-based generative modeling for de novo protein design.
+\newblock \emph{bioRxiv}, pp.\  2022--07, 2022.
+
+\bibitem[Li et~al.(2022)Li, Thickstun, Gulrajani, Liang, and Hashimoto]{li2022diffusionlm}
+Li, X.~L., Thickstun, J., Gulrajani, I., Liang, P., and Hashimoto, T.
+\newblock Diffusion-lm improves controllable text generation.
+\newblock In \emph{Advances in Neural Information Processing Systems}, volume abs/2205.14217, 2022.
+
+\bibitem[Lin \& AlQuraishi(2023)Lin and AlQuraishi]{lin2023generating}
+Lin, Y. and AlQuraishi, M.
+\newblock Generating novel, designable, and diverse protein structures by equivariantly diffusing oriented residue clouds.
+\newblock \emph{arXiv preprint arXiv:2301.12485}, 2023.
+
+\bibitem[Lin et~al.(2022)Lin, Akin, Rao, Hie, Zhu, Lu, dos Santos~Costa, Fazel-Zarandi, Sercu, Candido, et~al.]{lin2022esmfold}
+Lin, Z., Akin, H., Rao, R., Hie, B., Zhu, Z., Lu, W., dos Santos~Costa, A., Fazel-Zarandi, M., Sercu, T., Candido, S., et~al.
+\newblock Language models of protein sequences at the scale of evolution enable accurate structure prediction.
+\newblock \emph{BioRxiv}, 2022.
+
+\bibitem[Lisanza et~al.(2023)Lisanza, Gershon, Tipps, Arnoldt, Hendel, Sims, Li, and Baker]{lisanza2023joint}
+Lisanza, S.~L., Gershon, J.~M., Tipps, S. W.~K., Arnoldt, L., Hendel, S., Sims, J.~N., Li, X., and Baker, D.
+\newblock Joint generation of protein sequence and structure with rosettafold sequence space diffusion.
+\newblock \emph{bioRxiv}, pp.\  2023--05, 2023.
+
+\bibitem[Liu et~al.(2019)Liu, Ott, Goyal, Du, Joshi, Chen, Levy, Lewis, Zettlemoyer, and Stoyanov]{liu2019roberta}
+Liu, Y., Ott, M., Goyal, N., Du, J., Joshi, M., Chen, D., Levy, O., Lewis, M., Zettlemoyer, L., and Stoyanov, V.
+\newblock Roberta: A robustly optimized bert pretraining approach.
+\newblock \emph{arXiv preprint arXiv:1907.11692}, 2019.
+
+\bibitem[Lu et~al.(2020)Lu, Zhang, Ghassemi, and Moses]{lu2020self}
+Lu, A.~X., Zhang, H., Ghassemi, M., and Moses, A.
+\newblock Self-supervised contrastive learning of protein representations by mutual information maximization.
+\newblock \emph{BioRxiv}, pp.\  2020--09, 2020.
+
+\bibitem[Madani et~al.(2021)Madani, Krause, Greene, Subramanian, Mohr, Holton, Olmos~Jr, Xiong, Sun, Socher, et~al.]{madani2021deep}
+Madani, A., Krause, B., Greene, E.~R., Subramanian, S., Mohr, B.~P., Holton, J.~M., Olmos~Jr, J.~L., Xiong, C., Sun, Z.~Z., Socher, R., et~al.
+\newblock Deep neural language modeling enables functional protein generation across families.
+\newblock \emph{bioRxiv}, pp.\  2021--07, 2021.
+
+\bibitem[McDermott et~al.(2021)McDermott, Yap, Hsu, Jin, and Szolovits]{mcdermott2021adversarial}
+McDermott, M., Yap, B., Hsu, H., Jin, D., and Szolovits, P.
+\newblock Adversarial contrastive pre-training for protein sequences.
+\newblock \emph{arXiv preprint arXiv:2102.00466}, 2021.
+
+\bibitem[Meier et~al.(2021)Meier, Rao, Verkuil, Liu, Sercu, and Rives]{meier2021language}
+Meier, J., Rao, R., Verkuil, R., Liu, J., Sercu, T., and Rives, A.
+\newblock Language models enable zero-shot prediction of the effects of mutations on protein function.
+\newblock In \emph{Advances in Neural Information Processing Systems}, pp.\  29287--29303, 2021.
+
+\bibitem[Melnyk et~al.(2022)Melnyk, Chenthamarakshan, Chen, Das, Dhurandhar, Padhi, and Das]{melnyk2022reprogramming}
+Melnyk, I., Chenthamarakshan, V., Chen, P.-Y., Das, P., Dhurandhar, A., Padhi, I., and Das, D.
+\newblock Reprogramming large pretrained language models for antibody sequence infilling.
+\newblock \emph{arXiv preprint arXiv:2210.07144}, 2022.
+
+\bibitem[Meshchaninov et~al.(2024)Meshchaninov, Strashnov, Shevtsov, Nikolaev, Ivanisenko, Kardymon, and Vetrov]{meshchaninov2024diffusion}
+Meshchaninov, V., Strashnov, P., Shevtsov, A., Nikolaev, F., Ivanisenko, N., Kardymon, O., and Vetrov, D.
+\newblock Diffusion on language model embeddings for protein sequence generation.
+\newblock \emph{arXiv preprint arXiv:2403.03726}, 2024.
+
+\bibitem[Mikolov et~al.(2013)Mikolov, Chen, Corrado, and Dean]{word2vec}
+Mikolov, T., Chen, K., Corrado, G., and Dean, J.
+\newblock Efficient estimation of word representations in vector space.
+\newblock In Bengio, Y. and LeCun, Y. (eds.), \emph{1st International Conference on Learning Representations, {ICLR} 2013, Scottsdale, Arizona, USA, May 2-4, 2013, Workshop Track Proceedings}, 2013.
+\newblock URL \url{http://arxiv.org/abs/1301.3781}.
+
+\bibitem[Min et~al.(2021)Min, Park, Kim, Choi, Lee, and Yoon]{min2021pre}
+Min, S., Park, S., Kim, S., Choi, H.-S., Lee, B., and Yoon, S.
+\newblock Pre-training of deep bidirectional protein sequence representations with structural information.
+\newblock \emph{IEEE Access}, 9:\penalty0 123912--123926, 2021.
+
+\bibitem[Muennighoff et~al.(2023)Muennighoff, Rush, Barak, Scao, Piktus, Tazi, Pyysalo, Wolf, and Raffel]{muennighoff2023scaling}
+Muennighoff, N., Rush, A.~M., Barak, B., Scao, T.~L., Piktus, A., Tazi, N., Pyysalo, S., Wolf, T., and Raffel, C.
+\newblock Scaling data-constrained language models.
+\newblock \emph{arXiv preprint arXiv:2305.16264}, 2023.
+
+\bibitem[Nambiar et~al.(2020)Nambiar, Heflin, Liu, Maslov, Hopkins, and Ritz]{nambiar2020transforming}
+Nambiar, A., Heflin, M., Liu, S., Maslov, S., Hopkins, M., and Ritz, A.
+\newblock Transforming the language of life: transformer neural networks for protein prediction tasks.
+\newblock In \emph{Proceedings of the 11th ACM international conference on bioinformatics, computational biology and health informatics}, pp.\  1--8, 2020.
+
+\bibitem[Nijkamp et~al.(2022)Nijkamp, Ruffolo, Weinstein, Naik, and Madani]{nijkamp2022progen2}
+Nijkamp, E., Ruffolo, J., Weinstein, E.~N., Naik, N., and Madani, A.
+\newblock Progen2: exploring the boundaries of protein language models.
+\newblock \emph{arXiv preprint arXiv:2206.13517}, 2022.
+
+\bibitem[Nourani et~al.(2021)Nourani, Asgari, McHardy, and Mofrad]{nourani2021tripletprot}
+Nourani, E., Asgari, E., McHardy, A.~C., and Mofrad, M.~R.
+\newblock Tripletprot: deep representation learning of proteins based on siamese networks.
+\newblock \emph{IEEE/ACM Transactions on Computational Biology and Bioinformatics}, 19\penalty0 (6):\penalty0 3744--3753, 2021.
+
+\bibitem[OpenAI(2023)]{openai2023gpt4}
+OpenAI.
+\newblock Gpt-4 technical report, 2023.
+
+\bibitem[Orengo et~al.(1997)Orengo, Michie, Jones, Jones, Swindells, and Thornton]{orengo1997cath}
+Orengo, C.~A., Michie, A.~D., Jones, S., Jones, D.~T., Swindells, M.~B., and Thornton, J.~M.
+\newblock Cath--a hierarchic classification of protein domain structures.
+\newblock \emph{Structure}, 5\penalty0 (8):\penalty0 1093--1109, 1997.
+
+\bibitem[Ouyang et~al.(2022)Ouyang, Wu, Jiang, Almeida, Wainwright, Mishkin, Zhang, Agarwal, Slama, Ray, et~al.]{ouyang2022instructgpt}
+Ouyang, L., Wu, J., Jiang, X., Almeida, D., Wainwright, C., Mishkin, P., Zhang, C., Agarwal, S., Slama, K., Ray, A., et~al.
+\newblock Training language models to follow instructions with human feedback.
+\newblock \emph{Advances in Neural Information Processing Systems}, 35:\penalty0 27730--27744, 2022.
+
+\bibitem[Peters et~al.(2018)Peters, Neumann, Iyyer, Gardner, Clark, Lee, and Zettlemoyer]{elmo}
+Peters, M.~E., Neumann, M., Iyyer, M., Gardner, M., Clark, C., Lee, K., and Zettlemoyer, L.
+\newblock Deep contextualized word representations.
+\newblock In \emph{Proceedings of the 2018 Conference of the North {A}merican Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long Papers)}, pp.\  2227--2237, New Orleans, Louisiana, June 2018. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/N18-1202}.
+\newblock URL \url{https://aclanthology.org/N18-1202}.
+
+\bibitem[Qian et~al.(2021{\natexlab{a}})Qian, Zhou, Bao, Wang, Qiu, Zhang, Yu, and Li]{qian2020glancing}
+Qian, L., Zhou, H., Bao, Y., Wang, M., Qiu, L., Zhang, W., Yu, Y., and Li, L.
+\newblock Glancing transformer for non-autoregressive neural machine translation.
+\newblock In \emph{Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 1: Long Papers)}, pp.\  1993--2003, Online, August 2021{\natexlab{a}}. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/2021.acl-long.155}.
+\newblock URL \url{https://aclanthology.org/2021.acl-long.155}.
+
+\bibitem[Qian et~al.(2021{\natexlab{b}})Qian, Zhou, Zheng, Zhu, Lin, Feng, Cheng, Li, Wang, and Zhou]{qian2021volctrans}
+Qian, L., Zhou, Y., Zheng, Z., Zhu, Y., Lin, Z., Feng, J., Cheng, S., Li, L., Wang, M., and Zhou, H.
+\newblock The volctrans glat system: Non-autoregressive translation meets wmt21.
+\newblock \emph{WMT 2021}, pp.\  187, 2021{\natexlab{b}}.
+
+\bibitem[Qian et~al.(2022)Qian, Wang, Liu, and Zhou]{qian2022diff}
+Qian, L., Wang, M., Liu, Y., and Zhou, H.
+\newblock Diff-glat: Diffusion glancing transformer for parallel sequence to sequence learning.
+\newblock \emph{arXiv preprint arXiv:2212.10240}, 2022.
+
+\bibitem[Radford et~al.(2018)Radford, Narasimhan, Salimans, Sutskever, et~al.]{radford2018gpt}
+Radford, A., Narasimhan, K., Salimans, T., Sutskever, I., et~al.
+\newblock Improving language understanding by generative pre-training.
+\newblock 2018.
+
+\bibitem[Radford et~al.(2019)Radford, Wu, Child, Luan, Amodei, Sutskever, et~al.]{gpt2}
+Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., Sutskever, I., et~al.
+\newblock Language models are unsupervised multitask learners.
+\newblock \emph{OpenAI blog}, 1\penalty0 (8):\penalty0 9, 2019.
+
+\bibitem[Rafailov et~al.(2024)Rafailov, Sharma, Mitchell, Manning, Ermon, and Finn]{rafailov2024dpo}
+Rafailov, R., Sharma, A., Mitchell, E., Manning, C.~D., Ermon, S., and Finn, C.
+\newblock Direct preference optimization: Your language model is secretly a reward model.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36, 2024.
+
+\bibitem[Rao et~al.(2019)Rao, Bhattacharya, Thomas, Duan, Chen, Canny, Abbeel, and Song]{rao2019evaluating}
+Rao, R., Bhattacharya, N., Thomas, N., Duan, Y., Chen, P., Canny, J., Abbeel, P., and Song, Y.
+\newblock Evaluating protein transfer learning with tape.
+\newblock \emph{Advances in neural information processing systems}, 32, 2019.
+
+\bibitem[Rao et~al.(2021)Rao, Liu, Verkuil, Meier, Canny, Abbeel, Sercu, and Rives]{rao2021msa_trans}
+Rao, R.~M., Liu, J., Verkuil, R., Meier, J., Canny, J., Abbeel, P., Sercu, T., and Rives, A.
+\newblock Msa transformer.
+\newblock In \emph{International Conference on Machine Learning}, pp.\  8844--8856. PMLR, 2021.
+
+\bibitem[Rives et~al.(2019)Rives, Meier, Sercu, Goyal, Lin, Liu, Guo, Ott, Zitnick, Ma, and Fergus]{rives2019esm}
+Rives, A., Meier, J., Sercu, T., Goyal, S., Lin, Z., Liu, J., Guo, D., Ott, M., Zitnick, C.~L., Ma, J., and Fergus, R.
+\newblock Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences.
+\newblock \emph{PNAS}, 2019.
+\newblock \doi{10.1101/622803}.
+\newblock URL \url{https://www.biorxiv.org/content/10.1101/622803v4}.
+
+\bibitem[Rombach et~al.(2021)Rombach, Blattmann, Lorenz, Esser, and Ommer]{rombach2021highresolution}
+Rombach, R., Blattmann, A., Lorenz, D., Esser, P., and Ommer, B.
+\newblock High-resolution image synthesis with latent diffusion models, 2021.
+
+\bibitem[Sanh et~al.(2022)Sanh, Webson, Raffel, Bach, Sutawika, Alyafeai, Chaffin, Stiegler, Le~Scao, Raja, et~al.]{t0}
+Sanh, V., Webson, A., Raffel, C., Bach, S.~H., Sutawika, L., Alyafeai, Z., Chaffin, A., Stiegler, A., Le~Scao, T., Raja, A., et~al.
+\newblock Multitask prompted training enables zero-shot task generalization.
+\newblock In \emph{ICLR 2022-Tenth International Conference on Learning Representations}, 2022.
+
+\bibitem[Savinov et~al.(2021)Savinov, Chung, Binkowski, Elsen, and van~den Oord]{savinov2021step}
+Savinov, N., Chung, J., Binkowski, M., Elsen, E., and van~den Oord, A.
+\newblock Step-unrolled denoising autoencoders for text generation.
+\newblock In \emph{International Conference on Learning Representations}, 2021.
+
+\bibitem[Sohl-Dickstein et~al.(2015)Sohl-Dickstein, Weiss, Maheswaranathan, and Ganguli]{sohl2015diffusion}
+Sohl-Dickstein, J., Weiss, E., Maheswaranathan, N., and Ganguli, S.
+\newblock Deep unsupervised learning using nonequilibrium thermodynamics.
+\newblock In Bach, F. and Blei, D. (eds.), \emph{International Conference on Machine Learning}, volume~37 of \emph{Proceedings of Machine Learning Research}, pp.\  2256--2265, Lille, France, 07--09 Jul 2015. PMLR, PMLR.
+\newblock URL \url{https://proceedings.mlr.press/v37/sohl-dickstein15.html}.
+
+\bibitem[Song \& Ermon(2019)Song and Ermon]{song2019score}
+Song, Y. and Ermon, S.
+\newblock Generative modeling by estimating gradients of the data distribution.
+\newblock \emph{Advances in Neural Information Processing Systems}, 32, 2019.
+
+\bibitem[Song et~al.(2020)Song, Sohl-Dickstein, Kingma, Kumar, Ermon, and Poole]{song2020sde}
+Song, Y., Sohl-Dickstein, J., Kingma, D.~P., Kumar, A., Ermon, S., and Poole, B.
+\newblock Score-based generative modeling through stochastic differential equations.
+\newblock In \emph{International Conference on Learning Representations}, 2020.
+
+\bibitem[Strodthoff et~al.(2020)Strodthoff, Wagner, Wenzel, and Samek]{strodthoff2020udsmprot}
+Strodthoff, N., Wagner, P., Wenzel, M., and Samek, W.
+\newblock Udsmprot: universal deep sequence models for protein classification.
+\newblock \emph{Bioinformatics}, 36\penalty0 (8):\penalty0 2401--2409, 2020.
+
+\bibitem[Sturmfels et~al.(2020)Sturmfels, Vig, Madani, and Rajani]{sturmfels2020profile}
+Sturmfels, P., Vig, J., Madani, A., and Rajani, N.~F.
+\newblock Profile prediction: An alignment-based pre-training task for protein sequence models.
+\newblock \emph{arXiv preprint arXiv:2012.00195}, 2020.
+
+\bibitem[Su et~al.(2021)Su, Lu, Pan, Murtadha, Wen, and Liu]{su2021rope}
+Su, J., Lu, Y., Pan, S., Murtadha, A., Wen, B., and Liu, Y.
+\newblock Roformer: Enhanced transformer with rotary position embedding.
+\newblock \emph{arXiv preprint arXiv:2104.09864}, 2021.
+
+\bibitem[Su et~al.(2023)Su, Han, Zhou, Shan, Zhou, and Yuan]{su2023saprot}
+Su, J., Han, C., Zhou, Y., Shan, J., Zhou, X., and Yuan, F.
+\newblock Saprot: Protein language modeling with structure-aware vocabulary.
+\newblock \emph{bioRxiv}, pp.\  2023--10, 2023.
+
+\bibitem[Sun \& Qiu(2023)Sun and Qiu]{moss}
+Sun, T. and Qiu, X.
+\newblock Moss.
+\newblock \url{https://github.com/OpenLMLab/MOSS}, 2023.
+
+\bibitem[Sutskever et~al.(2014)Sutskever, Vinyals, and Le]{sutskever2014sequence}
+Sutskever, I., Vinyals, O., and Le, Q.~V.
+\newblock Sequence to sequence learning with neural networks.
+\newblock In Ghahramani, Z., Welling, M., Cortes, C., Lawrence, N.~D., and Weinberger, K.~Q. (eds.), \emph{Advances in Neural Information Processing Systems 27: Annual Conference on Neural Information Processing Systems 2014, December 8-13 2014, Montreal, Quebec, Canada}, volume~27, pp.\  3104--3112, 2014.
+
+\bibitem[Suzek et~al.(2015)Suzek, Wang, Huang, McGarvey, Wu, and Consortium]{suzek2015uniref}
+Suzek, B.~E., Wang, Y., Huang, H., McGarvey, P.~B., Wu, C.~H., and Consortium, U.
+\newblock Uniref clusters: a comprehensive and scalable alternative for improving sequence similarity searches.
+\newblock \emph{Bioinformatics}, 31\penalty0 (6):\penalty0 926--932, 2015.
+
+\bibitem[Taori et~al.(2023)Taori, Gulrajani, Zhang, Dubois, Li, Guestrin, Liang, and Hashimoto]{alpaca}
+Taori, R., Gulrajani, I., Zhang, T., Dubois, Y., Li, X., Guestrin, C., Liang, P., and Hashimoto, T.~B.
+\newblock Stanford alpaca: An instruction-following llama model.
+\newblock \url{https://github.com/tatsu-lab/stanford_alpaca}, 2023.
+
+\bibitem[Touvron et~al.(2023{\natexlab{a}})Touvron, Lavril, Izacard, Martinet, Lachaux, Lacroix, Rozière, Goyal, Hambro, Azhar, Rodriguez, Joulin, Grave, and Lample]{touvron2023llama}
+Touvron, H., Lavril, T., Izacard, G., Martinet, X., Lachaux, M.-A., Lacroix, T., Rozière, B., Goyal, N., Hambro, E., Azhar, F., Rodriguez, A., Joulin, A., Grave, E., and Lample, G.
+\newblock Llama: Open and efficient foundation language models, 2023{\natexlab{a}}.
+
+\bibitem[Touvron et~al.(2023{\natexlab{b}})Touvron, Martin, Stone, Albert, Almahairi, Babaei, Bashlykov, Batra, Bhargava, Bhosale, et~al.]{touvron2023llama2}
+Touvron, H., Martin, L., Stone, K., Albert, P., Almahairi, A., Babaei, Y., Bashlykov, N., Batra, S., Bhargava, P., Bhosale, S., et~al.
+\newblock Llama 2: Open foundation and fine-tuned chat models.
+\newblock \emph{arXiv preprint arXiv:2307.09288}, 2023{\natexlab{b}}.
+
+\bibitem[Trippe et~al.(2022)Trippe, Yim, Tischer, Baker, Broderick, Barzilay, and Jaakkola]{trippe2022diffusion}
+Trippe, B.~L., Yim, J., Tischer, D., Baker, D., Broderick, T., Barzilay, R., and Jaakkola, T.
+\newblock Diffusion probabilistic modeling of protein backbones in 3d for the motif-scaffolding problem.
+\newblock \emph{arXiv preprint arXiv:2206.04119}, 2022.
+
+\bibitem[Unsal et~al.(2022)Unsal, Atas, Albayrak, Turhan, Acar, and Do{\u{g}}an]{unsal2022learning}
+Unsal, S., Atas, H., Albayrak, M., Turhan, K., Acar, A.~C., and Do{\u{g}}an, T.
+\newblock Learning functional properties of proteins with language models.
+\newblock \emph{Nature Machine Intelligence}, 4\penalty0 (3):\penalty0 227--245, 2022.
+
+\bibitem[van Kempen et~al.(2023)van Kempen, Kim, Tumescheit, Mirdita, Lee, Gilchrist, S{\"o}ding, and Steinegger]{van2023foldseek}
+van Kempen, M., Kim, S.~S., Tumescheit, C., Mirdita, M., Lee, J., Gilchrist, C.~L., S{\"o}ding, J., and Steinegger, M.
+\newblock Fast and accurate protein structure search with foldseek.
+\newblock \emph{Nature Biotechnology}, pp.\  1--4, 2023.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin]{vaswani2017attention}
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.~N., Kaiser, L., and Polosukhin, I.
+\newblock Attention is all you need.
+\newblock In Guyon, I., von Luxburg, U., Bengio, S., Wallach, H.~M., Fergus, R., Vishwanathan, S. V.~N., and Garnett, R. (eds.), \emph{Advances in Neural Information Processing Systems 30: Annual Conference on Neural Information Processing Systems 2017, December 4-9, 2017, Long Beach, CA, {USA}}, volume~30, pp.\  5998--6008, 2017.
+
+\bibitem[Verkuil et~al.(2022)Verkuil, Kabeli, Du, Wicky, Milles, Dauparas, Baker, Ovchinnikov, Sercu, and Rives]{verkuil2022language}
+Verkuil, R., Kabeli, O., Du, Y., Wicky, B.~I., Milles, L.~F., Dauparas, J., Baker, D., Ovchinnikov, S., Sercu, T., and Rives, A.
+\newblock Language models generalize beyond natural proteins.
+\newblock \emph{bioRxiv}, pp.\  2022--12, 2022.
+
+\bibitem[Vignac et~al.(2022)Vignac, Krawczuk, Siraudin, Wang, Cevher, and Frossard]{vignac2022digress}
+Vignac, C., Krawczuk, I., Siraudin, A., Wang, B., Cevher, V., and Frossard, P.
+\newblock Digress: Discrete denoising diffusion for graph generation.
+\newblock In \emph{The Eleventh International Conference on Learning Representations}, 2022.
+
+\bibitem[Vincent et~al.(2010)Vincent, Larochelle, Lajoie, Bengio, Manzagol, and Bottou]{vincent2010stacked}
+Vincent, P., Larochelle, H., Lajoie, I., Bengio, Y., Manzagol, P.-A., and Bottou, L.
+\newblock Stacked denoising autoencoders: Learning useful representations in a deep network with a local denoising criterion.
+\newblock \emph{Journal of machine learning research}, 11\penalty0 (12), 2010.
+
+\bibitem[Wang \& Cho(2019)Wang and Cho]{wang2019bert}
+Wang, A. and Cho, K.
+\newblock {BERT} has a mouth, and it must speak: {BERT} as a {M}arkov random field language model.
+\newblock In \emph{Proceedings of the Workshop on Methods for Optimizing and Evaluating Neural Language Generation}, pp.\  30--36, Minneapolis, Minnesota, June 2019. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/W19-2304}.
+\newblock URL \url{https://www.aclweb.org/anthology/W19-2304}.
+
+\bibitem[Wang et~al.(2022)Wang, He, Chen, Chen, and Jiang]{wang2022xlm}
+Wang, Y., He, S., Chen, G., Chen, Y., and Jiang, D.
+\newblock Xlm-d: Decorate cross-lingual pre-training model as non-autoregressive neural machine translation.
+\newblock In \emph{Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing}, pp.\  6934--6946, 2022.
+
+\bibitem[Watson et~al.(2023)Watson, Juergens, Bennett, Trippe, Yim, Eisenach, Ahern, Borst, Ragotte, Milles, et~al.]{watson2023RFdiffusion}
+Watson, J.~L., Juergens, D., Bennett, N.~R., Trippe, B.~L., Yim, J., Eisenach, H.~E., Ahern, W., Borst, A.~J., Ragotte, R.~J., Milles, L.~F., et~al.
+\newblock De novo design of protein structure and function with rfdiffusion.
+\newblock \emph{Nature}, 620\penalty0 (7976):\penalty0 1089--1100, 2023.
+
+\bibitem[Wei et~al.(2021)Wei, Bosma, Zhao, Guu, Yu, Lester, Du, Dai, and Le]{wei2021flanv1}
+Wei, J., Bosma, M., Zhao, V., Guu, K., Yu, A.~W., Lester, B., Du, N., Dai, A.~M., and Le, Q.~V.
+\newblock Finetuned language models are zero-shot learners.
+\newblock In \emph{International Conference on Learning Representations}, 2021.
+
+\bibitem[Wei et~al.(2022{\natexlab{a}})Wei, Tay, Bommasani, Raffel, Zoph, Borgeaud, Yogatama, Bosma, Zhou, Metzler, et~al.]{wei2022emergent}
+Wei, J., Tay, Y., Bommasani, R., Raffel, C., Zoph, B., Borgeaud, S., Yogatama, D., Bosma, M., Zhou, D., Metzler, D., et~al.
+\newblock Emergent abilities of large language models.
+\newblock \emph{Transactions on Machine Learning Research}, 2022{\natexlab{a}}.
+
+\bibitem[Wei et~al.(2022{\natexlab{b}})Wei, Wang, Schuurmans, Bosma, Xia, Chi, Le, Zhou, et~al.]{wei2022CoT}
+Wei, J., Wang, X., Schuurmans, D., Bosma, M., Xia, F., Chi, E.~H., Le, Q.~V., Zhou, D., et~al.
+\newblock Chain-of-thought prompting elicits reasoning in large language models.
+\newblock In \emph{Advances in Neural Information Processing Systems}, volume~35, pp.\  24824--24837, 2022{\natexlab{b}}.
+
+\bibitem[Wettig et~al.(2023)Wettig, Gao, Zhong, and Chen]{wettig2023should}
+Wettig, A., Gao, T., Zhong, Z., and Chen, D.
+\newblock Should you mask 15\% in masked language modeling?
+\newblock In \emph{Proceedings of the 17th Conference of the European Chapter of the Association for Computational Linguistics}, pp.\  2985--3000, 2023.
+
+\bibitem[Wu et~al.(2022{\natexlab{a}})Wu, Yang, Berg, Zou, Lu, and Amini]{wu2022protein}
+Wu, K.~E., Yang, K.~K., Berg, R. v.~d., Zou, J.~Y., Lu, A.~X., and Amini, A.~P.
+\newblock Protein structure generation via folding diffusion.
+\newblock \emph{arXiv preprint arXiv:2209.15611}, 2022{\natexlab{a}}.
+
+\bibitem[Wu et~al.(2022{\natexlab{b}})Wu, Ding, Wang, Shen, Zhang, Luo, Su, Wu, Xie, Berger, et~al.]{wu2022high}
+Wu, R., Ding, F., Wang, R., Shen, R., Zhang, X., Luo, S., Su, C., Wu, Z., Xie, Q., Berger, B., et~al.
+\newblock High-resolution de novo structure prediction from primary sequence.
+\newblock \emph{BioRxiv}, pp.\  2022--07, 2022{\natexlab{b}}.
+
+\bibitem[Wu et~al.(2023)Wu, Fan, Liu, Gong, Shen, Jiao, Zheng, Li, Wei, Guo, et~al.]{wu2023ar}
+Wu, T., Fan, Z., Liu, X., Gong, Y., Shen, Y., Jiao, J., Zheng, H.-T., Li, J., Wei, Z., Guo, J., et~al.
+\newblock Ar-diffusion: Auto-regressive diffusion model for text generation.
+\newblock \emph{arXiv preprint arXiv:2305.09515}, 2023.
+
+\bibitem[Xiao et~al.(2021)Xiao, Qiu, Li, Hsieh, and Tang]{xiao2021modeling}
+Xiao, Y., Qiu, J., Li, Z., Hsieh, C.-Y., and Tang, J.
+\newblock Modeling protein using large-scale pretrain language model.
+\newblock \emph{arXiv preprint arXiv:2108.07435}, 2021.
+
+\bibitem[Xu et~al.(2022)Xu, Zhang, Lu, Zhu, Zhang, Chang, Liu, and Tang]{xu2022peer}
+Xu, M., Zhang, Z., Lu, J., Zhu, Z., Zhang, Y., Chang, M., Liu, R., and Tang, J.
+\newblock Peer: a comprehensive and multi-task benchmark for protein sequence understanding.
+\newblock \emph{Advances in Neural Information Processing Systems}, 35:\penalty0 35156--35173, 2022.
+
+\bibitem[Yang et~al.(2019)Yang, Wu, and Arnold]{yang2019machine}
+Yang, K.~K., Wu, Z., and Arnold, F.~H.
+\newblock Machine-learning-guided directed evolution for protein engineering.
+\newblock \emph{Nature methods}, 16\penalty0 (8):\penalty0 687--694, 2019.
+
+\bibitem[Yang et~al.(2022{\natexlab{a}})Yang, Lu, and Fusi]{yang2022convolutions}
+Yang, K.~K., Lu, A.~X., and Fusi, N.
+\newblock Convolutions are competitive with transformers for protein sequence pretraining.
+\newblock \emph{bioRxiv}, pp.\  2022--05, 2022{\natexlab{a}}.
+
+\bibitem[Yang et~al.(2022{\natexlab{b}})Yang, Zanichelli, and Yeh]{yang2022masked}
+Yang, K.~K., Zanichelli, N., and Yeh, H.
+\newblock Masked inverse folding with sequence transfer for protein representation learning.
+\newblock \emph{bioRxiv}, pp.\  2022--05, 2022{\natexlab{b}}.
+
+\bibitem[Ye et~al.(2023{\natexlab{a}})Ye, Zheng, Bao, Qian, and Gu]{ye2023diffusion}
+Ye, J., Zheng, Z., Bao, Y., Qian, L., and Gu, Q.
+\newblock Diffusion language models can perform many tasks with scaling and instruction-finetuning.
+\newblock \emph{arXiv preprint arXiv:2308.12219}, 2023{\natexlab{a}}.
+
+\bibitem[Ye et~al.(2023{\natexlab{b}})Ye, Zheng, Bao, Qian, and Wang]{ye2023dinoiser}
+Ye, J., Zheng, Z., Bao, Y., Qian, L., and Wang, M.
+\newblock Dinoiser: Diffused conditional sequence learning by manipulating noises.
+\newblock \emph{arXiv preprint arXiv:2302.10025}, 2023{\natexlab{b}}.
+
+\bibitem[Yi et~al.(2023)Yi, Zhou, Shen, Lio, and Wang]{yi2023gradeif}
+Yi, K., Zhou, B., Shen, Y., Lio, P., and Wang, Y.~G.
+\newblock Graph denoising diffusion for inverse protein folding.
+\newblock In \emph{Thirty-seventh Conference on Neural Information Processing Systems}, 2023.
+\newblock URL \url{https://openreview.net/forum?id=u4YXKKG5dX}.
+
+\bibitem[Yim et~al.(2023)Yim, Trippe, De~Bortoli, Mathieu, Doucet, Barzilay, and Jaakkola]{yim2023framediff}
+Yim, J., Trippe, B.~L., De~Bortoli, V., Mathieu, E., Doucet, A., Barzilay, R., and Jaakkola, T.
+\newblock Se (3) diffusion model with application to protein backbone generation.
+\newblock \emph{arXiv preprint arXiv:2302.02277}, 2023.
+
+\bibitem[Yuan et~al.(2022)Yuan, Yuan, Tan, Huang, and Huang]{yuan2022seqdiffuseq}
+Yuan, H., Yuan, Z., Tan, C., Huang, F., and Huang, S.
+\newblock Seqdiffuseq: Text diffusion with encoder-decoder transformers.
+\newblock \emph{arXiv preprint arXiv:2212.10325}, 2022.
+
+\bibitem[Zeng et~al.(2022)Zeng, Liu, Du, Wang, Lai, Ding, Yang, Xu, Zheng, Xia, et~al.]{zeng2022glm}
+Zeng, A., Liu, X., Du, Z., Wang, Z., Lai, H., Ding, M., Yang, Z., Xu, Y., Zheng, W., Xia, X., et~al.
+\newblock Glm-130b: An open bilingual pre-trained model.
+\newblock \emph{arXiv preprint arXiv:2210.02414}, 2022.
+
+\bibitem[Zheng et~al.(2023{\natexlab{a}})Zheng, Yuan, Yu, and Kong]{zheng2023reparameterized}
+Zheng, L., Yuan, J., Yu, L., and Kong, L.
+\newblock A reparameterized discrete diffusion model for text generation.
+\newblock \emph{arXiv preprint arXiv:2302.05737}, 2023{\natexlab{a}}.
+
+\bibitem[Zheng et~al.(2023{\natexlab{b}})Zheng, Deng, Xue, Zhou, YE, and Gu]{zheng2023structure}
+Zheng, Z., Deng, Y., Xue, D., Zhou, Y., YE, F., and Gu, Q.
+\newblock Structure-informed language models are protein designers.
+\newblock In \emph{International Conference on Machine Learning}, 2023{\natexlab{b}}.
+
+\end{thebibliography}

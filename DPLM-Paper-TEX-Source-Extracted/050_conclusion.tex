@@ -1,0 +1,29 @@
+\section{Discussions}
+\label{sec:conclusion}
+
+In this paper, we introduce diffusion protein LM (\method), a versatile protein LM that is capable of both protein sequence generation and representation learning. 
+We further develop several conditioning strategies for various needs of conditional generation, including sequence conditioning, cross-modal conditioning, and programmable generation with plug-and-play discrete classifier guidance.
+
+Despite these promising results, there remain several limitations and future work directions deserving to be explored. 
+
+
+\begin{compactitem}
+
+\item[(i)] \textit{Exploring \method's conditional generation for wider applications.}
+We can further extend the cross-modal conditioning strategy of \method to more diverse modalities as conditioners, including MSA-conditioned homologous sequence generation, small molecule-conditioned binder design for ligands, antigen-conditioned antibody CDR design, among others. 
+Also, the inclusion of demonstrations featuring plug-and-play classifier-guided controllable generation is essential for more scenarios toward diverse user preferences, \eg, structural symmetry, superfamily, binding affinity, thermostability, fluorescence, and beyond.
+
+ 
+\item[(ii)] \textit{\method can further benefit from best practices of cutting-edge technical advancement in the vastness of large language models (LLMs).}
+For example, \textbf{(1)} long context extension~\citep{chen2023extending} can rapidly adapt \method to handle very long proteins beyond its training length limit, and offering potential for modeling exceptionally long biological sequences such as DNAs and RNAs, unifying and deciphering the languages associated with the central dogma of life; 
+\textbf{(2)} fine-tuning \method with human feedback or even wet-lab experimental feedback, leveraging reinforcement learning~\citep[RL;][]{ouyang2022instructgpt}, direct preference optimization~\citep[DPO;][]{rafailov2024dpo}, and self-play fine-tuning~\citep{chen2024spin};
+\textbf{(3)} eliciting instruction-following and in-context learning~\citep{wei2022emergent} analogs for protein LMs can also be a promising direction would fully harness \method's learned knowledge.
+
+\item[(iii)] \textit{It is imperative to integrate protein structure modeling into \method.}
+The advance of protein structure modeling manifest tremendous success, including AlphaFold~\citep{jumper2021AF2}, ESMFold~\citep{lin2022esmfold} for structure prediction, RFDIffusion~\citep{watson2023RFdiffusion}, Chroma~\citep{ingraham2023chroma} for structure design, and even full-atom molecular modeling, \eg, the latest generation of AlphaFold~\citep{deepmind2023AF3} and RF-AA~\citep{krishna2023RFAA}. 
+Developing a universal protein language model with the next-generation \method, which accounts for both sequence and structure, is a particularly promising avenue.
+
+\end{compactitem}
+
+
+We leave these exciting directions as future work.

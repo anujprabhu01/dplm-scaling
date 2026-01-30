@@ -1,0 +1,207 @@
+\vspace{-7mm}
+% \clearpage
+\section{Introduction}
+\label{sec:intro}
+
+Proteins, which are 3D-folded linear sequences of amino acids, play a pivotal role in regulating various biological functions, including transcription, translation, signaling, and the control of the cell cycle.
+Recently, the promise of learning to understand and design proteins via data-driven generative deep learning has initiated a significant paradigm shift apart from the long-established physics-based methods.
+
+%Language models (LMs) trained on large-scale sequence data have shown extraordinary performance and led to a significant paradigm shift in natural language processing (NLP), boosting machines in understanding human languages~\citep{devlin2019bert,radford2018gpt,brown2020gpt3}. 
+The analogies between protein sequences and human languages have long been recognized~\cite{yang2019machine,ferruz2022controllable}.
+Drawing inspiration from the remarkable progress in NLP achieved by language models~\citep[LMs;][]{devlin2019bert,radford2018gpt,openai2023gpt4} thanks to the \textit{scalability} of Transformers~\citep{vaswani2017attention} and the existence of large-scale text data, recent explorations in protein has also demonstrated the impressive capabilities of protein language models~\citep{rives2019esm,lin2022esmfold,hu2022exploring}, learned from the universe of evolutionary-scale protein sequences.
+As a result, protein LMs have become one of the most important cornerstones in AI for protein research, serving a pivotal role not only in predictive tasks (\eg, probing functional properties, and predicting protein structures from single sequences without explicit evolutionary homologs) but also in generative tasks (\eg, redesigning sequences given protein backbone structures, or synthesizing completely new protein sequences). 
+% This great success comes from the combination of the powerful modeling ability of LMs and the existence of evolutionary-scale protein sequence data.
+
+
+\begin{figure*}[t]
+    \vspace{-1.5mm}
+    \centering
+    \includegraphics[width=0.96\linewidth]{figures/main.pdf}
+    \vspace{-4mm}
+    \caption{{\sl Overall illustration of \method.}
+    \textbf{(A)}: modeling, pre-training and unconditional generation; 
+    \textbf{(B)}: protein sequence representation for predictive tasks; 
+    \textbf{(C)}: conditional generation, including \textbf{(1)} sequence conditioning (\eg, motif-scaffolding), \textbf{(2)} cross-modal conditioning (\eg, inverse folding), and \textbf{(3)} plug-and-play controllable generation with discrete classifier guidance (\eg, secondary structure).}
+    \label{fig:main}
+    \vspace{-2mm}
+\end{figure*}
+
+
+% limitation of current language models and call for a versatile LM
+While current protein LMs have made significant strides, they have not yet reached their fullest potential.
+One of the fundamental problems is rooted in the widely-used pretraining objectives, \ie, masked prediction \vs autoregression:
+% Specifically,
+% resulting in distinct separation between LMs serving for different purposes. 
+\begin{compactitem}
+    \item[(i)] For masked prediction, masked language models \citep[{\MLM}s, \eg, ESM family;][]{rives2019esm,lin2022esmfold} excel in sequence understanding for protein predictive tasks, thanks to their \textit{bi-directional receptive field}. 
+    However, {\MLM}s are unable to perform protein sequence generation, due to the lack of a well-defined formulation for generative modeling. 
+    We further postulate that this could even cap their predictive power, since a powerful generative model that can \textit{create} new samples by learning the underlying data distribution, is expected to simultaneously acquire a deep \textit{understanding} of the data.
+    As a famous quote, ``\textit{what you cannot create, you do not understand}.''
+    
+    \item[(ii)] For autoregression, autoregressive language models~\citep[{\ARLM}s, \eg, ProGen;][]{nijkamp2022progen2}, albeit good at generation, often fall short in understanding sequence data~\citep{radford2018gpt} including proteins~\citep{elnaggar2021prottrans}. 
+    %\zzx{check correctness of citations}
+    More importantly, proteins are structural macromolecules rather than simple linear strings. 
+    Consequently, while effective as an inductive bias for text, {\ARLM}s are constrained by their uni-directional receptive field, only accessing one-sided sequence context. 
+    This limitation stems from capturing the complex global interactions of amino acids, thereby hindering both generative and predictive capabilities of protein LMs.
+\end{compactitem}
+%This leads to \textit{a lack of a unified, general-purpose model that effectively shares and combines predictive and generative capabilities.}
+%Therefore, the pursuit of a unified and versatile protein language model is essential to advance protein research, blending both generative and predictive strengths seamlessly.
+This highlights the demand for a general-purpose and versatile protein LM that combines predictive and generative capabilities.
+Provided the aforementioned analysis, we reason that, \textit{the key ingredients} for such a versatile protein LM lie in (1) \textit{strong \& scalable generative modeling framework} to best digest the universe of massive protein sequences; and (2) \textit{bi-directional receptive field} for better modeling residue-wise global interactions. 
+
+\vspace{1pt}
+On the other hand, diffusion models~\citep{ho2020ddpm,song2020sde} have shown great success in generating \textit{continuous} data, especially in rendering photorealistic images~\citep[][\textit{inter alia}]{rombach2021highresolution}.
+They have further manifested incredible achievement in modeling protein structures~\citep{yim2023framediff,watson2023RFdiffusion,ingraham2023chroma}.
+This can be attributed to their favorable properties of non-autoregressive denoising generation with iterative refinement and global receptive field.
+Besides, denoising autoencoding has a long history for representation learning~\citep[][\textit{inter alia}]{vincent2010stacked}, while recent studies have verified that diffusion-based generative models can be effective self-supervised learners~\citep{chen2024deconstructing}.
+These make diffusion models an appealing generative foundation for protein language modeling. 
+However, directly applying conventional Gaussian diffusion to protein sequences necessitates additional continuous relaxations~\citep{lisanza2023joint}, which does not fit the \textit{discrete} nature of protein sequence and has not yet proven successful in practice.
+%As such, how to blend diffusion models and language models for generative protein sequence learning remains elusive and under-explored.
+
+
+% why diffusion LMs?
+% 1. generative pretraining: allow generation, and the promise of representation learner
+% 2. diffusion or AR for proteins: diffusion as a probabilistic model best fits protein data structure, vs AR.
+% We may want to ask: \textit{what are the key ingredients if we want to approach such a unified and versatile LM for proteins?} 
+% We answer this question from two perspectives.
+% Since generative models can \textit{create} new samples by approximating the underlying data distribution, we posit that it should be reasonable to expect that such generative modeling should simultaneously lead to a deep \textit{understanding} of the data itself. 
+% On the other hand, since proteins are macromolecules that exist as 3D spatial structures rather than simple linear strings. 
+% Autoregressive sequence modeling, despite its effectiveness as an inductive bias for natural languages, is limited by its ability to only consider one-directional sequence context. 
+% This limitation might be detrimental to capturing and harnessing the complex spatial structures of proteins, where both local and global contexts are pivotal, hindering both generative and predictive capabilities of protein sequences.
+
+
+In this paper, %by combining the best of both worlds, \eg, scalable expressiveness of language models and strong generative power of diffusion models, 
+we present {\ul{\textbf{d}}iffusion \ul{\textbf{p}}rotein \ul{\textbf{l}}anguage \ul{\textbf{m}}odel} (\method), a novel approach aimed at achieving a unified and versatile protein LM through diffusion generative pre-training on evolutionary-scale protein sequences. 
+\method is grounded in a discrete diffusion probabilistic framework, serving as a principled generative generalization of language modeling.
+During pre-training, \method is tasked with denoising the input protein sequence at different noise levels, ranging from completely noisy to clean ones, enforcing \method to best the model complex intrinsic dependencies of amino acid sequences.
+% (\ie, iteratively denoising from completely noisy state to noise-free prediction). 
+After pre-training, \method can be used for protein sequence generation and providing effective representations for downstream predictive tasks.
+We highlight our contributions as follows:
+\begin{compactitem}
+    \item We propose \method, a versatile protein LM under discrete diffusion framework, with model size up to 3B, pre-trained on evolutionary-scale protein sequences. 
+    We further develop multiple conditioning strategies covering various use needs, especially discrete classifier guidance for controllable generation.
+    As a result, \method combines the best of both worlds, \ie, the scalable expressiveness of language models and the strong generative power of diffusion models, serving as a versatile biological foundation model
+    (\Figref{fig:main}, \Secref{sec:method}).
+    
+    \item We show that \method is capable of generating highly structurally plausible (\ie, averaged \metric{pLDDT}~$>80$), novel and diverse for unconditional protein sequence generation, suggesting that \method well captures the universe of protein sequence data (\Figref{fig:main}A, \Secref{sec:uncond}). 
+
+    \item We demonstrate that \method \textit{understands} protein better, serving as a superior representation learner, which can be fine-tuned for various downstream tasks, comparing favorably with widely-used protein sequence encoder models, \eg, ESM-2~\citep{lin2022esmfold} (\Figref{fig:main}B, \Secref{sec:understanding}). 
+    
+    \item \method can be further exploited for conditional generation for a variety of needs:
+    \method can (1) condition on pre-specified partial sequence, \eg, scaffolding for functional motifs with high success rate;
+    (2) incorporate other modalities as conditions, \eg, structure-conditioned generation for inverse folding; 
+    (3) generate protein sequences towards desired properties with plug-and-play classifier-guidance, \eg, steering \method to synthesize proteins that satisfy arbitrary user-defined secondary structure annotations (\Figref{fig:main}C, \Secref{sec:exp_cond}).
+
+
+\end{compactitem}
+
+% We hope \method can serve as a versatile biological foundation model.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% \clearpage
+% \vspace{-3pt}
+% previous work
+% {Designing protein sequences that fold into desired structures, namely structure-based protein (sequence) design, is one of the most important problems in bio-engineering.}
+% Significant progress has been made by several latest deep generative model-based approaches ~\citep{ingraham2019generative,jing2020gvp,hsu2022esmif,dauparas2022proteinmpnn,gao2022pifold}. 
+% These approaches formulate structure-based protein design as an end-to-end graph-to-sequence learning problem, where an encoder-decoder model $\mathcal{M}_{\theta}: \mathcal{X} \to \mathcal{S}$ is tasked with predicting protein sequence $\mathcal{S}$ given a protein backbone structure $\mathcal{X}$.
+% Typically, supervised learning is performed on such models given a certain amount of protein structure-sequence pair data.
+% % Concretely, a desired protein backbone structure $\mathcal{X}$ is first represented as a $k$-nearest-neighbor ($k$-NN) graph in 3D space with geometric features attaching to nodes and edges of the graph. 
+% % A graph neural network-based encoder then takes as input the featurized graph and maps it to structural representations. 
+% % Finally, a sequence decoder, in which autoregressive decomposition is typically applied, consumes the encoded structural representations and accordingly predicts a sequence of amino acids $\mathcal{S}$ that is expected to fold into the target protein structure $\mathcal{X}$.
+
+
+% \begin{figure*}[t]
+%     \vspace{-1.5mm}
+%     \centering
+%     \includegraphics[width=0.995\linewidth]{figures/main.pdf}
+%     \vspace{-4.5mm}
+%     \caption{\emph{Overview.}
+%     \textbf{(A)} Case study of Tyrosine kinase activation loop. 
+%     Ribbon diagram shows the structure of Tyrosine kinase mapped with AlphaFold2 pLDDT score. The activation loop is characterized with low pLDDT scores suggesting flexible conformations;
+%     \textbf{(B)} Multiple sequence alignment of the activation loop showing this sequence is highly evolutionary conserved. 
+%     Predictions from ProteinMPNN and \method are shown;
+%     \textbf{(C)} Preliminary study on refinement ability for \pLMs. Here ESM-1b took as input the predictions of ProteinMPNN;
+%     \textbf{(D)} Illustration of neural structure-based protein sequence design, and \textbf{(E)} protein language models;
+%     \textbf{(F)} Overall illustration of \method, where \textbf{the wonderful colored protein structure image is credited to RFDiffusion}~\citep{watson2022RFfold}.}
+%     \label{fig:main}
+%     \vspace{-5mm}
+% \end{figure*}
+
+
+
+% % problem 
+% % \vspace{-2pt}
+% Albeit deep generative models showing revolutionized capability in this field, we argue that the current neural structure-based protein design approaches are not necessarily at their best in designing more plausible proteins as two major obstacles remain and hinder further progress:
+% \begin{compactenum}
+%     \vspace{-5pt}
+%     \item[(i)] \textbf{Limited experimentally determined protein structure data.}
+%     For example, the known protein structures in the commonly-used CATH~\citep{orengo1997cath} dataset are multiple orders of magnitude smaller ($<0.1\%$) than the sequence data in the UniRef~\citep{suzek2015uniref} sequence database (\textbf{Fig.~\ref{fig:main}D-E}).
+%     % \footnote{The CATH dataset contains only about 20k experimentally-determined protein structures, topologically-clustered from up to 53k structures the protein data bank~\citep[PDB,][]{berman2000protein}. In contrast, sequence data in UniRef sequence database stores over 50 million protein sequences. }.
+%     As structure-based protein design is essentially a conditional sequence learning problem, the protein sequence distribution is crucial yet remains elusive for generally data-hungry generative models due to limited data. 
+%     Therefore, they fail to holistically explore the protein sequence space and tend to yield sub-optimal sequence predictions for folds. 
+%     Despite being partly remedied by data-augmented approach~\citep{hsu2022esmif}, additional predicted structure data and trainable model parameters at scale demand compute and storage overheads.
+
+%     \item[(ii)] \textbf{Challenge of structurally non-deterministic regions.}
+%     From a biological perspective, protein structures are sometimes not sufficiently informative, especially for those flexible regions such as loops and exposed surfaces~\citep{towse2012domain}.
+%     In these regions, residue identities can, hypothetically, be less correlated with the structural context while sequential knowledge is way more useful yet largely neglected.
+%     We verified this hypothesis and found that existing purely structure-based approaches were prone to produce functionally invalid sequences for these regions (\textbf{Fig.~\ref{fig:main}A-B}).
+%     \vspace{-3pt}
+% \end{compactenum}
+% Therefore, the sequential information should be better utilized for structure-based protein design. %an urgent appeal for better treatments of sequence learning should be made for structure-based protein design.
+
+% Inspired by the impressive progress of large language models (LLMs) in natural language processing (NLP)~\citep{devlin2019bert,radford2018gpt,brown2020gpt3}, recent literature in protein research has also demonstrated the emergent evolutionary knowledge of proteins in protein language models~\citep[\pLMs,][]{rives2019esm,lin2022esmfold,hu2022exploring}, learned from the universe of massive protein sequence data.
+% Such comprehensive and thorough sequential knowledge of \pLMs can help probe functional properties and even predict protein structures from single sequences without the need for explicit evolutionary homologs (\eg, MSAs).
+% Thus, an exciting research question naturally arises: 
+% \begin{quote}
+% \vspace{-6pt}
+%     %Since \pLMs are such strong sequence learners, \emph{what if we can manage to let \pLMs additionally perceive protein structures?} 
+%     Since \pLMs are such strong sequence learners, \emph{can we leverage \pLMs to make better structure-based protein design?}
+% \vspace{-6pt}
+% \end{quote}
+% If so, rather than as protein sequence encoders, \pLMs can possibly be repurposed as sequence generative models (since they are learned to reconstruct corrupted protein sequences), \emph{prompted} by the desired structure to generate sequences, making the most of the acquired sequential evolutionary knowledge.
+% How to best achieve this goal, however, is non-trivial and remains under-explored (we will discuss our preliminary attempts that uses \pLMs for ``post-editing'' to provide insights that motivate our proposal in \S\ref{sec:prelim}), thus deserves to be comprehensively studied.
+
+
+
+
+% In this paper, we show that language models with \textit{structural surgery} are strong protein designers without using abundant training data.
+% We propose \method, a generic approach to reprogramming sequence-based protein language models (\pLMs) to design protein sequences of a desired fold.
+% As shown in \textbf{Fig.~\ref{fig:main}F}, we conduct a \emph{structural surgery} on a \pLM (\eg, ESM-1b), where a lightweight \textit{structural adapter }is implanted to endow \pLMs with structural awareness by access to an \textit{arbitrary} additional structure encoder (\eg, ProteinMPNN).
+% During inference, iterative refinement is performed to optimize the generated protein sequence until convergence when the prediction can no longer be improved.
+
+
+% % our results and findings
+% We highlight our contributions and findings as follows:
+% \begin{compactitem}
+%     \vspace{-3pt}
+%     \item We introduce \method, a generic approach that transforms \pLMs to protein design models via \textit{structural surgery}.
+%     \method yields preferable protein sequences for desired structures, while being model-agnostic, modularizable, parameter- and data-efficient.
+    
+%     \item Experiments show that \method advances the state-of-the-art methods by a large margin, achieving 55.65\% and 56.76\% sequence recovery on CATH 4.2 and CATH 4.3 for single-chain proteins, and $>$60\% for protein complexes. 
+%     \method can be also combined with data augmentation~\citep{hsu2022esmif}, where additional large amounts of predicted protein structures by AlphaFold 2~\citep{jumper2021AF2} are leveraged.
+    
+%     \item In particular, we find that \method can accurately handle structurally non-deterministic regions (\eg, functional loops and exposed surfaces) thanks to the learned sequence knowledge from \pLMs, while previous methods typically fail.  We also find that \method can indeed be structurally sensitive, thereby better determining the nuanced sequential specificity of those protein groups of high structural similarity.
+    
+%     \item We also show that \method can synthesize diverse and structurally valid sequences. We further evaluate zero-shot generalizability of \method in designing proteins of unseen categories, including antibodies and \textit{de novo} proteins, and observe superb performance.
+% \end{compactitem}
+
+% We highlight that the goal of this study to propose \method is not to compete but instead to complement current neural structure-based sequence design models. 
+% We hope that \method can become a powerful, universal, and easy-to-use tool as a ``wrapper'' that helps integrate the advances of both protein sequence learning (\eg, \pLMs) and structure learning (\eg, geometric/graph NNs and protein structure prediction), facilitating future protein research.
+
+

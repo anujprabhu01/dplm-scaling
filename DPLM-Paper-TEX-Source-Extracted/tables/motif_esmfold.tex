@@ -1,0 +1,45 @@
+\begin{table}[t]
+\centering
+\vspace{-1.5mm}
+% \setlength{\tabcolsep}{2.5pt}
+\caption{Motif-scaffolding results evaluated by ESMFold. }
+\label{tab:motif_esmfold}
+\vspace{1.5pt}
+\resizebox{0.9\linewidth}{!}{%
+\begin{tabular}{cccc}
+\toprule
+% \multirow{2}{*}{} & \multicolumn{2}{c}{\textbf{Seq-only}} & \multicolumn{1}{c}{Struct-cond.} \\ 
+% \cmidrule[0.5pt](lr){2-3}  \cmidrule[0.5pt](lr){4}
+%                   & EvoDiff        & DPLM                       & DPLM   \\
+\multirow{2}{*}{} & \multicolumn{2}{c}{{seq-only}} & \multicolumn{1}{c}{{struct-cond.}} \\ 
+\cmidrule[0.5pt](lr){2-3} \cmidrule[0.5pt](lr){4-4} 
+                  & EvoDiff        & DPLM &                   \multicolumn{1}{c}{DPLM}   \\
+\midrule
+1bcf              & 0.38           & \textbf{1.00}         & \textbf{1.00}                                     \\
+1prw              & 0.36           & \textbf{0.75}        & \textbf{0.81}                       \\
+1qjg              & 0.00              & 0.00                     &0.00                                      \\
+1ycr              & 0.03           & \textbf{0.27}         & \textbf{0.48}                       \\
+2kl8              & 0.00              & \textbf{0.01}        & \textbf{0.01}                              \\
+3ixt              & 0.09           & \textbf{0.15}                  &  \textbf{0.37}                      \\
+4jhw              & 0.00              & 0.00                    & 0.00                                      \\
+4zyp              & 0.00              & 0.00
+&  \textbf{0.01}                                 \\
+5ius              & 0.00              & 0.00
+& 0.00                        \\
+5tpn              & 0.00              & 0.00                    & 0.00                                   \\
+5trv              & 0.00              & 0.00                    & 0.00                                   \\
+5wn9              & 0.00              & 0.00
+& 0.00                          \\
+5yui              & 0.05           & \textbf{0.94}        &  \textbf{0.94}                          \\
+6e6r              & 0.03           & \textbf{0.79}        &  \textbf{0.79}                       \\
+6exz              & 0.00              & \textbf{0.01}        &  \textbf{0.01}                                \\
+6vw1              & 0.00           & 0.00                    & 0.00                                   \\
+7mrx              & 0.00              & \textbf{0.54}        &  \textbf{0.54}                       \\ 
+\midrule
+pass rate         & 6/17           & \textbf{9/27}       &  \textbf{10/17}                              \\
+avg. success rate & 0.06           & \textbf{0.26}        &  \textbf{0.29}                               \\ 
+\bottomrule
+\end{tabular}
+}
+\vspace{4mm}
+\end{table}

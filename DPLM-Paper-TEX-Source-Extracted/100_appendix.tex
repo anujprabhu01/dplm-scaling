@@ -1,0 +1,500 @@
+\section{Reparameterizaed Discrete Diffusion Models (RDM)}
+\label{app: rdm}
+\method uses reparameterized discrete diffusion model (RDM) as its discrete diffusion framework~\citep{zheng2023reparameterized}.
+Here we briefly summarize its basic training and sampling. Please refer to~\citet{zheng2023reparameterized} for more details.
+
+\citet{zheng2023reparameterized} shows that the backward transition of discrete diffusion models $q(\bm{x}^{(t-1)}|\bm{x}^{(t)}, \bm{x}^{(0)})$ can be rewritten as 
+\begin{align}
+   & q(\bm{x}^{(t-1)}|\bm{x}^{(t)}, \bm{x}^{(0)}) \nonumber \\
+    &= \begin{cases}
+\lambda_{t-1}^{(1)}\bm{x}^{(t)} + (1-\lambda_{t-1}^{(1)})\bm{q}_{\text{noise}}, & \text{if } \bm{x}^{(t)}=\bm{x}^{(0)} \nonumber \\
+\lambda_{t-1}^{(2)}\bm{x}^{(0)} + (1-\lambda_{t-1}^{(2)})\bm{q}_{\text{noise}}(\bm{x}^{(t)}), 
+ & \text{if } \bm{x}^{(t)} \not=\bm{x}^{(0)}
+\end{cases}
+\label{eqn: backward transition}
+\end{align}
+% \begin{align}
+%    & q(\bm{x}_{t-1}|\bm{x}_t, \bm{x}_0) \nonumber \\
+%     &= \begin{cases}
+% \texttt{Cat}\left(\bm{x}_{t-1};\lambda_{t-1}^{(1)}\bm{x}_t + (1-\lambda_{t-1}^{(1)})\bm{q}_{\text{noise}}\right), \text{if } \bm{x}_t=\bm{x}_0 \nonumber \\
+% \texttt{Cat}\left(\bm{x}_{t-1};\lambda_{t-1}^{(2)}\bm{x}_t + (1-\lambda_{t-1}^{(2)})\bm{q}_{\text{noise}}(\bm{x}_t)\right), \text{if } \bm{x}_t \not=\bm{x}_0
+% \end{cases}
+% \label{eqn: backward transition}
+% \end{align}
+where $\bm{q}_{\text{noise}}(\bm{x}^{(t)}) = \beta_t\bm{x}^{(t)} + (1-\beta_t)\bm{q}_{\text{noise}}$, and both $\lambda_{t-1}^{(1)}$ and $\lambda_{t-1}^{(2)}$ are constants relating to $\beta_t$ and $\beta_{t-1}$. This reformulation interprets the backward transition as a mixture distribution. Sampling from it is equivalent to first sampling from a Bernoulli distribution and then the corresponding component distribution, \ie,
+
+$$
+\begin{aligned}
+v_{t-1}^{(1)}\sim \text{Bernoulli}\left(\lambda_{t-1}^{(1)}\right) , &
+\bm{u}_t^{(1)}\sim \texttt{Cat}\left(\bm{u}; \bm{p}=\bm{q}_{\text{noise}}\right),&\\
+v_{t-1}^{(2)}\sim \text{Bernoulli}\left(\lambda_{t-1}^{(2)}\right) , &
+\bm{u}_t^{(2)}\sim \texttt{Cat}\left(\bm{u}; \bm{p}=\bm{q}_{\text{noise}}(\bm{x}_t) \right),&
+\end{aligned}\\
+$$
+$$
+\bm{x}^{(t-1)}=\left\{
+\begin{aligned}
+v_{t-1}^{(1)}\bm{x}^{(t)} + \left(1-v_{t-1}^{(1)}\right)\bm{u}_t^{(1)},&&\text{if }\bm{x}^{(t)}=\bm{x}^{(0)}\\
+v_{t-1}^{(2)}\bm{x}^{(0)} + \left(1-v_{t-1}^{(2)}\right)\bm{u}_t^{(2)},&&\text{if }\bm{x}^{(t)}\not=\bm{x}^{(0)}
+\end{aligned}
+\right..
+$$
+
+This reparameterizes the transitions $q(\bm{x}^{(t-1)}|\bm{x}^{(t)}, \bm{x}^{(0)})$ and $p_{\theta}(\bm{x}^{(t-1)}|\bm{x}^{(t)})$ into $q(\bm{x}^{(t-1)},\bm{v}^{(t-1)}|\bm{x}^{(t)}, \bm{x}^{(0)})$ and $p_{\theta}(\bm{x}^{(t-1)},\bm{v}^{(t-1)}|\bm{x}^{(t)})$. 
+With this reparameterization, the training objective of diffusion models (\ie, the variational bound of negative log-likelihood) becomes
+\begin{align}
+& -\mathbb{E}_q(\bm{x}_{1:T}, \bm{v}_{1:T}|\bm{x}_0)\left[\log \frac{p_\theta(\bm{x}_0,\bm{x}_{1:T},\bm{v}_{1:T})}{q(\bm{x}_{1:T},\bm{v}_{1:T}|\bm{x}_0)} \right] \nonumber \\
+& =\mathcal{J}_1 + \sum_{t=2}^T \mathcal{J}_t + \text{const.}, \nonumber
+\end{align}
+where $\mathcal{J}_1=-\mathbb{E}_{q(\bm{x}_1|\bm{x}_0)}\left[\log p_\theta(\bm{x}_0|\bm{x}_1)\right]$ and \citet{zheng2023reparameterized} shows that $\mathcal{J}_t$ can be simplified into a weighted cross-entropy loss. 
+Since each token is modeled conditionally independently, so we can consider the backward transition for each token, and sum the losses for them. For i-th position, the backward transition is $q(\bm{x}_i^{(t-1)},\bm{v}_i^{(t-1)}|\bm{x}_i^{(t)}, \bm{x}_i^{(0)})$. As shown in \citet{zheng2023reparameterized} appendix C, the loss at i-th token can be written as 
+\[
+\small
+\begin{aligned}
+   &\mathcal{J}_{t,i} = \mathbb{E}_{q(\bm{v}_i^{(t-1)})} \nonumber \\
+   & \left[ 
+   \text{KL}[
+   q(\bm{x}_i^{(t-1)}|\bm{v}_i^{(t-1)},\bm{x}_i^{(t)}, \bm{x}_i^{(0)})||  
+  p_{\theta}(\bm{x}_i^{(t-1)}|\bm{v}_i^{(t-1)},\bm{x}_i^{(t)})] \right] \nonumber
+\end{aligned}
+\]
+Let $b_i{(t)}=\mathbf{1}_{x_i^{(t)} \neq x_i^{(0)}}$,
+$q(\bm{x}_i^{(t-1)}|\bm{v}_i^{(t-1)},\bm{x}_i^{(t)}, \bm{x}_i^{(0)})$ can be written as:
+\begin{align}
+   & q(\bm{x}_i^{(t-1)}|\bm{v}_i^{(t-1)},\bm{x}_i^{(t)}, \bm{x}_i^{(0)}) \nonumber \\
+    &= \begin{cases}
+v_{t-1,i}^{(1)}\bm{x}_i^{(t)} + (1-v_{t-1,i}^{(1)})\bm{q}_{\text{noise}}  &\text{if } b_i{(t)}=0, \nonumber \\
+v_{t-1,i}^{(2)}\bm{x}_i^{(0)} + (1-v_{t-1,i}^{(2)})\bm{q}_{\text{noise}}  &\text{if } b_i{(t)}=1,
+\end{cases}
+\end{align}
+And $p_{\theta}(\bm{x}_i^{(t-1)}|\bm{v}_i^{(t-1)},\bm{x}_i^{(t)})$ can be written as:
+\begin{align}
+   & p_{\theta}(\bm{x}_i^{(t-1)}|\bm{v}_i^{(t-1)},\bm{x}_i^{(t)}) \nonumber \\
+    &= \begin{cases}
+v_{t-1,i}^{(1)}\bm{x}_i^{(t)} + (1-v_{t-1,i}^{(1)})\bm{q}_{\text{noise}}  &\text{if } b_i{(t)}=0, \nonumber \\
+v_{t-1,i}^{(2)}p_{\theta}(\bm{x}_i^{(0)}|\bm{x}^{(t)}) + (1-v_{t-1,i}^{(2)})\bm{q}_{\text{noise}}  &\text{if } b_i{(t)}=1,
+\end{cases}
+\end{align}
+Therefore, the loss at i-th token can be computed by enumerating all cases with respect to $\bm{v}_i^{(t-1)}$ and $b_i(t)$. 
+As noted in \citet{zheng2023reparameterized}, the KL divergence is equal to $-\log p_{\theta}(x_i^{(0)}|x^{(t)})$ when $v_{t-1,i}^{(2)}=1$ and $b_i(t)=1$, while in other cases the KL divergence is 0. 
+So we have:
+\[
+\small
+\begin{aligned}
+   & \mathcal{J}_t = \sum_{1 \leq i \leq L}\mathcal{J}_{t,i} \nonumber \\
+   &= \sum_{1 \leq i \leq L} \mathbb{E}_{q(\bm{v}_i^{(t-1)})} \bigg[ \\
+   & \text{KL}[q(\bm{x}_i^{(t-1)}|\bm{v}_i^{(t-1)},\bm{x}_i^{(t)}, \bm{x}_i^{(0)})||p_{\theta}(\bm{x}_i^{(t-1)}|\bm{v}_i^{(t-1)},\bm{x}_i^{(t)})]\bigg] \nonumber \\
+    &= 
+\sum_{1 \leq i \leq L} q(\bm{v}_i^{(t-1)}=1)\cdot b_i(t) \cdot (-\log p_{\theta}(x_i^{(0)}|x^{(t)})) \nonumber \\
+&= 
+-\lambda^{(t-1)}  {\sum_{1 \leq i \leq L}} b_i(t) \cdot \log p_{\theta}(\bm{x}_i^{(0)}|\bm{x}^{(t)}) \nonumber
+\end{aligned}
+\]
+% \begin{equation}
+% L_t = \mathbb{E}\left[-\lambda_{t-1}^{(2)}\left(1-\mathds{1}(\bm{x}_t=\bm{x}_0)\right)\log p_{\bm{\theta}}(\bm{x}_0|\bm{x}_t)\right], 
+% \label{eqn: reparam objective}
+% \end{equation}
+% where $\mathds{1}(\cdot)$ is indicator function. This is exactly a weighted cross-entropy loss on the perturbed data, \aka the masked language modeling objective~\citep{devlin2019bert}.
+Notably, training with different noise schedules only differs in the weighting of the objective.
+
+During sampling, RDM leverages this observation and proposes to employ a discriminative approach.
+Specifically, it denoises a token only when it receives a top-$k$ score (log-probability) from the network where $k$ in each step is determined by a denoising schedule. The overall sampling process is shown in algorithm \ref{alg:rdm:sampling}.
+
+
+
+\begin{algorithm}[h] %
+   \caption{Sampling from RDM}
+   \label{alg:rdm:sampling}
+    \begin{algorithmic}
+    \State {\bfseries Input:} trained network $f_\theta\left(\cdot\right)$ and temperature $\tau$.
+    \State {\bfseries Output:} generated sample $\xt{0}$.
+    \For{$n = 1,2,\dots,N$}
+        \State Initialize $\bm{x}_{T,n} \sim q_{\text{noise}}$;
+        \State Initialize $b_{T,n} = 0$;
+    \EndFor
+    \For{$t = T,\dots,1$}
+        \For{$n = 1,2,\dots,N$}
+            \State Draw $\widetilde{\bm{x}}_{0,n} \sim \operatorname{Categorical}\left(f_\theta\left(\bm{x}_{t,n}\right)\!/\tau\right)$;
+            \State Generate $\bm{v}_{t-1,n}$ according to $\log p(\widetilde{\bm{x}}_{0,n})$
+            \If{$b_{t,n} = 1$}
+            \State Draw $\bm{u}_{t,n}^{(1)} \sim q_\text{noise}$;
+            \State $\bm{x}_{t-1,n} = v_{t-1,n}^{(1)}\bm{x}_{t,n} + \left(1-v_{t-1,n}^{(1)}\right)\bm{u}_{t,n}^{(1)}$;
+            \Else
+            \State Draw $\bm{u}_{t,n}^{(2)} \sim q_\text{noise}(\bm{x}_{t,n})$;
+            \State $\bm{x}_{t-1,n} = v_{t-1,n}^{(2)}\widetilde{\bm{x}}_{0,n} + \left(1-v_{t-1,n}^{(2)}\right)\bm{x}_{t,n}^{(2)}$;
+            \EndIf
+            \State Let $b_{t-1,n} = b_{t,n} \land v_{t-1,n}^{(1)} \lor v_{t-1,n}^{(2)}$;
+        \EndFor
+    \EndFor
+    \State {\bfseries Return} $\bm{x}_{0,1:N}$.
+    \end{algorithmic}
+\end{algorithm}
+
+
+
+
+% Discussion on the two-stage pretraining details: why we use two-stage pretraining, the performance of two-stage pretraining, comparision of official ESM2 and the one pretrained by us.
+
+\section{Training Stratety}
+\subsection{Pre-training of \method}
+During the training phase, we investigate two different approaches: (1) training with the diffusion objective from scratch, and (2) what we refer to as two-stage training, which consists of initial training with the masked language modeling (MLM) objective followed by continuous training with the diffusion objective.
+
+\paragraph{Empirical Observation.} In our preliminary experiments, we observed that discrete diffusion pre-training "from scratch (FS)" often yielded instability in the form of frequent loss spiking, therefore hurting our model performance.
+% We find that training \method from scratch is a bit challenging and converges slowly. 
+
+\paragraph{Our Hypothesis.} We noticed that the absorbing diffusion objective leads to a variable masking ratio ranging from 0\% to 100\%, while conventional MLM objective's masking ratio keep fixed at 15\% such that a masked LM is always exposed to rich condition of 85\% observation/context. 
+In other words, in contrast to MLM, for absorbing discrete diffusion models like DPLM, in some of the extreme cases there are nearly all tokens getting masked, which means that the model is required to recover all tokens of the ground-truth sequence from nothing). 
+This could impose severe learning challenges, especially at the early phase of pre-training, where the model has yet not acquired sufficient capability to extract informative features and correlations from limited observation.
+% Training with MLM first allows the model to get a better starting point, and then get the final model through diffusion adaptation, sharing similar idea as~\citet{ye2023diffusion}. 
+
+\paragraph{Solution in Principle.}  Inspired by the success of curriculum learning in non-autoregressive text generation~\citep{qian2020glancing,gu2021fully, guo2020fine, guo2020incorporating,wang2022xlm}, we suggested that a masking warmup strategy could mitigate this issue, where we can start with a small upper bound of masking ratio (e.g., 15\% as conventional MLM, to preserve a high proportion of observation) in the early phase of pre-training, and then gradually increase the masking ratio towards the authentic discrete diffusion objective during pre-training.
+% This kind of strategy similar to curriculum learning makes the training effect better.
+
+\paragraph{Solution in Practice.} 
+In the current form of our manuscript, adhering to this principle, we proposed a two-stage training method: initialized DPLM from an established masked LM, either from our in-house pre-trained one or from the official ESM-2 checkpoint, and then trained DPLM by the discrete diffusion language modeling objective afterwards. Though it may or may not lead to the best model performance, it offers the possibilities of standing on the shoulders of any pre-trained masked LM such as ESM2 or the advanced LM architecture such as a Llama/Mistral-style masked LMs, in the broad open-source AI community. This also enables us to bypass the time-consuming process of gradual masking warmup during pre-training. As a result, this can be the most efficient and effective approach in practice, which also shares a similar principle as finetuning from RosettaFold in RFDiffusion~\citep{watson2023RFdiffusion}.
+
+Although discrete diffusion pre-training from scratch is challenging, we have also explored several ways to improve it. 
+As shown in the \Figref{fig:uncond_sample}G, DPLM can achieve comparable performance through pre-training from scratch. 
+More specifically, we found that (1) gradient norm clipping can effectively help stabilize training process of discrete diffusion language modeling, greatly reducing the chance of loss spiking and gradient nan. 
+In addition, we also found that (2) training longer (i.e. scaling compute) is another key to attain a good ultimate model performance (trained for 300k steps). 
+% We hope these updated results could provide helpful information in understanding of the training of DPLM.
+% We can also use community available pre-trained Masked-LMs such as ESM2~\citep{lin2022esmfold} as our first-stage model.
+
+We are also curious about the performance of the vanilla masking warmup strategy and would like to see if it can lead to a better pre-trained DPLM. The training dynamics of discrete diffusion based DPLM is an interesting and exciting direction deserving further exploration, and we leave these as our future work.
+
+% We found that the validation loss of two-stage training from our in-house trained Masked-LM and pre-trained ESM2 is very close, and as shown in \Figref{fig:uncond_sample}G, there is also almost no performance gap in the unconditional sampling.
+
+\subsection{Pre-training of \ARLM baseline}
+
+We pretrain a \ARLM using autoregressive training objective. 
+In order to be comparable with \method, the autoregressive language model we trained adopts the same architecture as \method. 
+To be capable of adapting the autoregressive training, we modify the mask matrix of the attention module to causal mask, which guarantees each token can only attend the previous position and keep unseen for future. 
+The training objective is next word prediction, and we process the input sequence with teacher forcing for efficient parallel training. 
+During decoding, we start with \metric{<bos>} token, sample one token each timestep from left to right, and the sampled token in the current timestep will be concatenated to the end of the sequence, becoming input for next timestep. 
+The decoding process terminates until \metric{<eos>} token is sampled. Because we can not know when to obtain the \metric{<eos>} token in advance, we can not decide the length of sampled sequence. 
+We attempt to force the sampling length by modifying the sampling probability: the probability of \metric{<eos>} is 1 when and only when the sequence length is up to the predefined length, while 0 in all the previous timesteps. 
+However, we observe this will decline the quality of sampled sequence significantly.
+
+\section{Reasons for choosing absorbing discrete diffusion}
+
+We employed absorbing discrete diffusion as the pre-training method, instead of other forms of discrete diffusion or latent diffusion, for the following considerations.
+\subsection{Regarding discrete diffusion (DD) definitions (multinomial vs absorbing as proposed in D3PM)}
+
+\paragraph{Intuition.} We favor absorbing DD since the learning objective of absorbing DD generalizes existing language modeling objectives, as highlighted in section 4 of \citet{austin2021structured}, In particular, absorbing DD is a natural extension of the masked language modeling (MLM) objective, which has been thoroughly studied~\citep{wettig2023should} in the field of NLP and widely proven to be a robust and effective sequence learning protocol. 
+In contrast, multinomial/uniform-DD resembles (tranfitional) denoising autoencoders~\citep{savinov2021step}. 
+There is little solid evidence and remains highly unclear about (mutlinomial) denoising autoencoder as a sequence learning objective can scale up w.r.t data, model size and application scenarios.
+
+\paragraph{Empirical verification.} In our preliminary exploration, we have studied the performance of multinomial/uniform-DD and absorbing-DD. Here we provide the result regarding unconditional sampling, as shown in \Figref{fig:multinomial-absorbing}. 
+We can find that DPLM-absorbing generally manifests better performance than DPLM-multinomial across different lengths.
+
+\begin{figure}[h!]
+    \centering
+    \vspace{2mm}
+    \includegraphics[width=0.9\linewidth]{figures/multinomial-absorbing.pdf}
+    \vspace{-4mm}
+    \caption{The unconditional sampling performance of multinomial/uniform-DD and absorbing-DD.} 
+    \label{fig:multinomial-absorbing}
+    \vspace{4mm} 
+\end{figure}
+
+\subsection{Regarding latent diffusion}
+
+We reason that latent diffusion for discrete sequence data, which performs Gaussian diffusion in continuous embedding space, requires additional lossy continuous relaxation of discrete sequence data like protein sequence, which does not fit the discrete nature of protein sequence and is not necessarily the best choice for modeling discrete sequence data. 
+Recent study~\citep{meshchaninov2024diffusion} presents a latent diffusion model on protein LM embedding, where the pLDDT score unconditional sampling attains reasonable pLDDT in their paper, while our discrete diffusion based approach still excels.
+
+%\subsection{Novelty}
+\section{Additional Experimental Details}
+\subsection{A modified unconditional sampling strategy}
+
+The sampling algorithm proposed in the \citet{zheng2023reparameterized} is to unmask positions with top-k prediction score (log-probability) predicted by $p_{\theta}(\xt{0}|\xt{t})$, and mask all the rest position in each denoising step. 
+However, we find that if we use this sampling algorithm to sample sequence unconditionally, the sampled sequence will collapse to trivial pattern, such as repeating with a single amino acid.
+We suggest this is because, without any additional conditions, the model initially tends to give a higher prediction score to the amino acids that appear frequently in the training set.
+Subsequently, based on these high-frequency amino acid tokens, the model will continue to sample the same tokens beside these tokens with high confidence. 
+The other amino acid can also be sampled, but possibly with a lower prediction score, thereby leading to be dropped according to the top-k sampling algorithm.
+Then, this amino acid will spread throughout the entire sequence like a virus, forming a sequence composed entirely of the same amino acids.
+
+In response, we impose a slight disturbance during sampling, utilizing the Gumbel-Max trick. 
+The Gumbel-Max trick is a procedure for drawing a sample from a categorical distribution using Gumbel-distributed random variables. Let's assume we have a discrete random variable $X$ with distribution $p_\theta(\bm{x} = i) = p_i$ for $i=1,\ldots,K$. Now, consider the variables $g_i = -\log{(-\log{U_i}})$ where $U_i$ is a variable uniformly distributed on $(0,1]$. The $g_i$ are random variables following a Gumbel distribution. The key to the Gumbel-Max trick is this relationship:
+\begin{align}
+i^* = \argmax_{i}  \{ \Tilde{p}_i \}, ~\text{where}~ \Tilde{p} \propto \exp{g_i + \log {p_i}}
+\end{align}
+This operation provides a sample from the discrete distribution $p_\theta(\bm{x}=i)$. In other words, the category corresponding to the maximum value is the results of sampling.
+But in the other hand, the maximum value, \ie $g_i + \log p_i$, is not equal to the original log-probability, which is actually the prediction score in our sampling algorithm.
+Therefore, the Gumbel-Max trick helps us sample an amino acid with a slightly modified prediction score while maintaining the original distribution.
+As a result, the previously dominant amino acid with the highest prediction score may be discarded, and a variety of other amino acids may be retained, thereby avoiding falling into a trivial pattern such as repeating with a single amino acid. We find that this technique can significantly reduce the number of trivial cases and further improve the diversity.
+
+
+% \subsection{Analysis of Timesteps}
+% TODO
+
+% \subsection{Secondary Structure Analysis}
+% Analyze the secondary structure distribution between EvoDiff, UniRef and \method. 
+% The secondary structure distribution of \method is similar to UniRef.
+% Meanwhile, we find that the proportion of the sheet structure of \method is higher than UniRef and EvoDiff.
+% The amino acids of a sheet structure is spatially close while far away in the sequence, so the sheet structure is relatively hard to model due to the long distance dependence. 
+% Therefore, we suggest that it illustrates \method has a good ability in the long distance modeling, leading to better performance on the various application, such as long protein sampling.
+% We also investigate the secondary structure distribution across various length proteins. 
+
+% \subsection{Sequence Representation t-SNE}
+% TODO
+
+% \section{Additional Experimental Results}
+
+% \subsection{Analysis of unconditional sampling results}
+\subsection{Delve deeply into the pLDDT score of unconditional sampling}
+
+According to the \Figref{fig:uncond_sample}A, we surprisingly find that the pLDDT score of \method unconditional sampling is even higher than the UniRef50 dataset. 
+We investigate this phenomenon as follows.
+
+\paragraph{Regarding the lower pLDDT in UniRef50.} 
+The lower pLDDT here is because UniRef50 contains some data with lower structural plausibility, such as sequences with a large number of repetitive patterns. 
+These cases decrease the average pLDDT of UniRef50, for instance sequence \metric{ADADAD...ADADAD} with pLDDT 35.14.
+
+We also investigate the average pLDDT of the PDB data where the pLDDT score of PDB is similar to DPLM, suggesting that DPLM learns to generate protein sequences with overall similar structural characteristics as PDB, as shown in \Tabref{tab:plddt_pdb}.
+
+\begin{table}[h]
+   \centering
+   \small
+   \setlength{\tabcolsep}{2pt}
+   \vspace{2.5mm}
+   \caption{ pLDDT score of UniRef50, PDB and \method unconditional sampling.}
+   \label{tab:plddt_pdb}
+   % \resizebox{\linewidth}{!}{%
+   \begin{tabular}{cccc}
+\toprule
+% \multirow{2}{*}{} & \multicolumn{2}{c}{{seq-only}} & \multicolumn{2}{c}{{struct-cond.}} \\ 
+Length & UniRef50 & PDB & \method \\
+% \cmidrule[0.5pt](lr){2-3}  \cmidrule[0.5pt](lr){4-5}
+%                   & EvoDiff        & DPLM                 & RFDiffusion        & DPLM   \\
+\midrule
+100    & 66.54   & 84.62   & 70.66      \\
+200    & 68.61   & 79.32   & 83.55      \\
+300    & 78.30   & 84.51   & 82.39      \\
+400    & 79.80   & 80.49   & 86.75      \\
+500    & 75.17   & 77.79   & 82.56      \\
+\midrule
+avg. pLDDT & 73.68 & \textbf{81.34}   & 81.18    \\ 
+\bottomrule
+\end{tabular}
+% }
+   \vspace{4mm}
+\end{table}
+
+\paragraph{Regarding mode collapse.} We also want to investigate whether \method collapses into the modes with high pLDDT sequences.
+To verify this, we evaluate the pseudo-perplexity of DPLM against subsets of UR50 sequences of high pLDDT and low pLDDT. 
+The results are shown in \Tabref{tab:pseudo-ppl}. 
+We can find that the ppl of less-structural proteins (pLDDT $<$ 50) is similar to the structural proteins (pLDDT $>$ 70), suggesting that DPLM equally learns protein sequences with diverse structural patterns.
+
+\begin{table}[h]
+   \centering
+   \small
+   \setlength{\tabcolsep}{2pt}
+   \vspace{2.5mm}
+   \caption{ pseudo-ppl of less structural and more structural sequences.}
+   \label{tab:pseudo-ppl}
+   % \resizebox{\linewidth}{!}{%
+   \begin{tabular}{ccc}
+\toprule
+
+ & less structural sequences  & more structural sequences \\
+
+\midrule
+pseudo-ppl    & 2.36   & 2.55      \\
+
+\bottomrule
+\end{tabular}
+% }
+   \vspace{4mm}
+\end{table}
+
+
+
+In conclusion, we would like to provide a possible explanation for this phenomenon.
+We suggest that from a perspective of probabilistic graphical model (PGM), more structured data is generally more easy to learn due to stronger correlation between its elements. 
+As such, we hypothesize the learning dynamics of protein LMs from through evolutionary sequences is first to digest those more structural proteins as co-evolutionary effects between amino acids play a prevailing and vital role in folding patterns, and then start to learn those less structural folding patterns, which could be long-tailed.
+
+This could somehow relate to the so-called emergence phenomenon in the realm of LLMs, where scaling up LLMs leads to "grokking" those long-tailed abilities. 
+We would leave a study of the learning dynamics of protein LM as an exciting future investigation and hopefully can bring some interesting insights to the community.
+
+\subsection{Sequence-conditional generation: motif-scaffolding}
+\input{tables/motif_success}
+
+The overall motif-scaffolding results are shown in \Tabref{tab:motif_success}.
+We sample 100 scaffold sequences for each motif scaffolding case, and compute the success rate according to the standard mentioned in section~\ref{sec:motif}. Furthermore, we also show the pass rate (e.g. the number of solved problems) and the average success rate for all problems. 
+We use sequence-only and structure-conditioned sampling paradigms. 
+For sequence-only sampling, DPLM generates scaffold according to the motif sequence fragment.
+For structure-conditioned sampling, DPLM makes generation by leveraging both sequence and structure information of motif. 
+Specifically, as noted in section~\ref{sec:IF}, we utilize the pre-trained GVPTransformerEncoder and structural adapter to process the motif structure.
+DPLM is able to solve 12 of 17 motif scaffolding problems. 
+The overall success rate is 0.27 for sequence-only sampling, while 0.31 for structure-conditioned sampling.
+It should be noted that not all problems are suitable for using structure information.
+We recommend using structure-conditioned sampling for 1YCR, 1PRW, 3IXT and 5YUI, while sequence-only sampling for others.
+
+\input{tables/motif_esmfold}
+\paragraph{Evaluation with more advanced folding model.}
+Moreover, we also investigate evaluation with other structure prediction models, such as ESMFold~\cite{lin2022esmfold}. 
+Results are shown in \Tabref{tab:motif_esmfold}, we consider the Alpha Carbon~(CA) pLDDT score predicted by ESMFold as the overall pLDDT score of the amino acid. 
+We observe that ESMFold judges more strictly than OmegaFold. 
+When we evaluate scaffold by ESMFold, there is a slight decline in the overall pass rate and average success rate, compared with the evaluation of OmegaFold.
+
+% \paragraph{Analysis}
+% The detailed analysis unveiled a common biological property among the motifs observed in these two cases. Specifically, the motif sequence displayed a remarkable level of evolutionary conservation, playing pivotal roles in binding critical signal passengers (1prw: calmodulin EF hand for calcium binding and 5yui: carbonic anhydrase II for CO2 binding). Notably, the motif structures predominantly comprised flexible loops. Conversely, 5TPN, 6VW1, and 2KL8, which exhibited a distinct advantage in motif scaffolding as indicated by the RFdiffusion algorithm, featured rigid helical structures that lacked functional evolutionary conservations. This intriguing phenomenon suggests that DPLM holds great promise as a superior method for constructing structurally flexible yet evolutionarily conserved functional motif scaffolding.
+
+
+% \begin{figure}[h]
+%     %\vspace{-2mm}
+%     \centering
+%     \includegraphics[width=1.0\linewidth]{figures/structural_adapter.pdf}
+%     % \vspace{-20pt}
+%     \caption{Illustration of the structural adapter that inplanted into \method}
+%     \label{fig:adapter}
+%     %\vspace{-2mm}
+% \end{figure}
+
+
+\begin{table}[t!]
+   \centering
+   \small
+   \setlength{\tabcolsep}{2pt}
+   \vspace{-2.5mm}
+   \caption{ Ablation study on the CATH4.3 benchmark, which w/ draft means that the reverse process is based on the $\xt{t}_{draft}$.}
+   
+   \label{tab:IF_ablation}
+
+   % \resizebox{\linewidth}{!}{%
+   \begin{tabular}{lrccc}
+   \toprule
+    \multirow{2}{*}{ Models} 
+   & \multirow{2}{*}{ Trainable} 
+   & \multirow{2}{*}{\metric{AAR}} 
+   & \multicolumn{2}{c}{ struct. eval.} \\
+    \cmidrule[0.3pt](lr){4-5} & Params. & & \metric{scTM}  & \metric{pLDDT} \\
+   \midrule
+   % StructGNN &  8.29   &   8.74   &  6.40 &   29.44 &   28.26   &  35.91   \\
+
+  % \cmidrule[0.5pt](lr){2-8}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%
+   % \multirowcell{3}
+   \textsc{LM-Design} (\textit{w/} draft)           &  6.3M/650M  & 56.49 &  0.85 & 74.89  \\
+  %%%%%%%%%%%%%%% OURS %%%%%%%%%%%%%%%%%%%
+  \cmidrule[0.5pt](lr){1-5}
+    \method                                                &  6.3M/650M   & 55.75   &  0.83  & 73.72  \\ 
+   \chl \method (\textit{w/} draft)                                               & \chl 6.3M/650M   &\chl \textbf{56.61}   & \chl \textbf{0.86}  &\chl \textbf{76.78}  \\ 
+  
+\bottomrule
+\end{tabular}
+% }
+   \vspace{4mm}
+\end{table}
+
+
+
+\subsection{Structure-conditional generation: inverse folding}
+\paragraph{Model architecture.}
+\method only takes amino acid tokens as input, instead of structure formats such as 3D coordinates.
+Therefore, in order to endow \method with structural awareness, we follow \textsc{LM-Design}~\citep{zheng2023structure} and place a structural adapter after the last layer of \method, which can attach the structure information to the original output probability. 
+The overall architecture of the structural adapter is constituted by three components, \ie, a structure encoder, a \pLM as sequence decoder, and a structural adapter that bridges both. 
+We can utilize an arbitrary pretrained structure encoder to process the 3D coordinates and provide structure information for \method.
+For \pLMs as the sequence decoder side, we primarily used the \method, with its pretrained model weights. 
+The structural adapter composes a multi-head attention that queries structure information from the structure encoder, followed by a \textit{bottleneck} feedforward network (FFN) to impose non-linearity and abstract features/representations. 
+% The bottleneck architecture of the FFN adheres to the best practice from \citet{houlsby2019parameter} and many follow-ups of it.
+% Most hidden dimensions of \textsc{Multihead Attn} and FFN are determined by the instance of structure encoder and \pLM we used, while the intermediate dimension of the bottleneck FFN was set to be half of the model dimension. 
+\textsc{RoPe}~\citep{su2021rope} was used the supplement multi-head attention for better modeling of positional information.
+In all our experiments, only one structural adapter was placed after the last layer of \method, following~\citet{zheng2023structure}.
+
+
+
+\paragraph{Training and inference details.}
+During training, we freeze the parameters of the structure encoder and \method, only optimizing the structural adapter with the simplified discrete diffusion objective~\citep{zheng2023reparameterized}. 
+However, we find that there is an exposure bias problem here: \method learns the reverse denoising process based on the ground truth context, \ie $\xt{t}$, which is obtained by adding noise on the ground truth sequence, \ie $\xt{0}$.
+During inference, \method has to denoise given the context predicted, which is not always right, leading to training-inference inconsistency.
+Therefore, we slightly modify the training objective in \Eqref{eq:reparam_obj}.
+Specifically, we obtain $\xt{t}$ by adding noise on the draft sequence generated by the pretrained structure encoder, rather than the ground truth $\xt{0}$, which we refer to as $\xt{t}_{draft}$.
+Then \method will learn the reverse process that reconstructs the $\xt{0}$ given the $\xt{t}_{draft}$, as shown in \Eqref{eq:IF_obj}.
+Since the draft sequence is available both in training and inference time, the issue of exposure bias is mitigated.
+We find this technique can further boost the performance of \method in the inverse folding task, as illustrated in the Tab.~\ref{tab:IF_ablation}
+
+
+\begin{align}
+% \setlength{\abovedisplayskip}{1pt}
+% \setlength{\belowdisplayskip}{1pt}
+\mathcal{J}_t 
+ = \mathbb{E}_{q(\xt{0})} \bigg[\lambda^{(t)}  \sum_{1 \leq i \leq L} b_i(t) \cdot \log p_{\theta}(\xt{0}_i|\xt{t}_{\textrm{draft}})\bigg], 
+\label{eq:IF_obj}
+\end{align}
+
+At inference time, we follow the \method generative process, except that we obtain protein sequence via greedy deterministic decoding, instead of random sampling from the distribution.
+Besides, considering that we have had an unconditional model, i.e. the \method itself, and a conditional model, \ie, the \method with structural adapter, we can also seamlessly utilize the classifier-free guidance paradigm during inference.
+
+% \section{Antibody task}
+
+
+
+\subsection{Classifier-free guidance}
+\label{sec:classifier-free}
+Classifier-free guidance~\citep{ho2021classifierfree} has been shown as an effective way to enhance conditional diffusion models.
+Likewise, for \method, we can derive an implicit classifier using the Bayes rule
+\begin{align}
+q(\bm{y} | \xt{t-1}) & = q(\bm{y} | \xt{t-1}, \xt{t}) \nonumber \\
+& = \frac{q( \xt{t-1} | \xt{t}, \bm{y}) }{q(\xt{t-1} | \xt{t})}q(\bm{y}|\xt{t}). \nonumber
+\end{align}
+If we already have an unconditional model $p_\theta(\xt{t-1}| \xt{t})$ and a conditional model $p_\theta(\xt{t-1} | \xt{t}, \bm{y})$ as the estimates, then by substituting this implicit classifier into Eq.~\ref{eq:classifier-guidance}, we can obtain
+\begin{align}
+    \xt{t-1} & \sim p_\theta(\xt{t-1}| \xt{t}) p_\phi(\bm{y} | \xt{t-1})^{\eta} \nonumber \\
+    & \propto p_\theta(\xt{t-1} | \xt{t}) \big( \frac{p_\theta( \xt{t-1} | \xt{t}, \bm{y})}{p_\theta(\xt{t-1} | \xt{t})}\big)^{\eta} \nonumber \\
+    & =  p_\theta( \xt{t-1} | \xt{t}, \bm{y})^{\eta} \cdot  p_\theta(\xt{t-1}|\xt{t})^{(1-\eta)},\nonumber
+\end{align}
+wherein when $\eta = 1$, it is equivalent to sampling from the original conditional \method without guidance, whereas $\eta > 1$, we not only prioritize the conditional model to contribute more but also discourage the samples from moving away from the unconditional distribution. 
+In other words, it reduces the chance of generating samples that do not use conditioning information, in favor of the samples that explicitly do.
+
+Note that when we use adapter tuning to adapt \method for conditional generation, we only finetune the newly-added parameters, which means that we can already access both the unconditional model (original \method) and conditional model (the adapter-tuned model) simultaneously for free. 
+As demonstrated in \Figref{fig:classifier_free} on structure-conditioned sequence generation, we can find that \method as a diffusion model can benefit from classifier-free guidance, improving its conditional generation immediately. 
+
+\begin{figure}[h!]
+    \centering
+    \vspace{2mm}
+    \includegraphics[width=0.9\linewidth]{figures/classifier-free.pdf}
+    \vspace{-4mm}
+    \caption{Classifier-free guidance enhances structure-conditioned sequence generation (inverse folding).} 
+    \label{fig:classifier_free}
+    \vspace{4mm} 
+\end{figure}
+
+% \subsection{Classifier guidance}
+
+
+
+
+
+
+\input{020_related.tex}
+% \clearpage
+\newpage
+\clearpage
+
+
+\onecolumn
+\section{Visualization of Unconditional Samples}
+
+
+
+\begin{figure*}[h!]
+\vspace{10mm}
+    \centering
+    \includegraphics[width=\linewidth]{figures/vis1.png}
+    \vspace{-4mm}
+    \caption{Visualized examples from 50 to 500 in length.} 
+    \label{fig:big_pic_100_500}
+    \vspace{20mm}
+\end{figure*}
+
+\par
+
+\begin{figure*}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{figures/vis2.png}
+    \vspace{-4mm}
+    \caption{Visualized examples from 600 to 1000 in length.} 
+    \label{fig:big_pic_600_1000}
+\end{figure*}

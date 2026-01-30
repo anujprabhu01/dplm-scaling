@@ -1,0 +1,39 @@
+\begin{table}[t]
+\centering
+\vspace{-1.5mm}
+% \setlength{\tabcolsep}{2.5pt}
+\caption{Results of the success rate of each problem, the number of the solved problems and the average success rate across 17 motif-scaffolding problems. Here we follow previous work to use OmegaFold as the folding model.}
+\label{tab:motif_success}
+\vspace{1.5pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{ccccc}
+\toprule
+\multirow{2}{*}{} & \multicolumn{2}{c}{{seq-only}} & \multicolumn{2}{c}{{struct-cond.}} \\ 
+\cmidrule[0.5pt](lr){2-3}  \cmidrule[0.5pt](lr){4-5}
+                  & EvoDiff        & DPLM                 & RFDiffusion        & DPLM   \\
+\midrule
+1bcf              & 0.39           & \textbf{0.99}        & 1.00                 & 1.00                    \\
+1prw              & 0.87           & \textbf{0.96}        & 0.08               & \textbf{0.99}        \\
+1qjg              & 0.00              & 0.00                    & 0.00                  & 0.00                    \\
+1ycr              & 0.13           & \textbf{0.52}        & 0.74               & \textbf{0.78}        \\
+2kl8              & 0.03              & \textbf{0.05}        & 0.88               & 0.05                 \\
+3ixt              & 0.26           & 0.20                  & 0.25               & \textbf{0.33}        \\
+4jhw              & 0.00              & 0.00                    & 0.00                  & 0.00                    \\
+4zyp              & 0.00              & \textbf{0.01}        & 0.40                & 0.01                 \\
+5ius              & 0.00              & \textbf{0.10}         & 0.02               & \textbf{0.10}         \\
+5tpn              & 0.00              & 0.00                    & 0.61               & 0.00                    \\
+5trv              & 0.00              & 0.00                    & 0.22               & 0.00                    \\
+5wn9              & 0.00              & \textbf{0.01}        & 0.00                  & \textbf{0.01}        \\
+5yui              & 0.06           & \textbf{0.42}        & 0.00                  & \textbf{0.63}        \\
+6e6r              & 0.16           & \textbf{0.84}        & 0.71               & \textbf{0.84}        \\
+6exz              & 0.00              & \textbf{0.01}        & 0.42               & 0.01                 \\
+6vw1              & 0.00           & 0.00                    & 0.69               & 0.00                    \\
+7mrx              & 0.00              & \textbf{0.59}        & 0.07               & \textbf{0.59}        \\ 
+\midrule
+pass rate         & 7/17           & \textbf{12/27}       & 13/17              & 12/17                \\
+avg. success rate & 0.09           & \textbf{0.27}        & 0.36               & 0.31                 \\ 
+\bottomrule
+\end{tabular}
+}
+\vspace{4mm}
+\end{table}

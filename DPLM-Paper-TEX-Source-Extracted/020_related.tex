@@ -1,0 +1,77 @@
+\section{Related Work}
+\label{sec:related}
+
+
+\subsection{Language Models}
+% Language models learn with self-supervised objectives.
+% This enables 
+The dominant paradigm of language models is autoregressive language models, which breaks down the mutual distribution over the tokens of a sequence into conditional probabilities via the chain rule ${p(\bm{x}^{[1:N]})=\prod_{i=1}^N p(x^{[i]}|\bm{x}^{[1:i-1]})}$ and generates tokens by ancestral sampling from left to right~\citep{bengio2000neural,sutskever2014sequence,vaswani2017attention}.
+Recently, researchers propose the non-autoregressive language models as an alternative~\citep{gu2018non}. 
+These models do not need to obey the left to right generation order~\citep{qian2022diff,huang2022PDAT} and demonstrate competitive or superior performance compared to their autoregressive counterpart across a wide range of domains including languages~\citep{qian2021volctrans,huang2022PDAT,qian2022diff,huang2022PDAT,zheng2023reparameterized}, speeches~\citep{kim2021conditional}, proteins~\citep{zheng2023structure}, and molecules~\citep{hoogeboom2022equivariant}.
+Among the numerous non-autoregressive language models, diffusion language models~\citep{li2022diffusionlm,gong2022diffuseq,zheng2023reparameterized} have emerged as a solid and promising framework.
+Pretraining language models on a massive scale of unlabeled data markedly improves their downstream task performance~\citep{word2vec,elmo,radford2018gpt,devlin2019bert}.
+As data volume and model sizes scale up, the training loss of language models predictably declines~\citep{kaplan2020scaling,hoffmann2022training,muennighoff2023scaling}, and enhancing downstream task performance even without specific tuning~\citep{gpt2}.
+GPT3~\citep{brown2020gpt3} is a significant point in the journey, taking model sizes to 175B parameters, proposing in-context learning to bolster language models' competence in solving certain tasks with only a handful of demonstrations.
+Furthermore, \citet{wei2021flanv1,t0,ouyang2022instructgpt} introduce instruction tuning, finetuning pretrained language models on series of tasks described via instructions, which elicits the instruction following ability of models and significantly enhances their zero-shot performance on unseen tasks.
+More impressively, sufficiently large language models exhibit the emergent abilities such as multi-step reasoning~\citep{kojima2022zeroshotcot,wei2022emergent,wei2022CoT}, which small models do not possess~\citep{fu2023specializing}.
+Empowered by large language models, helpful applications such as conversational AI systems\footnote{\url{https://chat.openai.com/}} and autonomous agents\footnote{\url{https://github.com/Significant-Gravitas/Auto-GPT}} have garnered much interest.
+Although the most capable models at the moment are restricted in access, open-sourced efforts~\citep{zeng2022glm,touvron2023llama,touvron2023llama2,alpaca,vicuna2023,moss} have largely enhanced the public accessibility of powerful large language models.
+
+\subsection{Protein Language Models}
+% A large body of work has focused on modeling the sequences for proteins.
+Thanks for the abundance of 1D amino acid sequences, there is growing interest in developing protein LMs at the scale of evolution, such as the series of ESM~\citep{rives2019esm,lin2022esmfold}, TAPE~\citep{rao2019evaluating}, 
+ProtTrans~\citep{elnaggar2021prottrans}, PRoBERTa~\citep{nambiar2020transforming}, PMLM~\citep{he2021pre}, 
+ProteinLM~\citep{xiao2021modeling}, 
+PLUS~\citep{min2021pre}, 
+Adversarial Masked LMs~\citep{mcdermott2021adversarial}, 
+ProteinBERT~\citep{brandes2022proteinbert}, 
+CARP~\citep{yang2022convolutions} in masked language modeling (MLM) paradigm, 
+%ProtTrans~\citep{elnaggar2021prottrans}, 
+ProtGPT2~\citep{ferruz2022protgpt2} in causal language modeling paradigm, and several others~\citep{melnyk2022reprogramming,madani2021deep,unsal2022learning, nourani2021tripletprot, lu2020self, sturmfels2020profile, strodthoff2020udsmprot}.
+These protein language models exhibit remarkable generalization ability on various downstream tasks and be able to capture evolutionary information about secondary and tertiary structures from sequences alone.
+Meanwhile, recent study shows these models' potency in revealing protein structures~\citep{lin2022esmfold}, predicting the effect of sequence variation on function~\citep{meier2021language}, antibody infilling~\citep{melnyk2022reprogramming} and many other general purposes~\citep{rives2019esm}.
+Simultaneously, \citet{verkuil2022language} demonstrate that the large scale protein LMs can generate \textit{de novo} proteins by generalizing beyond natural proteins, both theoretically and experimentally validating their hypothesis in exhaustive detail, in which \pLMs demonstrate competency in designing protein structure despite being exclusively trained on sequences.
+
+% Recently language models have been proposed for modeling large-scale databases of protein sequences rather than families of related sequences. Examples include (Bepler & Berger, 2019; Alley et al., 2019; Heinzinger et al., 2019; Rao et al., 2019; Madani et al., 2020; Elnaggar et al., 2021; Rives et al., 2021; Rao et al., 2021). Meier et al. (2021) found that the log-likelihoods of large protein language models predict mutational effects. Madani et al. (2021) study an autoregressive sequence model conditioned on functional annotations and show it can generate functional proteins.
+
+
+
+
+
+
+%\paragraph{Language Modeling} aims to learn a probabilistic model to describe sequence data $p(\bm{x}^{[1:N]})$ of interest~\citep{shannon1951prediction,Jurafsky2009}. 
+
+
+\subsection{Diffusion Language Models}
+Derived from diffusion models~\citep{sohl2015diffusion}, diffusion language models is a variety of generative model that samples data via an iterative denoising process from noise. They can be divided into continuous~\citep{ho2020ddpm,song2020sde} and discrete~\citep{hoogeboom2021argmax,austin2021structured} categories according to the distribution they model.
+Continuous diffusion models make great success in vision~\citep{dhariwal2021diffusionbeatgans,rombach2021highresolution,ho2022imagenvideo}, but they struggle in languages for operating on continuous surrogates of discrete tokens~\citep{li2022diffusionlm,gong2022diffuseq,han2022ssd,cdcd,yuan2022seqdiffuseq,gao2022difformer,ye2023dinoiser,chen2023cheaper,wu2023ar}, which has difficulty bypassing the pitfall of discreteness~\citep{ye2023dinoiser} and still lags behind autoregressive language models.
+In contrast, discrete diffusion models, albeit having limited progress in large-scale applications, are innately suited to the data type inherent to languages (\ie, sequences of discrete tokens).
+\citet{zheng2023reparameterized} makes commendable strides in discrete diffusion models and enhancing these models to yield comparable performance with autoregressive models on typical language generation benchmarks like machine translation.
+Furthermore, as shown by \citet{he2022diffusionbert,zheng2023structure}, there are close relationship between discrete diffusion models and masked language models~(MLM), a widely adopted pretraining paradigm in NLP~\citep{devlin2019bert,liu2019roberta}.
+% are closely related to trustworthy masked language models~\citep{ghazvininejad2019mask,he2022diffusionbert} and have 
+% Inspired by these discoveries, in this work, we investigate the scalability of diffusion language models to explore their potential further.
+Following this line, \citet{ye2023diffusion} propose scaling discrete diffusion LMs with diffusive adaptation, showing strong performance on several conditional text generation tasks, and accessing zero-shot instruction following, few-shot in-context learning and the promise of structured reasoning with instruction tuning.
+% The most relevant work to ours is \citet{han2023ssd2} which builds a 13B chat model with continuous simplex-based diffusion language models.
+% In contrast, our work focuses on discrete diffusion language models and their general abilities on diverse tasks.
+
+
+\subsection{Protein Structure Diffusion Models}
+Diffusion models have become popular tools in structural biology for protein generation, and their utility has been demonstrated across a range of generative tasks in recent years. \citet{trippe2022diffusion}, along with others, have introduced several diffusion model variants, each with its unique approach. For instance, while some models focus on generating the protein backbone by diffusing over protein coordinates, others, such as those proposed by \citet{wu2022high}, target inter-residue angles. \citet{lin2023generating} and \citet{yim2023framediff} have developed models that handle both the position and orientation of residue frames.
+% An integrated approach to both sequence and structure generation has been explored by Lisanza et al. (2023), who presented a method that simultaneously produces sequence and backbone. Anand \& Achim (2022) have expanded on this to include side-chain atoms as well. Additionally, Latent Diffusion Models (LDMs) are gaining traction for various applications, including protein sequence synthesis by Jiang et al. (2023), protein backbone construction by Fu et al. (2023), and 3D molecule generation as demonstrated by Xu et al. (2023).
+% All these methods utilize latent diffusion processes, adopting different techniques to construct a continuous latent space that effectively encodes input information. For example, one approach divides the latent space into invariant and equivariant components to represent molecules efficiently. The success of these methods in their respective tasks highlights the growing potential and benefits of applying latent diffusion techniques in the field of generative structural biology.
+RFDiffusion~\citep{watson2023RFdiffusion} is a model that assists in designing protein structures for specific functions, such as enzymes. It is versatile in protein design and has been used to create therapeutic proteins, with some designs being confirmed in the laboratory.
+% SMCDiff~\citep{trippe2022diffusion} is a model that generates scaffold structures for protein motifs. It predicts backbones and then builds scaffolds, yielding longer and more diverse outcomes compared to older methods.
+ProteinSGM~\citep{lee2022proteinsgm} is a model that uses 2D matrices, which represent the distances and angles between protein parts, to create 3D protein structures for novel protein designs.
+FoldingDiff~\citep{wu2022protein} is a model that generates protein sequences expected to fold into a specific structure. These sequences are verified with prediction tools, although they have not been experimentally confirmed yet.
+Chroma~\citep{ingraham2023chroma} is a model designed for creating large proteins and protein complexes, considering various constraints like distances and symmetry. It transforms a collapsed polymer into protein backbone and sequence more quickly than older methods, thereby allowing for the efficient generation of large structures.
+
+\subsection{Protein Inverse Folding}
+The structure-based protein sequence design is typically formulated as a conditional sequence generation problem by deep generative modeling, wherein protein 3D structures are usually depicted as a \textit{k}-NN graph~\citep{ingraham2019generative}.
+The protein graph establishes edge features between adjacent residues and encodes residue information as node features, modeled by graph neural networks (GNNs).
+GraphTrans~\citep{ingraham2019generative} and GVP~\citep{jing2020gvp} utilizes the graph attention encoder and autoregressive decoder for protein design.
+Recently, ProteinMPNN~\citep{dauparas2022proteinmpnn} and PiFold~\citep{gao2022pifold} introduce more complex protein features and expressive GNNs, resulting in significant improvements. 
+Furthermore, in addition to the primary generative purpose, this task can also be used as a proxy for protein (structure-aware) representation learning~\citep{yang2022masked}.
+A critical and significant challenge herein is the lack of sufficient protein structure data.
+To this end, ESM-IF~\citep{hsu2022esmif} alleviate this issue with effective data augmentation by back-translation with AlphaFold 2~\cite{jumper2021AF2}.  , resulting in dramatic improvements. 
+On the other hand, \citet{zheng2023structure} demonstrate how to efficiently steering large pretrained protein LMs into a structure-informed sequence generative models in a mask-predict generative manner, attaining state-of-the-art results on single-chain and complex protein benchmark.
+Most recently, graph diffusion models have also been studied for inverse folding problem~\citep{yi2023gradeif}.

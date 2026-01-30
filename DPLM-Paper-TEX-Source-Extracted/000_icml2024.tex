@@ -1,0 +1,269 @@
+%%%%%%%% ICML 2024 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+
+% Recommended, but optional, packages for figures and better typesetting:
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{booktabs} % for professional tables
+
+% hyperref makes hyperlinks in the resulting PDF.
+% If your build breaks (sometimes temporarily if a hyperlink spans a page)
+% please comment out the following usepackage line and replace
+% \usepackage{icml2024} with \usepackage[nohyperref]{icml2024} above.
+\usepackage{hyperref}
+
+
+% Attempt to make hyperref and algorithmic work together better:
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Use the following line for the initial blind version submitted for review:
+% \usepackage{icml2024}
+
+% If accepted, instead use the following line for the camera-ready submission:
+\usepackage[accepted]{icml2024}
+
+% For theorems and such
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+% if you use cleveref..
+\usepackage[capitalize,noabbrev]{cleveref}
+
+% \usepackage{algorithm}
+% \usepackage{algpseudocode}
+% \usepackage{algorithmicx}
+\usepackage{algorithm,algpseudocode}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Todonotes is useful during development; simply uncomment the next line
+%    and comment out the line below the next line to turn off comments
+%\usepackage[disable,textsize=tiny]{todonotes}
+\usepackage[textsize=tiny]{todonotes}
+
+\setlength{\marginparwidth}{0.6in}
+\newcommand{\zzx}[2][]{\todo[size=\scriptsize,color=red!10!white,#1]{\textbf{Zaixiang}: #2}}
+
+\newcommand{\todoq}[2][]{\todo[size=\scriptsize,color=orange!20!white,#1]{\textbf{Quanquan}: #2}}
+
+
+\newcommand{\dongyu}[2][]{\todo[size=\scriptsize,color=green!20!white,#1]{\textbf{Dongyu}: #2}}
+
+\newcommand{\yi}[2][]{\todo[size=\scriptsize,color=green!20!white,#1]{\textbf{Yi}: #2}}
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+% \icmltitlerunning{Submission and Formatting Instructions for ICML 2023}
+
+
+\setlength{\textfloatsep}{5pt}
+\setlength\floatsep{3pt}
+\setlength\intextsep{1pt}
+\setlength{\abovecaptionskip}{0.1em}
+\setlength{\belowcaptionskip}{0.1em}
+\setlength{\parskip}{0.15em}
+\usepackage[compact]{titlesec}
+\usepackage{sidecap}
+\titlespacing*{\section}{0pt}{*1.0}{*0.8}
+\titlespacing*{\subsection}{0pt}{*0.5}{*0.3}
+\titlespacing*{\subsubsection}{0pt}{*0.3}{*0.3}
+
+\allowdisplaybreaks
+
+
+\input{_common_commands}
+
+\renewcommand{\paragraph}[1]{\noindent\textbf{#1}}
+\renewcommand{\bm}[1]{\mathbf{#1}}
+%#######################################################################
+% project-related variable
+
+% \newcommand{\jjx}[1]{\todo[color=blue!40]{(jjx: #1)}}
+% \newcommand{\zh}[1]{\todo[color=red!40]{{(zhouh: #1)}}}
+% \newcommand{\lei}[1]{\todo[color=orange]{leili: #1}}
+% \newcommand{\zzx}[1]{{\textcolor{red}{[zzx: #1]}}}
+
+
+% \newcommand{\zzx}[1]{{\textcolor{red}{}}}
+\newcommand{\yefei}[1]{{\textcolor{blue}{[yefei: #1]}}}
+% \newcommand{\zhouh}[1]{{\textcolor{red}{[zhouh: #1]}}}
+
+\newcommand{\method}{\textsc{DPLM}\xspace}
+
+
+\newcommand{\pLM}{\textit{p}\textsc{LM}\xspace}
+\newcommand{\pLMs}{\textit{p}\textsc{LM}s\xspace}
+\newcommand{\MLM}{Masked-LM\xspace}
+\newcommand{\ARLM}{\textsc{Ar-LM}\xspace}
+
+
+\newcommand{\z}[1]{\bm{z}_{#1}}
+\newcommand{\y}[1]{\bm{y}_{#1}}
+\newcommand{\uu}[1]{\bm{u}_{#1}}
+\newcommand{\xt}[1]{\bm{x}^{(#1)}}
+\newcommand{\metric}[1]{\texttt{#1}}
+
+
+\newcommand{\FIXME}[1]{{\textcolor{red}{\ul{\bf FIXME:} #1}}}
+
+
+% `
+% %\setlength{\textfloatsep}{5pt}% Remove \textfloatsep
+% \setlength\floatsep{3pt}
+% \setlength\intextsep{1pt}
+% %\setlength{\bibsep}{0ex}
+% %\nipsfinalcopy % Uncomment for camera-ready version
+% \setlength{\abovecaptionskip}{1pt}
+% \setlength{\belowcaptionskip}{1pt}
+% \setlength{\parskip}{0.45em}
+% \usepackage[compact]{titlesec}
+% \titlespacing*{\section}
+% {0pt}{1.1ex}{1.1ex}
+% \titlespacing*{\subsection}
+% {0pt}{1.1ex}{1.1ex}
+% \titlespacing*{\subsubsection}
+% {0pt}{1.1ex}{1.1ex}
+
+% \icmltitlerunning{Diffusion Protein Language Model for Protein Generation and Representation Learning}
+\begin{document}
+
+\twocolumn[
+% \icmltitle{Diffusion Protein Language Model for\\ Protein Generation and Representation Learning}
+% \icmltitle{\textit{What you cannot create, you do not understand}: diffusion protein language models unify protein generation and representation learning}
+% \icmltitle{Diffusion protein language models for\\protein generation and representation learning}
+% \icmltitle{Learning and Generating }
+% \icmltitle{``\textit{What you cannot create, you do not understand}'': A Diffusion Protein LM Simultaneously Tackles Protein Generation and Representation Learning}
+% \icmltitle{A Diffusion Protein LM Simultaneously Tackles Protein Generation and Representation Learning}
+
+\icmltitle{Diffusion Language Models Are Versatile Protein Learners}
+% It is OKAY to include author information, even for blind
+% submissions: the style file will automatically remove it for you
+% unless you've provided the [accepted] option to the icml2023
+% package.
+
+% List of affiliations: The first argument should be a (short)
+% identifier you will use later to specify author affiliations
+% Academic affiliations should list Department, University, City, Region, Country
+% Industry affiliations should list Company, City, Region, Country
+
+% You can specify symbols, otherwise they are numbered in order.
+% Ideally, you should not use this facility. Affiliations will be numbered
+% in order of appearance and this is the preferred way.
+\icmlsetsymbol{equal}{*}
+
+\begin{icmlauthorlist}
+\icmlauthor{Xinyou Wang}{equal,nju,byted}
+\icmlauthor{Zaixiang Zheng}{equal,byted}
+\icmlauthor{Fei Ye}{byted}
+\icmlauthor{Dongyu Xue}{byted}
+\icmlauthor{Shujian Huang}{nju}
+\icmlauthor{Quanquan Gu}{byted}
+%\icmlauthor{}{sch}
+%\icmlauthor{}{sch}
+\end{icmlauthorlist}
+
+\icmlaffiliation{byted}{ByteDance Research}
+\icmlaffiliation{nju}{Dept. of Computer Science, Nanjing University (this work was done during Xinyou's internship at ByteDance Research)}
+% \icmlaffiliation{ucla}{University of California, Los Angeles}
+
+% \renewcommand{icmlcorrespondingauthor}[2]{1}
+% \icmlcorrespondingauthor{Xinyou Wang}{wangxinyou@smail.nju.edu.cn}
+% \icmlcorrespondingauthor{Zaixiang Zheng}{zhengzaixiang@bytedance.com}
+\icmlcorrespondingauthor{Quanquan Gu}{quanquan.gu@bytedance.com}
+
+% You may provide any keywords that you
+% find helpful for describing your paper; these are used to populate
+% the "keywords" metadata in the PDF but will not be shown in the document
+\icmlkeywords{Machine Learning, ICML}
+
+\vskip 0.3in
+]
+
+% this must go after the closing bracket ] following \twocolumn[ ...
+
+% This command actually creates the footnote in the first column
+% listing the affiliations and the copyright notice.
+% The command takes one argument, which is text to display at the start of the footnote.
+% The \icmlEqualContribution command is standard text for equal contribution.
+% Remove it (just {}) if you do not need this facility.
+
+% \printAffiliationsAndNotice{}  % leave blank if no need to mention equal contribution
+\printAffiliationsAndNotice{\icmlEqualContribution} % otherwise use the standard text.
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%% MAIN TEXT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{001_abstract}
+
+\input{010_intro}
+
+% \input{015_prelim}
+
+\input{030_method}
+
+% \clearpage
+
+\input{040_experiment}
+
+
+% \input{020related}
+
+\input{050_conclusion}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+\section*{Impact Statement}
+Our work on protein generation and representation learning can be used in developing potent therapeutic macromolecues such as antibodies and accelerate the research process of drug discovery. 
+Our method may be adapted to other scenarios of computer-aided design, such as small molecule design, material design, and chip design. 
+It is also needed to ensure the responsible use of our method and refrain from using it for harmful purposes.
+
+\section*{Acknowledgements}
+We thank anonymous reviewers for their insightful feedback. 
+We would like to especially thank Dr. Hang Li for insightful discussions on the project and feedback on the manuscript that help shape this study. 
+We thank Yi Zhou, Jing Yuan, Dr. Yilai Li and Jiasheng Ye for their valuable comments.
+
+\bibliography{references}
+\bibliographystyle{icml2024}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % APPENDIX
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\clearpage
+\appendix
+% \onecolumn
+% \section{You \emph{can} have an appendix here.}
+\input{100_appendix.tex}
+
+% You can have as much text here as you want. The main body must be at most $8$ pages long.
+% For the final version, one more page can be added.
+% If you want, you can use an appendix like this one, even using the one-column format.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
+
+

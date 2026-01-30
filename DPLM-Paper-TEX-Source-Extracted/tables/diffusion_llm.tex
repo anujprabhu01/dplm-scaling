@@ -1,0 +1,734 @@
+%%%%%%%% ICML 2024 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+
+% Recommended, but optional, packages for figures and better typesetting:
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{booktabs} % for professional tables
+
+% hyperref makes hyperlinks in the resulting PDF.
+% If your build breaks (sometimes temporarily if a hyperlink spans a page)
+% please comment out the following usepackage line and replace
+% \usepackage{icml2024} with \usepackage[nohyperref]{icml2024} above.
+\usepackage{hyperref}
+
+
+% Attempt to make hyperref and algorithmic work together better:
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Use the following line for the initial blind version submitted for review:
+\usepackage{icml2024}
+
+% If accepted, instead use the following line for the camera-ready submission:
+% \usepackage[accepted]{icml2024}
+
+% For theorems and such
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+% if you use cleveref..
+\usepackage[capitalize,noabbrev]{cleveref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Todonotes is useful during development; simply uncomment the next line
+%    and comment out the line below the next line to turn off comments
+%\usepackage[disable,textsize=tiny]{todonotes}
+\usepackage[textsize=tiny]{todonotes}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{todonotes}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{paralist}
+\usepackage{tabularx}
+\usepackage{enumitem}
+
+\usepackage{latexsym}
+\usepackage{paralist}
+\usepackage{xspace}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+\usepackage{tabu}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{ulem}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{wrapfig}
+\usepackage{verbatim}
+
+%\DeclareMathOperator{\ind}{\mathds{1}}  % Indicator
+
+% \setlength{\parskip}{3pt}
+
+\input{math_commands.tex}
+
+\newcommand{\zzx}[1]{{\textcolor{orange}{[zzx: #1]}}}
+\newcommand{\qgu}[1]{{\textcolor{blue}{[qgu: #1]}}}
+\newcommand{\notice}[1]{{\textcolor{red}{[notice: #1]}}}
+\newcommand{\mask}{{\textcolor{gray}{\_~}}}
+\newcommand{\Sec}{§}
+
+\setlength{\parskip}{3pt}
+\usepackage{titlesec}
+\titlespacing{\paragraph}{0pt}{0mm}{\parskip}
+\titlespacing{\section}{0pt}{\parskip}{\parskip}
+\titlespacing{\subsection}{0pt}{\parskip}{\parskip}
+\titlespacing{\subsubsection}{0pt}{\parskip}{\parskip}
+
+
+\usepackage{hyperref}
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{Submission and Formatting Instructions for ICML 2024}
+
+\begin{document}
+
+\twocolumn[
+% \icmltitle{Diffusion Language Models Can Perform Many Tasks \\with Scaling and Instruction-Finetuning}
+\icmltitle{Diffusion Language Models Are Multitask Multilingual Learners}
+
+% It is OKAY to include author information, even for blind
+% submissions: the style file will automatically remove it for you
+% unless you've provided the [accepted] option to the icml2024
+% package.
+
+% List of affiliations: The first argument should be a (short)
+% identifier you will use later to specify author affiliations
+% Academic affiliations should list Department, University, City, Region, Country
+% Industry affiliations should list Company, City, Region, Country
+
+% You can specify symbols, otherwise they are numbered in order.
+% Ideally, you should not use this facility. Affiliations will be numbered
+% in order of appearance and this is the preferred way.
+\icmlsetsymbol{equal}{*}
+
+\begin{icmlauthorlist}
+\icmlauthor{Firstname1 Lastname1}{equal,yyy}
+\icmlauthor{Firstname2 Lastname2}{equal,yyy,comp}
+\icmlauthor{Firstname3 Lastname3}{comp}
+\icmlauthor{Firstname4 Lastname4}{sch}
+\icmlauthor{Firstname5 Lastname5}{yyy}
+\icmlauthor{Firstname6 Lastname6}{sch,yyy,comp}
+\icmlauthor{Firstname7 Lastname7}{comp}
+%\icmlauthor{}{sch}
+\icmlauthor{Firstname8 Lastname8}{sch}
+\icmlauthor{Firstname8 Lastname8}{yyy,comp}
+%\icmlauthor{}{sch}
+%\icmlauthor{}{sch}
+\end{icmlauthorlist}
+
+\icmlaffiliation{yyy}{Department of XXX, University of YYY, Location, Country}
+\icmlaffiliation{comp}{Company Name, Location, Country}
+\icmlaffiliation{sch}{School of ZZZ, Institute of WWW, Location, Country}
+
+\icmlcorrespondingauthor{Firstname1 Lastname1}{first1.last1@xxx.edu}
+\icmlcorrespondingauthor{Firstname2 Lastname2}{first2.last2@www.uk}
+
+% You may provide any keywords that you
+% find helpful for describing your paper; these are used to populate
+% the "keywords" metadata in the PDF but will not be shown in the document
+\icmlkeywords{Machine Learning, ICML}
+
+\vskip 0.3in
+]
+
+% this must go after the closing bracket ] following \twocolumn[ ...
+
+% This command actually creates the footnote in the first column
+% listing the affiliations and the copyright notice.
+% The command takes one argument, which is text to display at the start of the footnote.
+% The \icmlEqualContribution command is standard text for equal contribution.
+% Remove it (just {}) if you do not need this facility.
+
+%\printAffiliationsAndNotice{}  % leave blank if no need to mention equal contribution
+\printAffiliationsAndNotice{\icmlEqualContribution} % otherwise use the standard text.
+
+\begin{abstract}
+The recent surge of generative AI has been fueled by the generative power of diffusion probabilistic models and the scalable capabilities of large language models.
+Despite their potential, it remains elusive whether \textit{diffusion language models} can solve general language tasks comparable to their autoregressive counterparts.
+This paper demonstrates that scaling diffusion models \wrt data, sizes, and tasks can effectively make them strong language learners.
+We build competent diffusion language models at scale by first acquiring knowledge from massive data via masked language modeling pretraining thanks to their intrinsic connections.
+We then reprogram pretrained masked language models into diffusion language models via diffusive adaptation, wherein task-specific finetuning and instruction finetuning are explored to unlock their versatility in solving general language tasks. 
+Experiments show that scaling diffusion language models consistently improves performance across downstream language tasks. % , and can even also determine amino acid sequences for given protein folds.
+We further discover that instruction finetuning can elicit zero-shot and few-shot in-context learning abilities that help tackle many unseen tasks by following natural language instructions, 
+and show promise in advanced and challenging abilities such as reasoning.
+\end{abstract}
+
+
+
+\section{Introduction}
+Recent advances in generative modeling have led to remarkable progress in the field of generative AI. 
+In domains of continuous signals, diffusion probabilistic models have shown great success in rendering photorealistic images~\citep{rombach2021highresolution,ramesh2022dalle2} and synthesizing high-quality audio~\citep{kong2020diffwave} through iterative denoising, outperforming GANs and autoregressive models, and even contributing to the surge of AI art. 
+The story is different in the domains of discrete signals comprising symbolic sequences such as natural languages, where autoregressive large language models~\citep[large LMs or LLMs,][]{brown2020lgpt3} have dominated the scene, delivering impressive generalist language abilities in language understanding and generating human-like texts, and can even follow natural language instructions to perform unseen tasks.
+
+The revolutionized generative abilities of diffusion models, manifested in image generation and speech synthesis, give the promise of a strong alternative to autoregressive language models for several favorable reasons, including (1) global receptive field \vs one-sided context, and (2) non-autoregressive drafting-then-revising manner \vs restrictive unidirectional generation/autoregression.
+Hence, an intriguing question arises: \textit{can diffusion models speak languages well?}
+This question is in turn asking about the \textit{scalability} of diffusion language models, which can be further boiled down into the following specific research questions regarding the three key ingredients of the success of large-scale language models, \ie, data, model sizes, and tasks:
+\begin{compactitem}
+\item [{RQ 1}.] \textit{On scaling data.} 
+Acquiring general knowledge via self-supervised pretraining from massive unlabeled data plays a crucial role in the success of the modern NLP paradigms~\citep{radford2018improving,devlin2018bert}, hence it is also of importance to enable diffusion language models to learn from massive data.
+\textbi{Can diffusion language models leverage knowledge from large-scale data?}
+\item [{RQ 2}.] \textit{On scaling model sizes.} It has been widely observed that the larger the model size, the more competent the language models become. % , \aka, the scaling law~\citep{kaplan2020scaling}.
+\textbi{Can enlarging diffusion language models effectively improve downstream tasks?}
+\item [{RQ 3}.] \textit{On scaling tasks.} 
+What makes LLMs most attractive is they can tackle new tasks that they were never exposed to during training by following natural language instructions with little to no demonstrations.
+\textbi{Can scaled diffusion language models exhibit general zero-shot and few-shot in-context learning capabilities to generalize to unseen tasks?}
+\end{compactitem}
+
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.95\linewidth]{figs/main.pdf}
+  \caption{Overview. (A) Comparative illustration of language model (LM) paradigms, \ie, autoregressive LMs \vs diffusion LMs. (B) Overall illustration of the proposed approach wherein massively pretrained masked LMs are reprogrammed to diffusion LMs via \textit{generative surgery}.}
+  \label{fig: main}
+  \vspace{-3mm}
+\end{figure*}
+
+Nevertheless, building diffusion language models at scale is non-trivial. Previous efforts mostly still fall short of satisfactory generation quality, and the scalability remains largely unexplored. 
+Several studies attempted to adapt continuous diffusion models to discrete domains by embedding discrete symbols into continuous surrogates~\citep{diffusionlm,gong2022diffuseq,gao2022difformer,ye2023dinoiser}. However, a significant performance gap persists due to 
+% the critical challenge of 
+the \textit{pitfall of discreteness}~\citep{ye2023dinoiser}, which renders Gaussian perturbation ineffective in providing training signals to learn on discrete tokens. 
+Discrete diffusion models, which directly operate in the discrete space, appear well-suited for sequence learning~\citep{hoogeboom2021argmax,austin2021structured}. However, they have long-standing struggles applying to more complex and practical scenarios (typically with large vocabulary) like natural languages. 
+Very recently, \textit{reparameterized discrete diffusion models}~\citep[RDM,][]{zheng2023reparameterized} has made substantial progress on representative benchmarks like machine translation.
+In addition, \citet{he2022diffusionbert} demonstrated
+%promising results of 
+DiffusionBERT, a discrete diffusion model finetuned from pretrained masked language models~\citep[MLMs,][]{devlin2018bert}.
+Likewise, \citet{zheng2023LM_Design} also showed that the generative ability can be unleashed from pretrained protein MLMs~\citep{rives2019esm} for designing protein amino acid sequences in a diffusion-like iterative refinement fashion.
+Despite such promising progress, the scalability of diffusion language models remains elusive.
+
+In this paper, we aim to advance diffusion language models by exploring their scalability \wrt data, model sizes, and tasks. 
+We first demonstrate the intrinsic connection between masked language models and discrete diffusion models, which permits us to treat pretrained masked language models of various scales as pretrained diffusion language models, without the need for expensive learning from scratch. 
+We then reprogram pretrained masked language models into diffusion language models via \textit{diffusive adaptation}, where task-specific finetuning and instruction finetuning~\citep{wei2021flanv1} are explored for solving certain targeted downstream tasks or general language problems, respectively.  
+
+Based on extensive experiments, we reveal that large-scale diffusion language models can serve as strong sequence generative models, exhibiting competitive performance as compared with autoregressive language models.
+Scaling up diffusion language models helps achieve improved performance across a wide range of tasks, from translating across languages to summarizing documents.
+By leveraging instruction finetuning, we can further elicit zero-shot and few-shot abilities for diffusion language models to tackle unseen tasks by following natural language instructions.
+Notably, diffusion language models demonstrate promising structured reasoning behaviors thanks to their flexible non-autoregressive generation order. Nevertheless, their capacity to tackle complex reasoning tasks remains an ongoing challenge awaiting resolution.
+
+To sum up, we hope that our explorations provide valuable insights into the scalability of diffusion language models and their potential as a viable alternative in tackling generative language tasks across the board.
+
+
+\section{Preliminaries: Diffusion Models for Sequence Generation}
+\label{sec: preliminary}
+
+Language processing tasks can be unified as sequence-to-sequence problems~\citep{raffel2020T5}, modeling the conditional distribution $p_\theta(\bm{x}| \bm{c})$, where $\bm{x}=(\bm{x}^{[1]}, \bm{x}^{[2]}, \dots, \bm{x}^{[N]})$ is a target sequence composing $N$ tokens and $\bm{c}$ is the given context.
+For example, we may want to generate responses $\bm{x}$ conditioned on the prompt $\bm{c}$, or it can be unconditional generation if no context is provided (\ie, $\bm{c}=\phi$). 
+As a result, one thing we care about is the capability of generative models for sequence data $\bm{x}$, \eg, the prevailing autoregressive models or diffusion models.
+In this section, we provide the necessary background on diffusion-based sequence generative models, where we abuse the notation and use $p_\theta(\bm{x})$ for both conditional $p_\theta(\bm{x} | \bm{c})$ and unconditional $p_\theta(\bm{x} | \bm{c}=\phi)$ for brevity.
+We provide more detailed discussions on relevant literature in \S\ref{sec: related work}.
+% For more detailed discussions with relevant literature please refer to \S\ref{sec: related work}.
+
+
+\paragraph{Diffusion Models}\citep{diffusion2015} are a class of generative models characterized by a pair of Markov processes, \ie, a forward diffusion process and a backward denoising process. 
+The \textit{forward} process~${q(\bm{x}_{1:T}|\bm{x}_0)=\prod_{t=1}^T q(\bm{x}_t|\bm{x}_{t-1})}$ gradually perturb the data $\bm{x}_0\sim q(\bm{x}_0)$ into a stationary distribution $q(\bm{x}_T)$ with $T$ increasingly noisy steps $\bm{x}_{1:T}=\bm{x}_{1}, \bm{x}_2, \dots, \bm{x}_T$. 
+The learned \textit{backward} process ${p_{\bm{\theta}}(\bm{x}_{0:T}) = p(\bm{x}_T)\prod_{t=1}^{T}p_{\bm{\theta}}(\bm{x}_{t-1}|\bm{x}_t)}$, reversely, gradually denoises the samples towards the data distribution. 
+To fit the model $p_{\bm{\theta}}(\bm{x}_0)$ to the data distribution $q(\bm{x}_0)$, the denoiser model is typically optimized by the variational bound of the negative log-likelihood~\citep{ddpm}:
+\begin{equation}
+\setlength{\abovedisplayskip}{0.25pt}
+\setlength{\belowdisplayskip}{0.25pt}
+\small
+\begin{aligned}
+      \mathbb{E}_{q(\bm{x}_0)}\left[-\log p_\theta(\bm{x}_0)\right]&\le \mathbb{E}_{q(\bm{x}_{0:T})} \left[-\log \frac{p_{\bm{\theta}}(\bm{x}_{0:T})}{q(\bm{x}_{1:T}|\bm{x}_0)}\right]\\
+      &= L_1 + \sum_{t=2}^T L_t+ \text{const.},
+\end{aligned}
+\label{eqn: variational bound}
+\end{equation}
+where $L_1=\mathbb{E}_{q}\left[-\log p_{\theta}(\bm{x}_0 | \bm{x}_1)\right]$, and, for $t \in [2, T]$, $L_t=\mathbb{E}_{q}\left[\text{KL}[q(\bm{x}_{t-1}|\bm{x}_t, \bm{x}_0)\|p_{\bm{\theta}}(\bm{x}_{t-1}|\bm{x}_t)]\right]$. 
+
+% With the learned model, one can sample data by first sampling from $p(\bm{x}_T)$ and then iteratively denoising the sample.
+
+In general, diffusion models can be categorized into continuous and discrete diffusion models according to distribution type for data perturbation.
+Continuous diffusion models with Gaussian perturbation have demonstrated impressive performance in generating continuous signals~\citep{rombach2021highresolution, ho2022imagenvideo, kong2020diffwave} but still struggle with satisfactory generation quality in natural languages~\citep{diffusionlm,gong2022diffuseq,gao2022difformer,yuan2022seqdiffuseq,ye2023dinoiser}.
+A critical challenge herein is the \textit{pitfall of discreteness}~\citep{ye2023dinoiser} that makes Gaussian perturbation on embeddings hardly provide effective training signals.
+%to learn on the continuous surrogates of discrete tokens.
+In contrast, discrete diffusion models directly operate over the discrete state space of tokens, providing an attractive alternative for generative sequence learning. Therefore in this paper, we explore developing diffusion language models upon discrete diffusion.
+
+% To this end, discrete diffusion models provide an attractive alternative for diffused sequence learning.
+
+
+\paragraph{Discrete Diffusion Models}\citep{hoogeboom2021argmax,austin2021structured} cover a subset of diffusion models for which transition probabilities between timesteps are discrete distributions. 
+Since the forward diffusion process is applied independently to each token of a sequence $\bm{x}$, for the sake of brevity, we abuse the notation $\bm{x}_t$ for arbitrary tokens at diffusion timestep $t$.
+Formally, $\bm{x}_t\in\{0, 1\}^{|\mathcal{V}|}$ is a token represented as a one-hot vector, where $\mathcal{V}$ is the vocabulary of all possible tokens.
+Let $\texttt{Cat}(\bm{x};\bm{p})$ be a categorical distribution on $\bm{x}$ with probabilities given by vector $\bm{p}$ on $|\mathcal{V}|-1$ dimensional probability simplex, and the forward transition be $q(\bm{x}_t|\bm{x}_{t-1})=\texttt{Cat}\left(\bm{x}_t; \bm{p}=\beta_t\bm{x}_{t-1} + (1-\beta_t)\bm{q}_{\text{noise}}\right),$
+% \end{equation}
+% \label{eqn: dd t_to_t-1}
+where $0\ll\beta_t<1$ is the noise schedule controlling the degree of perturbation at timestep $t$, and $\bm{q}_\text{noise}$ is the probability vector of stationary distribution $q(\bm{x}_T)$, \ie, $q(\bm{x}_T)=\texttt{Cat}(\bm{x}_T; \bm{p}=\bm{q}_{\text{noise}})$. 
+In this case, the distribution of corrupted sample $\bm{x}_t$ given its original data $\bm{x}_0$ has a closed-form expression:
+\begin{equation}
+% \setlength{\abovedisplayskip}{0.25pt}
+% \setlength{\belowdisplayskip}{0.25pt}
+q(\bm{x}_t|\bm{x}_{0})= \texttt{Cat}\left(\bm{x}_t; \bm{p}=\alpha_t\bm{x}_0+ (1-\alpha_t)\bm{q}_{\text{noise}}\right),
+\label{eqn: dd 0_to_t}
+\end{equation}
+where $\alpha_t = \prod_{i=1}^t\beta_i$. This shows that the diffusion process is intuitively a convex combination between data and noise where the $\alpha_t$ controls the degree of corruption at different timesteps. In particular, $\alpha_t$ decreases as the timestep increases. With sufficiently large timesteps, we have $\alpha_T\approx 0$, which preserves no information from the data at the end of the diffusion process. 
+
+Different stationary distributions $\bm{q}_\text{noise}$ lead to different formulations of discrete diffusion models. One typical design is the \textit{absorbing} diffusion with $q(\bm{x}_T) = \{ 1~\text{if}~ \bm{x}_T = \texttt{[MASK]};~0 ~\text{if}~ \bm{x}_T \not= \texttt{[MASK]} \}$, where \texttt{[MASK]} is an absorbing state. 
+According to Eq.~\eqref{eqn: dd 0_to_t}, this formulation results in $\bm{x}_t$ either being masked or the same as $\bm{x}_0$, with a masking ratio $(1-\alpha_t)$. 
+This makes absorbing diffusion resemble masked language models~\citep[MLM,][]{devlin2018bert} as \citet{he2022diffusionbert} points out.
+
+\paragraph{Reparameterized Discrete Diffusion Models}\citep[RDM,][]{zheng2023reparameterized} reparameterize the backward transition of diffusion language models that reformulates the training objective of discrete diffusion models into 
+\begin{equation}
+% \setlength{\abovedisplayskip}{0.5pt}
+% \setlength{\belowdisplayskip}{0.5pt}
+L_t = \mathbb{E}\left[-\lambda_{t-1}^{(2)}\left(1-\mathds{1}(\bm{x}_t=\bm{x}_0)\right)\log p_{\bm{\theta}}(\bm{x}_0|\bm{x}_t)\right], 
+\label{eqn: reparam objective}
+\end{equation}
+where $\mathds{1}(\cdot)$ is indicator function. 
+Under the formulation of absorbing diffusion, Eqn.~\ref{eqn: reparam objective} resembles a weighted MLM objective~\citep{devlin2018bert}.
+\citet{zheng2023reparameterized} demonstrate that Eqn.~\ref{eqn: reparam objective} is a more effective training protocol compared to Eqn.~\ref{eqn: variational bound} for generative discrete diffusion models, showing performance on par with autoregressive LMs~\citep{vaswani2017attention} 
+on representative machine translation benchmarks for the first time. 
+In this paper, we use RDM as our primary training objective for building our diffusion language models (see \S\ref{app: rdm} for more details).
+
+
+\paragraph{Generative Process of Discrete Diffusion Models.} 
+Diffusion models yield new samples by their reverse generative process of iterative denoising.
+Under the formulation of absorbing diffusion, the denoising process can be characterized in an iterative \textit{mask-predict} manner~\citep{ghazvininejad2019mask}. 
+Specifically, the starting sequence is initialized by all $\texttt{[MASK]}$ tokens, and in each iteration, some masked tokens are replaced by the model predictions from $p_{\theta}(\bm{x}_{t-1}|\bm{x}_t)$ while some unmasked tokens are remasked, according to specific strategies/schedules~\citep{ghazvininejad2019mask,savinov2021step,chang2022maskgit,zheng2023reparameterized}.
+In this paper, we follow \citet{zheng2023reparameterized} to unmask positions with top-$k$ log-probability predicted by $p_{\theta}(\bm{x}_{0}|\bm{x}_t)$, and mask all the rest position in each denoising step\footnote{See \S\ref{app: details} for concrete noise schedules, and \citet{zheng2023reparameterized} for the justification of this sampling strategy.}. 
+
+
+\section{Scaling Diffusion Language Models \wrt Data, Sizes and Tasks}
+% In this section, we first underscore the connection between discrete diffusion models and masked language models, and then present our method to adapt pretrained masked language models into large diffusion language models.
+
+Developing diffusion language models that leverage the advantages of both the generative power of both diffusion models and the scalability of large pretrained language models is a promising yet challenging endeavor.
+The key to the success of the current standard paradigm of large generative language models is acquiring knowledge via massive pretraining and generating in a prompt-response manner for preferable output for many tasks. 
+For diffusion language models, (1) how to benefit from pretraining at scale, and (2) how to best fit the prompt-response paradigm, are the crucial open questions. 
+In this section, we will elaborate on how to empower diffusion language models with knowledge from pretraining of large-scale data as well as model sizes, and extend their generative capabilities for extensive downstream tasks. 
+
+
+\subsection{Knowledge Acquisition via MLM Pretraining at Scale}
+\label{sec: pretrain}
+The theoretical framework of discrete diffusion models has an intrinsic connection to masked language modeling (MLM), which was discussed in~\cite{austin2021structured,gong2022diffuseq} and \citet{he2022diffusionbert}.
+% \label{sec: connecting}
+Among various types of discrete diffusion models, the \textit{absorbing} diffusion~\citep{austin2021structured} resembles a \textit{generalized} masked language modeling, which has been shown to be an effective training objective in pretraining foundation models~\citep{devlin2018bert,liu2019roberta}.
+% Various stationary distributions $\bm{q}_{\text{noise}}$ lead to various~\citep{hoogeboom2021argmax,austin2021structured} formulations in discrete diffusion models, among which the \textit{absorbing} diffusion~\citep{austin2021structured} resembles a \textit{generalized} masked language modeling, which has been shown to be an effective training objective in pretraining foundation models~\citep{devlin2018bert,liu2019roberta}.
+Specifically, absorbing diffusion defines a stationary distribution: $q(\bm{x}_T) = \{ 1~\text{if}~ \bm{x}_T = \texttt{[MASK]};~0 ~\text{if}~ \bm{x}_T \not= \texttt{[MASK]} \} $,
+% $$
+% q(\bm{x}_T) = \left\{
+% \begin{aligned}
+%     1, &&\bm{x}_T = \texttt{[MASK]}\\
+%     0, &&\bm{x}_T \not= \texttt{[MASK]}\\
+% \end{aligned}
+% \right.,
+% $$
+where \texttt{[MASK]} is an absorbing token. 
+According to Eq.~\eqref{eqn: dd 0_to_t}, this formulation results in $\bm{x}_t$ either being masked or the same as $\bm{x}_0$, with a masking ratio $(1-\alpha_t)$. 
+Consequently, $\bm{x}_t=\bm{x}_0$ if and only if $\bm{x}_t\not=\texttt{[MASK]}$, which aligns the reparameterized training objective in Eq.~\eqref{eqn: reparam objective}  exactly with the masked language modeling objective. % with $\bm{x}_0 = \bm{x}_{\text{masked}} \bigcup \bm{x}_{\text{observed}}$:
+% \begin{equation}
+% L_{\text{MLM}} = \sum_{i \sim } \log p_{\bm{\theta}}(\bm{x}_{0, i} |\bm{x}_{t}).
+% \label{eqn: mlm}
+% \end{equation}
+
+This connection allows us to establish diffusion language models by pretraining with MLM objectives from massive raw textual data. 
+We can even treat abundant community-available pretrained MLMs~\citep{devlin2018bert,liu2019roberta,conneau2019xlmr} as pretrained diffusion language models, and can depart from them for downstream tasks at a very low cost, bypassing the expensive pretraining stage.
+
+% The aforementioned intrinsically connected training objective allows us to view pretrained masked language models as pretrained diffusion language models.
+% Through this interpretation, we can hold on computationally expensive pretraining. 
+% Instead, we can cheaply obtain large diffusion language models from the publicly available masked language models for our scaling investigation.
+
+% And this interpretation offers us easy access to large pretrained diffusion language models by adapting from existing masked language models.
+
+
+\subsection{Diffusive Adaptation: Reprogramming Pretrained MLMs to Diffusion Language Models for Sequence Generation}
+
+\begin{table*}[t]
+\centering
+% \vspace{-4.5mm}
+\setlength{\tabcolsep}{1.7pt}
+\caption{
+SacreBLEU~\citep{post2018call} on IWSLT14 \textsc{De}$\rightarrow$\textsc{En} and WMT14 \textsc{En}$\rightarrow$\textsc{De}, and Rouge-L on Gigaword-10k. 
+We use 10 length beams for all the results with length prediction.
+Results out of (inside) parentheses are obtained with length prediction (oracle target length).
+% \footnote{signature \texttt{nrefs:1|case:mixed|eff:no|tok:13a|smooth:exp|version:2.3.1} for IWSLT14 and \texttt{nrefs:1|case:mixed|eff:no|tok:intl|smooth:exp|version:2.3.1} for WMT14}. 
+``\#Params.'': Number of non-embedding parameters. 
+``Type'': whether the training objective and sampling method are autoregressive~\citep[AR,][]{vaswani2017attention} or follow reparameterized diffusion models~\citep[RDM,][]{zheng2023reparameterized}.
+``Pretrained'': whether initialized from pretrained models.
+``$\dag$'': For IWSLT14, we follow previous practice~\cite{vaswani2017attention} and use a smaller version (39M) of \texttt{Transformer-BASE}, which has a dimension of 1024 in the feed-forward layers is 1024 and 4 attention heads. 
+}
+\label{tab: mt-finetune}
+\resizebox{0.8\linewidth}{!}{
+\small
+\begin{tabular}{llcccrrr}
+\toprule
+                                 & Architecture              & \#Params. & Type & Pretrained & IWSLT14 & WMT14 & Gigaword-10K\\ 
+\midrule
+\multirow{2}{*}{Encoder-Decoder} & \multirow{2}{*}{\texttt{Transformer-BASE}} &  39-43M$^\dag$                   & AR  & \xmark         &33.30&26.85&10.42\\
+                                 &  &  39-43M$^\dag$                   & RDM             & \xmark         &32.14 &26.54&- \\ 
+                                 %& \multirow{2}{*}{\texttt{Transformer-BASE}} &  43M                   & AR  & \xmark         &-&26.85&10.42\\
+                                 %& &  43M                   & RDM             & \xmark         &-& 26.54&- \\
+\midrule
+\multirow{4}{*}{Decoder-only}    & \texttt{XLM-R-BASE}      &  86M                   & AR  & \xmark         &26.07& -&4.7 \\
+                                 & \texttt{XLM-R-BASE} &     86M                     & RDM             & \xmark         & 28.79 (29.12)&  26.09 (26.86)&10.01 (10.66)\\ % 18.43(24.19)\\
+\cmidrule[0.4pt]{2-8}
+    & \chl \texttt{XLM-R-BASE} & \chl 86M  & \chl RDM & \chl \cmark &\chl 34.10 (35.78) &\chl 26.65 (26.64)& \chl 27.52 (28.83)\\%34.24(35.65)\\
+    & \chl \texttt{XLM-R-XXL}  & \chl 9.7B  & \chl RDM & \chl \cmark &\chl \bf 38.57 (40.65) &\chl \bf 30.34 (32.81)& \chl \bf 31.54 (32.57)\\%34.24(35.65)\\
+\bottomrule
+\end{tabular}
+}
+\vspace{-1mm}
+\end{table*}
+
+
+\begin{figure*}[h]
+  \centering
+  % \vspace{-1mm}
+  ~~~~~~~~~~~~~~~~\includegraphics[width=0.9\linewidth]{figs/qualitative_mt.png}
+  \vspace{-3mm}
+  \caption{An exemplary generation process on machine translation. Notice that the target translation contains three segments, which are generated simultaneously by the diffusion language model.}
+  \label{fig: qualitative mt}
+  \vspace{-3mm}
+\end{figure*}
+
+
+
+Existing masked language models are primarily designed to serve as sequence encoders, and are not able to generate sequences by default.
+Despite their connections to absorbing discrete diffusion, it is non-trivial to naively sample from masked language models through the iterative denoising process of absorbing diffusion. 
+One major reason is that absorbing diffusion generates sampling by iterative applying $p_{\theta}(\bm{x}_{t-1}|\bm{x}_t)$ from complete noise to the final prediction (\ie, ranging gradually from $100\%$ to $0\% \texttt{[MASK]}$ tokens) through different timesteps, whereas vanilla masked language models are only pretrained with a limited and constant masking ratio (\eg, 15\%). 
+
+In order to elicit the pretrained masked language models' ability for sequence generation, we propose \textit{diffusion adaptation} to eliminate the gap between pretrained masked and diffusion language models, where we further finetune pretrained MLMs with diffusion training objective such that sampling with the denoising process becomes possible.
+In particular, we follow the reparameterized training and sampling method in RDM~\citep{zheng2023reparameterized} as described in \S\ref{sec: preliminary}.
+As for model architecture, we adopt a decoder-only architecture\footnote{In this paper, the decoder-only architecture, as a counterpart of encoder-decoder architecture, refers to the language model architecture that does not comprise a separate encoder stack to encode contexts/conditions. Under this definition, masked language models (\eg, BERT and XLM-R) are treated as decoder-only models.}
+and do not add extra timesteps indicators to the models, similar to~\citet{he2022diffusionbert}.
+In this way, our diffusion language model starts as a fully pretrained model without any randomly initialized parameters incorporated.
+In addition, we incorporate a task-specific length predictor, a common practice in NAR text generation~\citep{gu2018non}, to determine the lengths of predicted sequences. 
+We pick its tok-$k$ length predictions for parallel length beam search, where $k$ is referred to as the length beam size.
+We include more implementation details in \S\ref{app: details}.
+
+
+For different purposes, we perform diffusive adaptation for diffusion language models in two ways:
+% \begin{compactitem}
+% \begin{itemize}[leftmargin=*]
+\begin{itemize}[itemsep=2pt,topsep=0pt,parsep=1pt,leftmargin=*]
+\item \textbi{Optimizing specialist capabilities on certain downstream tasks via task-specific finetuning.} 
+To verify the feasibility of diffusive adaptation, we finetune pretrained masked language models on the specific dataset for each downstream task.
+Moreover, we further perform finetuning on pretrained models of different scales so as to study the scalability of diffusion language models.
+
+\item \textbi{Eliciting generalist capabilities on extensive tasks via instruction finetuning.}
+Finetuning on a collection of tasks phrased as instructions (\ie, instruction finetuning) enables language models to better respond to instruction prompts and generalize to unseen tasks~\citep{wei2021flanv1,chung2022scalingflan}.
+Inspired by this, we apply diffusive adaptation to pretrained masked language models by instruction finetuning to study whether diffusion language models can acquire few-shot and zero-shot abilities like autoregressive LLMs.
+\end{itemize}
+% \end{compactitem}
+
+
+Both scenarios handle conditional sequence generation tasks from input to output, which require the model to generate target sequences according to the given prompts.
+To handle these with a decoder-only model, we organize the data in a prompt-response format\footnote{
+A prompt-\uline{response} formatted example for German-to-English translation (``Vielen dank'' - ``Thank you''):
+``Translate the German sentence into English. German: Vielen dank. English: \uline{Thank you.}''
+}.
+During tuning, we only apply the diffusion process to the target response tokens and compute loss on them. 
+During inference, we append the initial fully masked sequences to the prompts and denoise from them. 
+
+
+
+
+\begin{figure*}[h]
+\centering
+  \includegraphics[width=0.95\linewidth]{figs/scaling_task_w_size.png}
+  \vspace{-3mm}
+  \caption{Scaling curves of task-specific finetuning on IWSLT14, WMT14 and Gigaword-10K. We obtain results of mT5~\citep{xue2020mt5} on IWSLT14 by ourselves. The results of T5 on WMT14 are from~\citet{raffel2020T5}. ``OL'': results obtained with oracle target lengths. ``LB=10'': length prediction results with 10 length beams. ``\#Params.'': Number of effective parameters (\ie, non-embedding parameters).}
+  \vspace{-1mm}
+  \label{fig: scaling}
+\end{figure*}
+
+
+\section{Experiments}
+\label{sec: exp setup}
+We first introduce our general experimental setups in \S\ref{sec: exp setup}. Then we conduct three parts of experiments progressively regarding scaling on data (\Sec\ref{sec: finetune}), model sizes (\Sec\ref{sec: scaling}), and the number of tasks (\Sec\ref{sec: instruction tuning}).
+
+\paragraph{Model.} 
+Throughout the experiments, we use XLM-RoBERTa~\citep[\texttt{XLM-R};][]{conneau2019xlmr,goyal2021xlmr_xl} as our foundation models, which is pretrained on CC100~\citep{wenzek2020ccnet}, a multilingual corpus containing 167B tokens of 100 languages, with four model sizes (numbers of non-embedding parameters) at different scales, \ie, 86M, 304M, 2.8B, and 9.7B.
+
+\paragraph{Data \& task.} We investigate our approach for its specialist ability in respective downstream tasks and generalist ability to solve massive unseen tasks using natural language instructions. The datasets we use to finetune our model are as follows:
+
+\textbi{(1) Downstream task datasets.} 
+We evaluate whether our approach can help diffusion language models serve as strong specialized models on multiple representative downstream tasks: %\qgu{add references or links to IWSLT14 and WMT14} 
+(1)~IWSLT14\footnote{\url{https://wit3.fbk.eu/}} for \textsc{De}$\rightarrow$\textsc{En} translation; (2) WMT14\footnote{\url{http://www.statmt.org/wmt14/translation-task}} for \textsc{En}$\rightarrow$\textsc{De} translation; and (3) Gigaword-10K\footnote{\url{https://github.com/harvardnlp/sent-summary}} for text summarization.
+
+\textbi{(2) Instruction finetuning datasets.}
+We follow \citet{chung2022scalingflan} and finetuned the XLM-R models of different scales with the Flan 2022 Collection~\citep{chung2022scalingflan,longpre2023flan} with diffusion training objective in Eq.~\eqref{eqn: reparam objective}. 
+The Flan 2022 Collection is the publicly available version of the instruction tuning data for Flan-T5 and Flan-PaLM, covering over 1.8K tasks. 
+It combines several multitask learning datasets with instructions~\citep{wei2021flanv1,sanh2021multitask,supernaturalinstructions}, combined with a few extra chain-of-thought and dialog data. 
+
+
+
+\subsection{Diffusion Language Models Benefit from Large-scale Data}
+\label{sec: finetune}
+We apply diffusive adaptation on \texttt{XLM-R-BASE}~\citep{conneau2019xlmr} model architecture on sequence generation benchmarks to verify the feasibility of our generative surgery and investigate whether diffusion LMs can benefit from large-scale self-supervised learning.
+We sample the target sequences with 50 steps during inference.
+For comparison, we include the commonly used encoder-decoder Transformer \citep{vaswani2017attention}, and decoder-only autoregressive LMs with the same architecture from scratch as the baselines\footnote{As shown in Tab.~\ref{tab: mt-finetune}, diffusion (RDM) slightly underperforms AR with encoder-decoder architectures but largely outperforms in the decoder-only setting, on IWSLT14 translation. 
+A notable difference between the models in these two settings lies in the receptive field. 
+Diffusion always has a global receptive field on the conditioning input, whereas AR can only perceive the condition with unidirectional attention if not equipped with an encoder.
+This supports our motivation to build diffusion language models for their favorable global receptive field.} to help intuitively understand the model performance.
+% Specifically, We experiment on  datasets. We consider it representative as machine translation is a long-standing language generation benchmark and requires cross-lingual understanding and generation. 
+
+\paragraph{Diffusive adaptation unlocks the generative ability of pretrained masked language models.} 
+Tab.~\ref{tab: mt-finetune} shows our results on IWSLT14 \textsc{De}$\rightarrow$\textsc{En} and WMT14 \textsc{En}$\rightarrow$\textsc{De} translation, as well as Gigaword-10k summarization tasks. 
+The performance of finetuned XLM-R models is competitive or superior to the common encoder-decoder Transformer baseline.
+As qualitatively shown in Fig.~\ref{fig: qualitative mt}, diffusion language models generate fluent and semantically accurate translation\footnote{The intermediate steps demonstrate that the models generate three clauses simultaneously, implying a global perception that plans the generation of the whole sequence.
+We consider this benefits the model on more complex generation tasks, which we discuss in \S\ref{sec: qualitative}.}, further confirming the feasibility of our generative surgery to the pretrained masked language models.
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figs/zero_shot_bars.png}
+  \vspace{-6mm}
+  \caption{Zero-shot performance of \texttt{Flan-XLM-R} models. OL means the results are obtained with oracle length, while LB means the number of length beams to sample the target with length prediction. The model sizes refer to the number of non-embedding parameters.}
+  % \vspace{-1mm}
+  \label{fig: zero-shot}
+\end{figure*}
+
+
+\paragraph{MLM pretraining at scale benefit diffusion language models.} 
+On both IWSLT14 and Gigaword-10K, diffusion language models (RDM) initialized from a pretrained MLM model considerably outperform the randomly initialized one.
+This suggests the benefit of self-supervised learning with large-scale data for diffusion language models. 
+Moreover, experimental results show minor improvement on WMT14 (4.5M pairs), a relatively more obvious gain on IWSLT14 (160K pairs), and a significant performance boost on Gigaword-10K (10K pairs).
+This demonstrates that the benefit of pretraining is more obvious if the training set of the downstream task is smaller, indicating the effect of pretraining in scaling data.
+
+
+\subsection{Scaling up the Sizes of Diffusion LMs Boost Downstream Tasks}
+\label{sec: scaling}
+
+We now move on to investigate the scalability with respect to model sizes.
+We finetune \texttt{XLM-R} models of different scales~\citep{conneau2019xlmr, goyal2021xlmr_xl}, whose numbers of effective parameters (\ie, number of non-embedding parameters) range from $<$100M to 10B. 
+Notably, when the model scales up to 10B, it shows impressive performance that surpasses base-sized models by a remarkable margin~(Tab. \ref{tab: mt-finetune}).
+
+%put here
+
+
+
+
+Fig.~\ref{fig: scaling} shows the scaling curve of model performance with respect to model sizes.
+It demonstrates that the performance of the finetuned diffusion models substantially increases as the model size increases. 
+This shows the scaling law of diffusion language models in terms of model size.
+In addition, we also include the performance of \texttt{(m)T5}~\citep{raffel2020T5,xue2020mt5} at similar scales as references to intuitively understand how scalable our diffusion language models are. 
+Note that the performance of different models is intricately affected by not only the model size but also numerous factors including model designs, pretraining budget, pretraining objectives, as well as pretraining data~\citep{shazeer2020glu,raffel2020T5,tay2022ul2,scao2022language,hoffmann2022training}.
+In Fig.~\ref{fig: scaling}, although we see a performance gap between the finetuned \texttt{(m)T5} and \texttt{XLM-R} models at similar scales, the discrepancy is minor and does not seem amplified as models scale up.
+Therefore, while there is still ample room for improving large-scale pretrained diffusion language models, we believe that the path of scaling up these models holds great promise.
+
+
+\subsection{Instruction-Finetuning Helps Generalize to Unseen Tasks}
+\label{sec: instruction tuning}
+A fascinating property that motivates scaling language models up is that large language models can follow instructions and show impressive few-shot or even zero-shot performance~\citep{brown2020lgpt3,wei2021flanv1}.
+We now investigate whether diffusion models can also exhibit zero-shot and few-shot performance when being scaled up.
+
+
+\subsubsection{Instruction finetuning elicits scalable zero-shot performance} 
+
+\begin{table}[t]
+\centering
+%\setlength{\tabcolsep}{1pt}
+\caption{\textbf{Zero-shot} SacreBLEU of instruction-finetuned diffusion language models on IWSLT14 \textsc{De}$\rightarrow$\textsc{En} translation. 
+For Flan 2021, we explicitly remove all German data for strict evaluation. Results are obtained with oracle length.}
+\label{tab: flan 2021}
+\resizebox{0.9\columnwidth}{!}{
+\begin{tabular}{lcr}
+\toprule
+Architecture & Strict Flan'21~ & Flan'22 \\
+\midrule
+\multicolumn{3}{l}{\uline{\textit{instruction-tuned diffusion:}}}      \\
+\texttt{XLM-R-BASE} (85M)   & ~~7.15 & 21.26    \\
+\texttt{XLM-R-LARGE} (304M)  & 22.52 & 25.24    \\
+\texttt{XLM-R-XL} (2.8B)    & 27.27 & 28.13   \\
+\texttt{XLM-R-XXL} (9.7B)    & 28.74 & 29.59   \\
+\midrule
+\multicolumn{3}{r}{ref: \textit{supervised} AR on 160k \textsc{De}$\rightarrow$\textsc{En} data: 33.30} \\
+\bottomrule
+\end{tabular}
+}
+\vspace{-5mm}
+\end{table}
+
+
+\paragraph{Strict zero-shot evaluation on IWSLT14 \textsc{De}$\rightarrow$\textsc{En}.}
+% It might be controversial that the instruction tuning collection contains machine translation data of WMT16 \textsc{De}$\rightarrow$\textsc{En} since we have not conducted further data cleaning on the publicly available Flan 2022 Collection.
+% Nevertheless, WMT is made up of news while IWSLT14 is from the subtitles of TED Talks, which are two distinctive domains. 
+% Additionally, the maximum cap applied in producing the Flan 2022 Collection also ensures the \textsc{De}$\rightarrow$\textsc{En} translation data only takes up a tiny proportion of the tuning data.
+% Therefore, together with the results we obtain in the German removed subset of Flan 2021, we believe this a reliable indicator of the helpful general-purposed generative ability of \texttt{Flan-XLM-R}.
+% We use a smaller data collection for instruction finetuning and conduct strict data cleaning to study if diffusion language models can indeed acquire zero-shot capabilities.
+We first conduct a strict zero-shot evaluation to study if diffusion language models can acquire zero-shot capabilities through instruction finetuning.
+% by instruction tuning with a relatively small data collection, Flan 2021 collection~\citep{wei2021flanv1}, so that strict data cleaning is more feasible.
+Specifically, we evaluate on IWSLT14 \textsc{De}$\rightarrow$\textsc{En} translation task, for which we instruction-finetune diffusion language models on Flan 2021 Collection~\citep{wei2021flanv1} with all German data removed to ensure that the \textsc{De}$\rightarrow$\textsc{En} translation becomes a strictly unseen task.
+As shown in Tab.~\ref{tab: flan 2021}, the instruction-tuned diffusion language models demonstrate scalable zero-shot performance even without finetuning with German data, signifying that large diffusion LMs are able to follow natural language instructions.
+
+% \begin{wraptable}[13]{r}{0.45\linewidth}
+
+\paragraph{Extensive zero-shot evaluation with large-scale instruction tuning.}
+We then follow the recommended settings and conduct larger-scale instructions tuning on the full Flan 2022 Collection~\citep{longpre2023flan} and run extensive evaluations\footnote{We continue to evaluate on the \textbf{IWSLT14} dataset.
+Besides, we also evaluate several datasets used in~\citet{chung2022scalingflan}. In detail,
+\textbf{MMLU}~\citep{hendrycks2020mmlu} includes multiple-choice exam questions from 57 tasks covering elementary mathematics, US history, computer science, law, and more. 
+\textbf{{BBH-NLP}}~\citep{suzgun2022bigbenchhard} covers 12 challenging multiple-choice tasks in BigBench~\citep{srivastava2022bigbench} where language models still underperform the average human-rater.
+\textbf{TyDiQA}~\citep{clark2020tydiqa} is an open-book question-answering benchmark across 8 typologically diverse languages}.
+Following \citet{chung2022scalingflan}, we named our instruction-tuned models on Flan 2022 Collection as \texttt{Flan-XLM-R}.
+The results in Fig.~\ref{fig: zero-shot} suggest that the \texttt{Flan-XLM-R} models are indeed general-purpose zero-shot learners, and their zero-shot performance substantially improves as the model scales. 
+
+
+
+
+
+
+In particular, we highlight the results on IWSLT14.
+%as it requires generating full sentences. 
+The largest model, \texttt{Flan-XLM-R-XXL} even achieves a 30.90 zero-shot ScareBLEU score, only 2.4 below the performance of widely adopted supervised transformer baselines (33.30 as shown in Tab.~\ref{tab: flan 2021}).
+This indicates the Flan-XLM-R models produce a very good language generation quality.
+% \footnote{We also include a smaller-scale but stricter setting using no German data in \S\ref{app: flan 2021}}. % (also see an example in figure \ref{fig: qualitative mt}).
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figs/few_shot_square.png}
+  \vspace{-6.5mm}
+  \caption{Few-shot performance of \texttt{Flan-XLM-R} and \texttt{Flan-T5} models. ``OL'' means the results are obtained with oracle length, while ``LB'' means the number of length beams to sample the target with length prediction. The model sizes refer to the number of non-embedding parameters.}
+  \vspace{-1mm}
+  \label{fig: few-shot}
+\end{figure}
+\subsubsection{Diffusion language models can do in-context learning}
+
+
+We also evaluate the in-context ability of the large diffusion language models.
+Limited by the maximum length of 512 \texttt{XLM-R} supports, our few-shot evaluation only involves at most 2 demonstrations except for TyDiQA, on which we follow \citet{chung2022scalingflan} and evaluate 1-shot performance.
+
+% Taking the performance of \textsc{Flan-T5} of similar scales as references, we note that \textsc{Flan-XLM-R} show strong performance at base scale.
+
+
+
+As shown in Fig.~\ref{fig: few-shot}, we demonstrate that diffusion language models also obtain the ability to do in-context learning for few-shot settings.
+We find that the gap between instruction-tuned models' zero-shot performance and in-context few-shot performance is small, which is consistent with similar findings in autoregressive language models \citep{chung2022scalingflan,longpre2023flan,fu2023specializing}.
+
+
+
+% \vspace{-3mm}
+\subsection{Exploring Reasoning Abilities of Diffusion Language Models}
+% \vspace{-2mm}
+
+
+We are also interested in exploring the reasoning abilities of our diffusion language models as it is a crucial emergent ability that distinguishes large language models from the small ones~\citep{wei2022emergent,fu2023specializing}.
+We highlight our key findings here, and include detailed discussion in \S\ref{app: reasoning}.
+
+
+\setlength{\intextsep}{6pt} % Adjust as needed
+\begin{figure}[t]% [11]{r}{0.32\linewidth}
+  \centering
+  \includegraphics[width=0.7\linewidth]{figs/cot.png}
+  \vspace{-3mm}
+  \caption{Evaluation on multi-step reasoning on GSM datasets.} 
+  \label{fig: cot0}
+  % \vspace{5mm}
+\end{figure}
+As shown in Fig.~\ref{fig: cot0}, we find that even \texttt{Flan-XLM-R-XXL} \textbf{fails} to emerge non-trivial reasoning performance on GSM8K~\citep{cobbe2021gsm}, a benchmark dataset for mathematical reasoning, and its German translated version in MGSM~\citep{shi2022mgsm}. 
+As such, we further conduct in-depth qualitative analysis to gain a fine-grained understanding of the reasoning ability of our models. 
+% more fine-grained analysis demonstrate promising prospects.
+
+\paragraph{Diffusion LMs could generate content in causal orders.}
+Non-autoregressive language models typically face the challenge of modeling complex dependencies between target tokens.
+For reasoning, in particular, models require previously generated tokens (\ie, premises) to improve the generation accuracy of later tokens (\ie, conclusions).
+Formally, this requires the model to generate tokens conforming to a topological sort on a causal graph~\citep{pearl1998graphical}.
+Encouragingly, we find that the generation order of our diffusion language models (1) satisfies this requirement even without specific tuning; and (2) shows a topological sort different from autoregressive models, indicating ability or potential in backtracing and planning. 
+Please refer to \S\ref{sec: causal graph} for a concrete example.
+
+\paragraph{Mitigating the limitation of foundation models probably unlocks the reasoning ability of diffusion language models.}
+For one thing, we find the accuracy of our models on GSM8K rockets from 5.6\% to 12.8\% after tuning on chain-of-thought data of GSM8K distilled from \texttt{code-davinci-002}, provided by \citet{fu2023specializing}, who show this strategy effective in specializing small models to reason in particular task.
+%  \footnote{Typical performance on GSM8K without reasoning is 3-6\%.}
+Therefore, we suggest that our diffusion language models are able to reason while their generic reasoning ability is limited by the model sizes. 
+Additionally, the pretraining recipe of \texttt{XLM-R} differs from current best practices, for which it is poor in some essential abilities like doing calculations.
+Through comparison (\S\ref{sec: limitation in foundation models}), we find a more up-to-date recipe could benefit the arithmetic abilities of the models. 
+
+In summary, we expect more research on the pretraining of diffusion language models to mitigate the limitation of foundation models, unlocking their potential in complex reasoning abilities. We leave this for future exploration.
+% This suggests that we can scale up diffusion language models are able to reason and current performance is limited by model sizes.  
+
+\section{Discussions, Limitations, and Future Work}
+
+
+In this work, we pioneer studying the scalability of diffusion language models to catch up with recent advances in large language models and facilitate the exploration of their potential. 
+Our investigation comprehensively covers scaling on the data, model sizes, and tasks.
+Experimental results verify that (1) diffusion language models benefit from large-scale pretraining; (2) their performance improves as the sizes scale up; and (3) they exhibit zero-shot and few-shot capabilities in extensive tasks.
+While these findings show the promise of large diffusion language models, admittedly, the models are still weak in some advanced abilities like reasoning.
+Nevertheless, we qualitatively showcase that diffusion language models can generate content in causal orders, showing positive prospects of advanced abilities for future research.
+
+Limitedly, we only build diffusion language models by tuning existing large masked language models instead of pretraining from scratch.
+However, there exist large discrepancies in architecture and data engineering between our foundation models, \texttt{XLM-R}~\citep{conneau2019xlmr}, which were built years ago, and the state-of-the-art large language models like \texttt{LLaMA}~\citep{touvron2023llama,touvron2023llama2}.
+This impedes us from approaching the ultimate capability of current diffusion language models.
+Evident limitations include the fairly short maximum length (\ie, 512) and unsatisfying arithmetic ability.
+Additionally, the difference in masking ratios also questions whether diffusive adaptation is enough to fill the gap between BERT-like pretraining and diffusion models.
+Therefore, there remains a great need to investigate pretraining for diffusion language models in future research.
+
+
+% Our qualitative analysis to this end provide positive prospects for this end.
+Overall, our study confirms the scalability of diffusion language models and leads to future research on the continual exploitation of large diffusion language models.
+Compared with autoregressive models, diffusion language models are probabilistically more expressive~\citep{gong2022diffuseq} and cover a more extensive set of languages~\citep{lin2021limitations}.
+Practically, they enjoy a global receptive field and generate via non-autoregressive iterative refinement, potentially bringing advanced capabilities, such as supporting drafting-then-revising and backtracking manners in nature. 
+We hope that our findings will facilitate the success of diffusion models in broader domains and also encourage a compelling alternative to autoregressive large language models, which might push forward the boundary of techniques to pursue more advanced machine intelligence.
+
+
+% \include{appendix}
+
+% Acknowledgements should only appear in the accepted version.
+
+\nocite{langley00}
+
+\bibliography{diffusion_llm}
+\bibliographystyle{icml2024}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% APPENDIX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{appendix}
+% \newpage
+% \appendix
+% \onecolumn
+% \section{You \emph{can} have an appendix here.}
+
+% You can have as much text here as you want. The main body must be at most $8$ pages long.
+% For the final version, one more page can be added.
+% If you want, you can use an appendix like this one.  
+
+% The $\mathtt{\backslash onecolumn}$ command above can be kept in place if you prefer a one-column appendix, or can be removed if you prefer a two-column appendix.  Apart from this possible change, the style (font size, spacing, margins, page numbering, etc.) should be kept the same as the main body.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
+
+
+% This document was modified from the file originally made available by
+% Pat Langley and Andrea Danyluk for ICML-2K. This version was created
+% by Iain Murray in 2018, and modified by Alexandre Bouchard in
+% 2019 and 2021 and by Csaba Szepesvari, Gang Niu and Sivan Sabato in 2022.
+% Modified again in 2023 and 2024 by Sivan Sabato and Jonathan Scarlett.
+% Previous contributors include Dan Roy, Lise Getoor and Tobias
+% Scheffer, which was slightly modified from the 2010 version by
+% Thorsten Joachims & Johannes Fuernkranz, slightly modified from the
+% 2009 version by Kiri Wagstaff and Sam Roweis's 2008 version, which is
+% slightly modified from Prasad Tadepalli's 2007 version which is a
+% lightly changed version of the previous year's version by Andrew
+% Moore, which was in turn edited from those of Kristian Kersting and
+% Codrina Lauth. Alex Smola contributed to the algorithmic style files.
+
