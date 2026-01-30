@@ -6,6 +6,7 @@ import importlib
 import os
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Optional
 
 import torch
 import torch.nn as nn
@@ -24,10 +25,17 @@ except:
 @dataclass
 class NetConfig:
     arch_type: str = "esm"
-    name: str = "esm2_t33_650M_UR50D"
+    name: Optional[str] = "esm2_t33_650M_UR50D"
     dropout: float = 0.1
     pretrain: bool = False
     pretrained_model_name_or_path: str = ""
+    # Custom architecture params (used when name is None)
+    hidden_size: Optional[int] = None
+    num_hidden_layers: Optional[int] = None
+    num_attention_heads: Optional[int] = None
+    intermediate_size: Optional[int] = None
+    vocab_size: Optional[int] = None
+    max_position_embeddings: Optional[int] = None
 
 
 @dataclass
