@@ -77,6 +77,9 @@ def get_net(cfg):
                 hidden_dropout_prob=cfg.net.dropout,
                 attention_probs_dropout_prob=cfg.net.dropout,
             )
+            # Set _name_or_path so EsmForDPLM can load the tokenizer
+            # (tokenizer is the same across all ESM2 model sizes)
+            config._name_or_path = "facebook/esm2_t6_8M_UR50D"
         net = EsmForDPLM(config, dropout=cfg.net.dropout)
     # TODO: dplm will support more architectures, such as Llama
     else:
