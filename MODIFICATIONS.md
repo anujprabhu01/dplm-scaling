@@ -23,6 +23,7 @@ This document tracks changes made to the original [bytedance/dplm](https://githu
 |------|-------------|
 | `configs/datamodule/tcr.yaml` | Datamodule config for TCR data |
 | `configs/experiment/scaling/tcr_smoke_test.yaml` | Smoke test config with small custom model |
+| `configs/experiment/scaling/tcr_0.1m.yaml` | 0.1M parameter model config |
 
 ## Data
 - TCR sequences from: `/mnt/disk11/user/xiaoyih1/data/tcr_data_all/data/tcr_repertoires_healthy_samples/tcr_repertoire_seqs.pkl`
