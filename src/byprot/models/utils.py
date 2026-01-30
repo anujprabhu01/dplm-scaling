@@ -76,6 +76,7 @@ def get_net(cfg):
                 max_position_embeddings=getattr(cfg.net, "max_position_embeddings", 1026),
                 hidden_dropout_prob=cfg.net.dropout,
                 attention_probs_dropout_prob=cfg.net.dropout,
+                pad_token_id=1,  # ESM2 tokenizer pad_token_id
             )
             # Set _name_or_path so EsmForDPLM can load the tokenizer
             # (tokenizer is the same across all ESM2 model sizes)
