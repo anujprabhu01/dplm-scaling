@@ -81,5 +81,5 @@ trainer:
   accumulate_grad_batches: 1
   check_val_every_n_epoch: null
   val_check_interval: 10
-  enable_progress_bar: true
+  enable_progress_bar: false  # Disabled due to Rich callback bug in DDP
   num_nodes: 1
