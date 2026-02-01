@@ -23,10 +23,10 @@ OUTPUT_DIR = Path('data-bin/tcr_2m')
 NUM_SAMPLES = 2_000_000
 SEED = 9999
 
-# Split ratios
-TRAIN_RATIO = 0.98
-VALID_RATIO = 0.01
-TEST_RATIO = 0.01
+# Split ratios (80-20 for better validation signal in scaling studies)
+TRAIN_RATIO = 0.80
+VALID_RATIO = 0.20
+TEST_RATIO = 0.00
 
 
 def main():
